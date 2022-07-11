@@ -7,6 +7,8 @@ const Login = lazy(() => import("./comp/Auth/Login"))
 const Home = lazy(() => import("./comp/Home"))
 
 const AdminSubscription = lazy(() => import("./comp/Admin/Subscription"))
+const AdminSettings = lazy(() => import("./comp/Admin/Settings"))
+const AdminSupport = lazy(() => import("./comp/Admin/Support"))
 const AdminUser = lazy(() => import("./comp/Admin/User"))
 const Admin = lazy(() => import("./comp/Admin"))
 
@@ -58,6 +60,8 @@ function App() {
         <Route path="admin" element={<Admin />}>
           <Route path='user' element={<AdminUser />} />
           <Route path='subscription' element={<AdminSubscription />} />
+          <Route path='support' element={<AdminSupport />} />
+          <Route path='setting' element={<AdminSettings />} />
         </Route>
 
         <Route path="superviser" element={<Superviser />}>

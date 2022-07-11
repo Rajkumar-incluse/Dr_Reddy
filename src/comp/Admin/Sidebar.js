@@ -1,10 +1,10 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ReactComponent as Subscription } from '../../assets/svg/common/subscription.svg';
+// import { ReactComponent as Subscription } from '../../assets/svg/common/subscription.svg';
 import { ReactComponent as Setting } from '../../assets/svg/common/setting.svg';
 import { ReactComponent as Support } from '../../assets/svg/common/support.svg';
-import { ReactComponent as OrgInfo } from '../../assets/svg/user/multiple.svg';
+// import { ReactComponent as OrgInfo } from '../../assets/svg/user/multiple.svg';
 import { ReactComponent as User } from '../../assets/svg/user/single.svg';
-import { ReactComponent as Chat } from '../../assets/svg/common/chat.svg';
+// import { ReactComponent as Chat } from '../../assets/svg/common/chat.svg';
 
 const list = [
   {
@@ -12,16 +12,16 @@ const list = [
     icon: <User />,
     to: '/admin/user'
   },
-  {
-    title: "Org Info",
-    icon: <OrgInfo />,
-    to: '/admin/org-info'
-  },
-  {
-    title: "Subscription Info",
-    icon: <Subscription />,
-    to: '/admin/subscription'
-  },
+  // {
+  //   title: "Org Info",
+  //   icon: <OrgInfo />,
+  //   to: '/admin/org-info'
+  // },
+  // {
+  //   title: "Subscription Info",
+  //   icon: <Subscription />,
+  //   to: '/admin/subscription'
+  // },
   {
     title: "Support",
     icon: <Support />,
@@ -32,11 +32,11 @@ const list = [
     icon: <Setting />,
     to: '/admin/setting'
   },
-  {
-    title: "Chat",
-    icon: <Chat />,
-    to: '/admin/chat'
-  },
+  // {
+  //   title: "Chat",
+  //   icon: <Chat />,
+  //   to: '/admin/chat'
+  // },
 ]
 
 function Sidebar() {
