@@ -9,13 +9,13 @@ const data = [
     id: 'id-2',
     start: '02-05-2022 9:30 AM',
     end: '02-05-2022 8:30 PM',
-    status: 'on-going',
+    status: 'in-progress',
   },
   {
     id: 'id-3',
     start: '02-05-2022 12:30 AM',
     end: '03-05-2022 8:00 PM',
-    status: 'pending',
+    status: 'rejected',
   },
   {
     id: 'id-4',
@@ -27,19 +27,19 @@ const data = [
     id: 'id-5',
     start: '04-05-2022 11:30 AM',
     end: '04-05-2022 5:00 PM',
-    status: 'pending',
+    status: 'rejected',
   },
   {
     id: 'id-6',
     start: '05-05-2022 8:15 AM',
     end: '05-05-2022 8:40 PM',
-    status: 'on-going',
+    status: 'in-progress',
   },
   {
     id: 'id-7',
     start: '06-05-2022 10:30 AM',
     end: '07-05-2022 8:00 PM',
-    status: 'pending',
+    status: 'rejected',
   },
   {
     id: 'id-8',
@@ -51,7 +51,7 @@ const data = [
     id: 'id-9',
     start: '09-05-2022 2:00 AM',
     end: '09-05-2022 3:30 PM',
-    status: 'on-going',
+    status: 'in-progress',
   },
   {
     id: 'id-10',
@@ -69,13 +69,13 @@ const data = [
     id: 'id-12',
     start: '12-05-2022 5:30 AM',
     end: '12-05-2022 1:00 PM',
-    status: 'on-going',
+    status: 'in-progress',
   },
   {
     id: 'id-13',
     start: '13-05-2022 10:30 AM',
     end: '13-05-2022 8:00 PM',
-    status: 'pending',
+    status: 'rejected',
   },
   {
     id: 'id-14',
@@ -93,7 +93,7 @@ const data = [
     id: 'id-16',
     start: '16-05-2022 12:30 AM',
     end: '16-05-2022 8:00 PM',
-    status: 'pending',
+    status: 'rejected',
   },
   {
     id: 'id-17',
@@ -105,13 +105,13 @@ const data = [
     id: 'id-18',
     start: '18-05-2022 11:30 AM',
     end: '18-05-2022 5:00 PM',
-    status: 'pending',
+    status: 'rejected',
   },
   {
     id: 'id-19',
     start: '19-05-2022 9:30 AM',
     end: '19-05-2022 8:30 PM',
-    status: 'on-going',
+    status: 'in-progress',
   },
 ]
 

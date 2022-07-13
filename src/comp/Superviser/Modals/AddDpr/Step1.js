@@ -1,19 +1,34 @@
 import { useState } from "react";
-import AnimeInputField from "../../../Common/AnimeInputField";
 
 function Step1({ setIsStep1 }) {
   const [val, setVal] = useState('')
 
   return (
     <>
-      <AnimeInputField
-        txt="DPR Number"
-        wrapperCls="my-8"
-        spanCls="text-sm text-gray-400"
-        value={val}
-        onChange={e => setVal(e.target.value)}
-      />
+      <div className="my-6">
+        <label className="text-sm text-gray-400" htmlFor="dbrNum">DPR Number</label>
+        <input
+          id="dbrNum"
+          type="text"
+          value={val}
+          onChange={e => setVal(e.target.value)}
+        />
+      </div>
 
+      <div className="my-6">
+        <label className="mb-2 text-sm text-gray-400">DPR type</label>
+        <div className="df gap-4">
+          <div>
+            <input className="inline-block w-fit mr-1 align-middle" type='radio' name="" id="" />
+            <label className="inline-block" htmlFor="">Active</label>
+          </div>
+
+          <div className="">
+            <input className="inline-block w-fit mr-1 align-middle" type='radio' name="" id="" />
+            <label className="inline-block" htmlFor="">Passive</label>
+          </div>
+        </div>
+      </div>
       <button
         onClick={() => setIsStep1(p => !p)}
         className='block w-1/2 mx-auto bg-[#6e5bc5] text-white'

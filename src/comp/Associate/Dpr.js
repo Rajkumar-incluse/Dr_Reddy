@@ -5,7 +5,6 @@ import data from '../../dummy/manager/dpr';
 import PassiveCCDRList from './Modals/CCDRList/Passive';
 import ActiveCCDRList from './Modals/CCDRList/Active';
 import DprList from './Modals/DprList';
-import AddDpr from './Modals/AddDpr';
 
 function Dpr() {
   const [open, setOpen] = useState("")
@@ -23,12 +22,6 @@ function Dpr() {
     <section className='dfc h-full overflow-y-hidden bg-[#f7f7f7]'>
       <div className='df gap-4 mt-4 px-8 py-4'>
         <h1 className='text-2xl'>DPR Information</h1>
-        <button
-          className='bg-[#6e5bc5] text-white'
-          onClick={() => updateOpen('addDpr')}
-        >
-          Add DPR
-        </button>
       </div>
 
       <div className='scroll-y mx-4 my-2 bg-white'>
@@ -70,7 +63,7 @@ function Dpr() {
                     </button>
                   </td>
                   <td className='px-2 py-1'>
-                    <button className={`w-24 h-6 p-0 text-sm text-center rounded-full ${d.status === "completed" ? "bg-green-200 text-green-800" : ""} ${d.status === "on-going" ? "bg-yellow-200 text-yellow-900" : ""} ${d.status === "pending" ? "bg-red-200 text-red-900" : ""}`}>
+                    <button className={`w-24 h-6 p-0 text-sm text-center rounded-full ${d.status === "completed" ? "bg-green-200 text-green-800" : ""} ${d.status === "in-progress" ? "bg-yellow-200 text-yellow-900" : ""} ${d.status === "rejected" ? "bg-red-200 text-red-900" : ""}`}>
                       {d.status}
                     </button>
                   </td>
@@ -80,11 +73,6 @@ function Dpr() {
           </tbody>
         </table>
       </div>
-
-      <AddDpr
-        isOpen={open === 'addDpr'}
-        closeModal={closeModal}
-      />
 
       <DprList
         isOpen={open === 'dprList'}

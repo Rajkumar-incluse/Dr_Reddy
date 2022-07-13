@@ -19,7 +19,7 @@ function Step3() {
           <thead>
             <tr>
               <td className='px-4 py-1 border' rowSpan="2">Date</td>
-              <td className='px-4 py-1 border' colSpan='2'>Box No</td>
+              <td className='px-4 py-1 border' colSpan='2'>Create No</td>
               <td className='px-4 py-1 border' rowSpan="2">Product Name</td>
               <td className='px-4 py-1 border' rowSpan="2">Batch No</td>
               <td className='px-4 py-1 border' rowSpan="2">Quantity</td>

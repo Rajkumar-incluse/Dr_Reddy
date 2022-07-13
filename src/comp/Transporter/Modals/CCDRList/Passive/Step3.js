@@ -41,7 +41,7 @@ function Step3() {
           </tr>
 
           <tr>
-            <td className='px-4 py-1 border'>2 No. of 2 kg/box</td>
+            <td className='px-4 py-1 border'>2 No. of 3 kg/box</td>
             <td className='px-4 py-1 border'><input type="text" /></td>
           </tr>
 
@@ -73,8 +73,8 @@ function Step3() {
               <td className='px-4 py-1 border w-40' rowSpan='2'>Type of Gel pack</td>
               <td className='px-4 py-1 border' rowSpan='2'>In House Batch No./Lot No.</td>
               <td className='px-4 py-1 border' rowSpan='2'>Quantity</td>
-              <td className='px-4 py-1 border' colSpan='2'>Get pacj Un-loading (a)</td>
-              <td className='px-4 py-1 border' colSpan='2'>Get packs placing inside box (b)</td>
+              <td className='px-4 py-1 border' colSpan='2'>Gel pack Un-loading (a)</td>
+              <td className='px-4 py-1 border' colSpan='2'>Gel packs placing inside box (b)</td>
               <td className='px-4 py-1 border' rowSpan='2'>Total conditioning <br /> Time (b-a) <br /> (HH:MM)</td>
             </tr>
             <tr>

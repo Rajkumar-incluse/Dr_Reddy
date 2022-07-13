@@ -1,6 +1,5 @@
-import { memo, useCallback } from 'react'
-import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
-// DirectionsRenderer,
+import { memo, useEffect, useState, useCallback } from 'react'
+import { GoogleMap, Marker, DirectionsRenderer, useJsApiLoader } from '@react-google-maps/api';
 
 const containerStyle = {
   width: '100%',
@@ -15,36 +14,38 @@ const center = {
 function GMap() {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: "AIzaSyCCJLy01cBAuNoEDcEsxM_P_1uQ6SafQ6U",
-    // libraries: ["places"]
+    googleMapsApiKey: "AIzaSyCZ4YsHJ-UaXOd2W95mXMNhrH2SJXNzUPU",
+    libraries: ["places"]
   })
 
-  // const [map, setMap] = useState(null)
-  // const [direction, setDirection] = useState(null)
+  const [map, setMap] = useState(null)
+  const [direction, setDirection] = useState(null)
 
-  // useEffect(() => {
-  //   async function getDirection() {
-  //     const directService = new window.google.maps.DirectionsService()
-  //     const result = await directService.route({
-  //       origin: 'hydrapad',
-  //       destination: 'delhi',
-  //       travelMode: window.google.maps.TravelMode.DRIVING
-  //     })
-  //     setDirection(result)
-  //   }
+  useEffect(() => {
+    async function getDirection() {
+      const directService = new window.google.maps.DirectionsService()
+      const result = await directService.route({
+        origin: 'hydrapad',
+        destination: 'delhi',
+        travelMode: window.google.maps.TravelMode.DRIVING
+      })
+      setDirection(result)
+    }
 
-  //   getDirection()
-  // }, [])
+    if (map) {
+      getDirection()
+    }
+  }, [map])
 
   const onLoad = useCallback(function callback(map) {
     const bounds = new window.google.maps.LatLngBounds(center)
     map.fitBounds(bounds);
-    // setMap(map)
+    setMap(map)
   }, [])
 
-  // const onUnmount = useCallback(function callback(map) {
-  //   setMap(null)
-  // }, [])
+  const onUnmount = useCallback(function callback(map) {
+    setMap(null)
+  }, [])
 
   if (!isLoaded) return <div>Loading...</div>
 
@@ -52,15 +53,15 @@ function GMap() {
     <GoogleMap
       mapContainerStyle={containerStyle}
       center={center}
-      zoom={6}
+      zoom={10}
       onLoad={onLoad}
-    // onUnmount={onUnmount}
+      onUnmount={onUnmount}
     >
       <Marker position={center} />
-      {/* {
+      {
         direction &&
         <DirectionsRenderer directions={direction} />
-      } */}
+      }
     </GoogleMap>
   )
 }
