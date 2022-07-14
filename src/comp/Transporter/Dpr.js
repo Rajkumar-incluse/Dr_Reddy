@@ -2,9 +2,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import getRandom from '../../helper/getRandom';
 import data from '../../dummy/manager/dpr';
-
-import PassiveCCDRList from './Modals/CCDRList/Passive';
-import ActiveCCDRList from './Modals/CCDRList/Active';
 import DprList from './Modals/DprList';
 
 function Dpr() {
@@ -75,22 +72,6 @@ function Dpr() {
         isOpen={open === 'dprList'}
         closeModal={closeModal}
       />
-
-      {
-        open === 'passiveCCDRList' &&
-        <PassiveCCDRList
-          isOpen={open === 'passiveCCDRList'}
-          closeModal={closeModal}
-        />
-      }
-
-      {
-        open === 'activeCCDRList' &&
-        <ActiveCCDRList
-          isOpen={open === 'activeCCDRList'}
-          closeModal={closeModal}
-        />
-      }
     </section>
   )
 }

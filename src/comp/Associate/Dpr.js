@@ -59,7 +59,7 @@ function Dpr() {
                       className="w-16 h-6 p-0 text-sm text-center text-white bg-[#6e5bc5] hover:bg-[#8778c9] rounded-full"
                       onClick={() => onClkccdr(i)}
                     >
-                      View
+                      {d.status === "completed" ? 'View' : 'Edit'}
                     </button>
                   </td>
                   <td className='px-2 py-1'>
