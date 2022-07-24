@@ -1,4 +1,5 @@
 import ApproveOrRejectBtn from "../../../../Common/ApproveOrRejectBtn"
+import RadioBtns from "../../../../Common/RadioBtns"
 
 function Step8() {
   return (
@@ -22,17 +23,9 @@ function Step8() {
             <td className='px-4 py-2 border'>1</td>
             <td className='px-4 py-2 border'>Gel pack Conditioned Frozen -18 C and below for Min 72 Hrs.</td>
             <td className='px-4 py-2 border'>
-              <div className="dc gap-4">
-                <div>
-                  <input className="inline-block w-fit mr-1 align-middle" type='radio' name="" id="" />
-                  <label className="inline-block" htmlFor="">Yes</label>
-                </div>
-
-                <div>
-                  <input className="inline-block w-fit mr-1 align-middle" type='radio' name="" id="" />
-                  <label className="inline-block" htmlFor="">No</label>
-                </div>
-              </div>
+              <RadioBtns
+                groupBy='Conditioned-Frozen'
+              />
             </td>
             <td className='px-4 py-2 border' rowSpan='5'>
               <div className='dfc'>

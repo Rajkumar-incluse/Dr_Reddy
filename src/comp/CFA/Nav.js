@@ -11,7 +11,7 @@ function Nav() {
     if (val === "Profile") {
       navigate('/cfa/setting')
     } else if (val === 'Log out') {
-      navigate('/login')
+      navigate('/')
     }
   }
 

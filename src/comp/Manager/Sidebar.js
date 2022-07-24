@@ -14,7 +14,7 @@ const list = [
     to: '/manager/dashboard'
   },
   {
-    title: "DPR Info",
+    title: "DPR Information",
     icon: <Dpr />,
     to: '/manager/dpr'
   },
@@ -34,17 +34,17 @@ const list = [
     to: '/manager/track'
   },
   {
-    title: "Upload Doc",
+    title: "Upload Document",
     icon: <Upload />,
     to: '/manager/upload'
   },
   {
-    title: "Transporter Doc",
+    title: "Transporter Document",
     icon: <Doc />,
     to: '/manager/transporter-doc'
   },
   {
-    title: "CFA Doc",
+    title: "CFA Document",
     icon: <Doc />,
     to: '/manager/cfa-doc'
   },

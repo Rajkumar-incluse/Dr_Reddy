@@ -96,35 +96,6 @@ function Settings() {
               value={details.phone}
               onChange={onChange}
             />
-
-            {
-              !edit &&
-              <button
-                className='block mx-auto bg-[#6e5bc5] text-white hover:bg-[#6453b1]'
-                onClick={updateEdit}
-              >
-                Edit
-              </button>
-            }
-
-            {
-              edit &&
-              <div className='dc gap-4'>
-                <button
-                  className='block bg-[#6e5bc5] text-white hover:bg-[#6453b1]'
-                  onClick={updateEdit}
-                >
-                  Cancel
-                </button>
-
-                <button
-                  className='block bg-[#6e5bc5] text-white hover:bg-[#6453b1]'
-                  onClick={updateEdit}
-                >
-                  Update
-                </button>
-              </div>
-            }
           </>
         }
 
@@ -144,13 +115,42 @@ function Settings() {
               value={details.newPassword}
               onChange={onChange}
             />
+            <Input
+              name="confirmPassword"
+              label='Confirm Password'
+              value={details.newPassword}
+              onChange={onChange}
+            />
+          </>
+        }
+
+        {
+          !edit &&
+          <button
+            className='block mx-auto bg-[#6e5bc5] text-white hover:bg-[#6453b1]'
+            onClick={updateEdit}
+          >
+            Edit
+          </button>
+        }
+
+        {
+          edit &&
+          <div className='dc gap-4'>
+            <button
+              className='block bg-[#6e5bc5] text-white hover:bg-[#6453b1]'
+              onClick={updateEdit}
+            >
+              Cancel
+            </button>
 
             <button
-              className='block mx-auto bg-[#6e5bc5] text-white hover:bg-[#6453b1]'
+              className='block bg-[#6e5bc5] text-white hover:bg-[#6453b1]'
+              onClick={updateEdit}
             >
               Update
             </button>
-          </>
+          </div>
         }
       </div>
     </section>

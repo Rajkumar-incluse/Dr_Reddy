@@ -13,22 +13,6 @@ function Step5() {
             <ApproveOrRejectBtn />
           </div>
         </div>
-
-        {/* <div>
-          <div className='mb-2 font-bold'>Checked by</div>
-          <div className='mb-3'>Raj kumar 12.06.2022</div>
-          <div className='dc'>
-            <ApproveOrRejectBtn />
-          </div>
-        </div> */}
-
-        {/* <div>
-          <div className='mb-2 font-bold'>Approved by</div>
-          <div className='mb-3'>Raj kumar 12.06.2022</div>
-          <div className='dc'>
-            <ApproveOrRejectBtn />
-          </div>
-        </div> */}
       </div>
     </div>
   )

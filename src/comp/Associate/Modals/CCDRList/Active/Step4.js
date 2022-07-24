@@ -1,4 +1,5 @@
 import ApproveOrRejectBtn from "../../../../Common/ApproveOrRejectBtn"
+import RadioBtns from "../../../../Common/RadioBtns"
 
 function Step4() {
   return (
@@ -73,14 +74,10 @@ function Step4() {
               <td className="px-4 py-1 border"><input type="text" /></td>
               <td className="px-4 py-1 border"><input type="text" /></td>
               <td className="px-4 py-1 border text-left">
-                <div>
-                  <input className="inline-block w-fit mr-2 align-middle" type='checkbox' />
-                  <label htmlFor="" className="inline-block">Compliance</label>
-                </div>
-                <div>
-                  <input className="inline-block w-fit mr-2 align-middle" type='checkbox' />
-                  <label htmlFor="" className="inline-block">Not compliance</label>
-                </div>
+                <RadioBtns
+                  list={['Compliance', 'Not compliance']}
+                  groupBy='compliance'
+                />
               </td>
               <td className="px-4 py-1 border">
                 <div className="dfc">

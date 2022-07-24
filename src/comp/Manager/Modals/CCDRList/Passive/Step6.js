@@ -29,7 +29,7 @@ function Step6() {
               <td className='px-4 py-1 border' rowSpan='2'>End time (B)</td>
               <td className='px-4 py-1 border' rowSpan='2'>Time out of Refrigeration (C=B-A)</td>
               <td className='px-4 py-1 border' colSpan='2'>label pasted</td>
-              <td className='px-4 py-1 border' colSpan='2'> Carry Strapping of packed boxes.</td>
+              <td className='px-4 py-1 border' colSpan='2'>Carry Strapping of packed boxes.</td>
               <td className='px-4 py-1 border' rowSpan='2'>Done by</td>
             </tr>
             <tr>
@@ -49,10 +49,34 @@ function Step6() {
               <td className='px-4 py-1 border'><input type="text" /></td>
               <td className='px-4 py-1 border'><input type="text" /></td>
               <td className='px-4 py-1 border'><input type="text" /></td>
-              <td className='px-4 py-1 border'><input type="checkbox" /></td>
-              <td className='px-4 py-1 border'><input type="checkbox" /></td>
-              <td className='px-4 py-1 border'><input type="checkbox" /></td>
-              <td className='px-4 py-1 border'><input type="checkbox" /></td>
+              <td className='px-4 py-1 border'>
+                <input
+                  className="cursor-pointer"
+                  name="label-passed"
+                  type="radio"
+                />
+              </td>
+              <td className='px-4 py-1 border'>
+                <input
+                  className="cursor-pointer"
+                  name="label-passed"
+                  type="radio"
+                />
+              </td>
+              <td className='px-4 py-1 border'>
+                <input
+                  className="cursor-pointer"
+                  name="packed-boxes"
+                  type="radio"
+                />
+              </td>
+              <td className='px-4 py-1 border'>
+                <input
+                  className="cursor-pointer"
+                  name="packed-boxes"
+                  type="radio"
+                />
+              </td>
               <td className='px-4 py-2 border'>
                 <div className='dfc'>
                   <div className='mb-3'>Raj kumar 12.06.2022</div>

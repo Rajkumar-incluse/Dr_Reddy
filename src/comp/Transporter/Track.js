@@ -1,20 +1,21 @@
 import GMap from '../Common/GMap';
 
-const data = ['18448980', '27618480', '18485720', '16735480', '16699910', '33479480', '23458488', '55445661', '64668989', '245678098', '567890987', '332211669', '23158483', '15005665', '22229891', '12409876']
+// const data = ['18448980', '27618480', '18485720', '16735480', '16699910', '33479480', '23458488', '55445661', '64668989', '245678098', '567890987', '332211669', '23158483', '15005665', '22229891', '12409876']
 
 function Track() {
   return (
     <section className='dfc h-full overflow-y-hidden bg-[#f7f7f7]'>
       <div className='df gap-4 mt-4 mb-2 px-8'>
         <h1 className='text-xl'>Track Vehicle</h1>
-        <p className='ml-auto'>Select DPR : </p>
-        <select className=' max-w-xs'>
+        <p className='ml-auto'>Selected DPR :</p>
+        <p>18448980</p>
+        {/* <select className=' max-w-xs'>
           {
             data.map(d => (
               <option key={d} value={d}>{d}</option>
             ))
           }
-        </select>
+        </select> */}
       </div>
 
       <div className='scroll-y'>

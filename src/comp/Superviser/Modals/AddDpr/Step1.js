@@ -1,4 +1,5 @@
 import { useState } from "react";
+import RadioBtns from "../../../Common/RadioBtns";
 
 function Step1({ setIsStep1 }) {
   const [val, setVal] = useState('')
@@ -17,17 +18,11 @@ function Step1({ setIsStep1 }) {
 
       <div className="my-6">
         <label className="mb-2 text-sm text-gray-400">DPR type</label>
-        <div className="df gap-4">
-          <div>
-            <input className="inline-block w-fit mr-1 align-middle" type='radio' name="" id="" />
-            <label className="inline-block" htmlFor="">Active</label>
-          </div>
-
-          <div className="">
-            <input className="inline-block w-fit mr-1 align-middle" type='radio' name="" id="" />
-            <label className="inline-block" htmlFor="">Passive</label>
-          </div>
-        </div>
+        <RadioBtns
+          wrapperCls="df gap-4"
+          list={['Active', 'Passive']}
+          groupBy='act'
+        />
       </div>
       <button
         onClick={() => setIsStep1(p => !p)}

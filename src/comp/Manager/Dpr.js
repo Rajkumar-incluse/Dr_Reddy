@@ -6,6 +6,7 @@ import data from '../../dummy/manager/dpr';
 import PassiveCCDRList from './Modals/CCDRList/Passive';
 import ActiveCCDRList from './Modals/CCDRList/Active';
 import DprList from './Modals/DprList';
+import Status from './Modals/Status';
 
 function Dpr() {
   const [open, setOpen] = useState("")
@@ -31,6 +32,7 @@ function Dpr() {
           <thead>
             <tr className='sticky top-0 bg-white text-left'>
               <td className='pl-12 pr-2 py-4 text-gray-500 font-medium'>DPR No.</td>
+              <td className='px-2 py-4 text-gray-500 font-medium'>DPR Date</td>
               <td className='px-2 py-4 text-gray-500 font-medium'>Transport Mode</td>
               <td className='px-2 py-4 text-gray-500 font-medium'>Started At</td>
               <td className='px-2 py-4 text-gray-500 font-medium'>Delivered At</td>
@@ -46,6 +48,7 @@ function Dpr() {
               data.map((d, i) => (
                 <tr key={d.id} className='text-sm'>
                   <td className='pl-12 pr-2 py-1'>1278{getRandom(10, 100)}</td>
+                  <td className='px-2 py-1'>{d.start}</td>
                   <td className='px-2 py-1'>{i % 3 === 0 ? 'Active' : 'Passive'}</td>
                   <td className='px-2 py-1'>{d.start}</td>
                   <td className='px-2 py-1'>{d.end}</td>
@@ -74,7 +77,10 @@ function Dpr() {
                     </button>
                   </td>
                   <td className='px-2 py-1'>
-                    <button className={`w-24 h-6 p-0 text-sm text-center rounded-full ${d.status === "completed" ? "bg-green-200 text-green-800" : ""} ${d.status === "in-progress" ? "bg-yellow-200 text-yellow-900" : ""} ${d.status === "rejected" ? "bg-red-200 text-red-900" : ""}`}>
+                    <button
+                      className={`w-24 h-6 p-0 text-sm text-center rounded-full ${d.status === "completed" ? "bg-green-200 text-green-800" : ""} ${d.status === "in-progress" ? "bg-yellow-200 text-yellow-900" : ""} ${d.status === "rejected" ? "bg-red-200 text-red-900" : ""}`}
+                      onClick={() => updateOpen("status")}
+                    >
                       {d.status}
                     </button>
                   </td>
@@ -85,15 +91,18 @@ function Dpr() {
         </table>
       </div>
 
-      <DprList
-        isOpen={open === 'dprList'}
-        closeModal={closeModal}
-      />
+      {
+        open === 'dprList' &&
+        <DprList
+          isOpen
+          closeModal={closeModal}
+        />
+      }
 
       {
         open === 'passiveCCDRList' &&
         <PassiveCCDRList
-          isOpen={open === 'passiveCCDRList'}
+          isOpen
           closeModal={closeModal}
         />
       }
@@ -101,7 +110,15 @@ function Dpr() {
       {
         open === 'activeCCDRList' &&
         <ActiveCCDRList
-          isOpen={open === 'activeCCDRList'}
+          isOpen
+          closeModal={closeModal}
+        />
+      }
+
+      {
+        open === "status" &&
+        <Status
+          isOpen
           closeModal={closeModal}
         />
       }

@@ -1,4 +1,5 @@
 import ApproveOrRejectBtn from "../../../../Common/ApproveOrRejectBtn"
+import RadioBtns from "../../../../Common/RadioBtns"
 
 function Step1() {
   return (
@@ -20,17 +21,9 @@ function Step1() {
           <tr>
             <td className="px-4 py-1 border">Ensure that the cold chain packing area is properly cleaned.</td>
             <td className="px-4 py-1 border">
-              <div className="dc gap-4">
-                <div>
-                  <input className="inline-block w-fit mr-1 align-middle" type='radio' name="" id="" />
-                  <label className="inline-block" htmlFor="">Yes</label>
-                </div>
-
-                <div className="">
-                  <input className="inline-block w-fit mr-1 align-middle" type='radio' name="" id="" />
-                  <label className="inline-block" htmlFor="">No</label>
-                </div>
-              </div>
+              <RadioBtns
+                groupBy='cleaned-properly'
+              />
             </td>
           </tr>
           <tr>
@@ -46,65 +39,33 @@ function Step1() {
           <tr>
             <td className="px-4 py-1 border">Ensure the availability of approved packaging material and conditioning of cool/gel packs as per SOP No. FTGDCO59 and FTGDC060.</td>
             <td className="px-4 py-1 border">
-              <div className="dc gap-4">
-                <div>
-                  <input className="inline-block w-fit mr-1 align-middle" type='radio' name="" id="" />
-                  <label className="inline-block" htmlFor="">Yes</label>
-                </div>
-
-                <div className="">
-                  <input className="inline-block w-fit mr-1 align-middle" type='radio' name="" id="" />
-                  <label className="inline-block" htmlFor="">No</label>
-                </div>
-              </div>
+              <RadioBtns
+                groupBy='conditioning'
+              />
             </td>
           </tr>
           <tr>
             <td className="px-4 py-1 border">Ensure availability of Trolley, BOPP tape roller, bubble sheet and Strapping machine for packing operation.</td>
             <td className="px-4 py-1 border">
-              <div className="dc gap-4">
-                <div>
-                  <input className="inline-block w-fit mr-1 align-middle" type='radio' name="" id="" />
-                  <label className="inline-block" htmlFor="">Yes</label>
-                </div>
-
-                <div className="">
-                  <input className="inline-block w-fit mr-1 align-middle" type='radio' name="" id="" />
-                  <label className="inline-block" htmlFor="">No</label>
-                </div>
-              </div>
+              <RadioBtns
+                groupBy='packing-operation'
+              />
             </td>
           </tr>
           <tr>
             <td className="px-4 py-1 border">Ensure that equipment (Freezer room/ Deep freezer / Cold room) are within validity period.</td>
             <td className="px-4 py-1 border">
-              <div className="dc gap-4">
-                <div>
-                  <input className="inline-block w-fit mr-1 align-middle" type='radio' name="" id="" />
-                  <label className="inline-block" htmlFor="">Yes</label>
-                </div>
-
-                <div className="">
-                  <input className="inline-block w-fit mr-1 align-middle" type='radio' name="" id="" />
-                  <label className="inline-block" htmlFor="">No</label>
-                </div>
-              </div>
+              <RadioBtns
+                groupBy='validity-period'
+              />
             </td>
           </tr>
           <tr>
             <td className="px-4 py-1 border">Attach the pick list and calculate the no. of boxes required as per annexure no. FTGDCO56/A01.</td>
             <td className="px-4 py-1 border">
-              <div className="dc gap-4">
-                <div>
-                  <input className="inline-block w-fit mr-1 align-middle" type='radio' name="" id="" />
-                  <label className="inline-block" htmlFor="">Yes</label>
-                </div>
-
-                <div className="">
-                  <input className="inline-block w-fit mr-1 align-middle" type='radio' name="" id="" />
-                  <label className="inline-block" htmlFor="">No</label>
-                </div>
-              </div>
+              <RadioBtns
+                groupBy='attach'
+              />
             </td>
           </tr>
         </tbody>

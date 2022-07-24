@@ -5,7 +5,7 @@ import { ReactComponent as Dpr } from '../../assets/svg/common/dpr.svg';
 
 const list = [
   {
-    title: "DPR Info",
+    title: "DPR Information",
     icon: <Dpr />,
     to: '/associate/dpr'
   },

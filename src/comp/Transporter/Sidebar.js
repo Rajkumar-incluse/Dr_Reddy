@@ -8,7 +8,7 @@ import { ReactComponent as Dpr } from '../../assets/svg/common/dpr.svg';
 
 const list = [
   {
-    title: "DPR Info",
+    title: "DPR Information",
     icon: <Dpr />,
     to: '/transporter/dpr'
   },
@@ -28,12 +28,12 @@ const list = [
     to: '/transporter/track'
   },
   {
-    title: "Upload Doc",
+    title: "Upload Document",
     icon: <Upload />,
     to: '/transporter/upload'
   },
   {
-    title: "View Doc",
+    title: "View Document",
     icon: <Doc />,
     to: '/transporter/view'
   },

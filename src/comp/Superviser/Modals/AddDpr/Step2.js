@@ -118,7 +118,7 @@ function Step2() {
         </div>
       </div>
 
-      <div className="scroll-y overflow-y-hidden grid grid-cols-5 gap-4">
+      <div className="scroll-y overflow-y-hidden grid grid-cols-5 gap-4 border-b">
         <div className="pr-4 border-r">
           <label htmlFor="adddpr-shipperNum" className="mt-2">S. No.</label>
           <input
@@ -198,6 +198,13 @@ function Step2() {
           </table>
         </div>
       </div>
+
+      <button
+        className="block mt-4 ml-auto bg-[#6e5bc5] text-white disabled:opacity-80"
+        disabled={!data.length}
+      >
+        Submit
+      </button>
     </>
   )
 }

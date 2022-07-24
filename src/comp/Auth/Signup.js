@@ -73,7 +73,7 @@ function Signup() {
 
           <button className="mt-6 mb-2 px-8 bg-[#dfe7fe] hover:bg-[#b0c3fd] transition-colors mx-auto rounded-full">Signup</button>
 
-          <Link className="mb-4 hover:text-[#375fd8]" to='/login'>Login</Link>
+          <Link className="mb-4 hover:text-[#375fd8]" to='/'>Login</Link>
         </div>
       </div>
     </div>
