@@ -1,6 +1,3 @@
-import ApproveOrRejectBtn from "../../../../Common/ApproveOrRejectBtn"
-import RadioBtns from "../../../../Common/RadioBtns"
-
 function Step1() {
   return (
     <div className="max-w-4xl">
@@ -21,9 +18,21 @@ function Step1() {
           <tr>
             <td className="px-4 py-1 border">Ensure that the cold chain packing area is properly cleaned.</td>
             <td className="px-4 py-1 border">
-              <RadioBtns
-                groupBy='cleaned-properly'
-              />
+              <div className="dc">
+                <div>
+                  <input
+                    className="inline-block w-fit mr-1 align-middle cursor-pointer"
+                    type='radio'
+                    readOnly
+                    checked
+                  />
+                  <label
+                    className="inline-block cursor-pointer"
+                  >
+                    yes
+                  </label>
+                </div>
+              </div>
             </td>
           </tr>
           <tr>
@@ -39,33 +48,81 @@ function Step1() {
           <tr>
             <td className="px-4 py-1 border">Ensure the availability of approved packaging material and conditioning of cool/gel packs as per SOP No. FTGDCO59 and FTGDC060.</td>
             <td className="px-4 py-1 border">
-              <RadioBtns
-                groupBy='conditioning'
-              />
+              <div className="dc">
+                <div>
+                  <input
+                    className="inline-block w-fit mr-1 align-middle cursor-pointer"
+                    type='radio'
+                    readOnly
+                    checked
+                  />
+                  <label
+                    className="inline-block cursor-pointer"
+                  >
+                    yes
+                  </label>
+                </div>
+              </div>
             </td>
           </tr>
           <tr>
             <td className="px-4 py-1 border">Ensure availability of Trolley, BOPP tape roller, bubble sheet and Strapping machine for packing operation.</td>
             <td className="px-4 py-1 border">
-              <RadioBtns
-                groupBy='packing-operation'
-              />
+              <div className="dc">
+                <div>
+                  <input
+                    className="inline-block w-fit mr-1 align-middle cursor-pointer"
+                    type='radio'
+                    readOnly
+                    checked
+                  />
+                  <label
+                    className="inline-block cursor-pointer"
+                  >
+                    yes
+                  </label>
+                </div>
+              </div>
             </td>
           </tr>
           <tr>
             <td className="px-4 py-1 border">Ensure that equipment (Freezer room/ Deep freezer / Cold room) are within validity period.</td>
             <td className="px-4 py-1 border">
-              <RadioBtns
-                groupBy='validity-period'
-              />
+              <div className="dc">
+                <div>
+                  <input
+                    className="inline-block w-fit mr-1 align-middle cursor-pointer"
+                    type='radio'
+                    readOnly
+                    checked
+                  />
+                  <label
+                    className="inline-block cursor-pointer"
+                  >
+                    yes
+                  </label>
+                </div>
+              </div>
             </td>
           </tr>
           <tr>
             <td className="px-4 py-1 border">Attach the pick list and calculate the no. of boxes required as per annexure no. FTGDCO56/A01.</td>
             <td className="px-4 py-1 border">
-              <RadioBtns
-                groupBy='attach'
-              />
+              <div className="dc">
+                <div>
+                  <input
+                    className="inline-block w-fit mr-1 align-middle cursor-pointer"
+                    type='radio'
+                    readOnly
+                    checked
+                  />
+                  <label
+                    className="inline-block cursor-pointer"
+                  >
+                    yes
+                  </label>
+                </div>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -79,16 +136,6 @@ function Step1() {
           </td>
         </tfoot>
       </table>
-
-      <div className="df my-6">
-        <div>Checked By: </div>
-        <div>Raj kumar</div>
-        <div className="dc mr-auto">
-          <ApproveOrRejectBtn />
-        </div>
-        <div>Date:</div>
-        <div>12.06.2022</div>
-      </div>
     </div>
   )
 }

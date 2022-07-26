@@ -55,6 +55,16 @@ function Passive({ isOpen, closeModal }) {
             Next
           </button>
         }
+
+        {
+          step === 9 &&
+          <button
+            className='ml-auto bg-[#6e5bc5] text-white'
+            onClick={closeModal}
+          >
+            Submit
+          </button>
+        }
       </div>
     </Modal>
   )

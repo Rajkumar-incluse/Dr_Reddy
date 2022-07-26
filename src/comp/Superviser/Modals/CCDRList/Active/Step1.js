@@ -1,6 +1,3 @@
-import ApproveOrRejectBtn from "../../../../Common/ApproveOrRejectBtn"
-import RadioBtns from "../../../../Common/RadioBtns"
-
 function Step1() {
   return (
     <div className="max-w-4xl">
@@ -23,9 +20,21 @@ function Step1() {
             <td className="px-4 py-1 border">1</td>
             <td className="px-4 py-1 border">Ensure that the cold chain packing area is properly cleaned.</td>
             <td className="px-4 py-1 border">
-              <RadioBtns
-                groupBy='cleaned-properly'
-              />
+              <div className="dc">
+                <div>
+                  <input
+                    className="inline-block w-fit mr-1 align-middle cursor-pointer"
+                    type='radio'
+                    readOnly
+                    checked
+                  />
+                  <label
+                    className="inline-block cursor-pointer"
+                  >
+                    yes
+                  </label>
+                </div>
+              </div>
             </td>
           </tr>
           <tr>
@@ -43,27 +52,63 @@ function Step1() {
             <td className="px-4 py-1 border">3</td>
             <td className="px-4 py-1 border">Ensure the availability of crates with lid and plastic seal tie for easy handling.</td>
             <td className="px-4 py-1 border">
-              <RadioBtns
-                groupBy='easy-handling'
-              />
+              <div className="dc">
+                <div>
+                  <input
+                    className="inline-block w-fit mr-1 align-middle cursor-pointer"
+                    type='radio'
+                    readOnly
+                    checked
+                  />
+                  <label
+                    className="inline-block cursor-pointer"
+                  >
+                    yes
+                  </label>
+                </div>
+              </div>
             </td>
           </tr>
           <tr>
             <td className="px-4 py-1 border">4</td>
             <td className="px-4 py-1 border">Ensure availability of Trolley, bubble sheet for packing operation.</td>
             <td className="px-4 py-1 border">
-              <RadioBtns
-                groupBy='packing-operation'
-              />
+              <div className="dc">
+                <div>
+                  <input
+                    className="inline-block w-fit mr-1 align-middle cursor-pointer"
+                    type='radio'
+                    readOnly
+                    checked
+                  />
+                  <label
+                    className="inline-block cursor-pointer"
+                  >
+                    yes
+                  </label>
+                </div>
+              </div>
             </td>
           </tr>
           <tr>
             <td className="px-4 py-1 border">5</td>
             <td className="px-4 py-1 border">Ensure the equipment (cold room) are within validity period.</td>
             <td className="px-4 py-1 border">
-              <RadioBtns
-                groupBy='validity-period'
-              />
+              <div className="dc">
+                <div>
+                  <input
+                    className="inline-block w-fit mr-1 align-middle cursor-pointer"
+                    type='radio'
+                    readOnly
+                    checked
+                  />
+                  <label
+                    className="inline-block cursor-pointer"
+                  >
+                    yes
+                  </label>
+                </div>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -77,16 +122,6 @@ function Step1() {
           </td>
         </tfoot>
       </table>
-
-      <div className="df my-6">
-        <div>Checked By: </div>
-        <div>Raj kumar</div>
-        <div className="dc mr-auto">
-          <ApproveOrRejectBtn />
-        </div>
-        <div>Date:</div>
-        <div>12.06.2022</div>
-      </div>
     </div>
   )
 }

@@ -47,6 +47,11 @@ const TransporterTrack = lazy(() => import("./comp/Transporter/Track"))
 const TransporterDpr = lazy(() => import("./comp/Transporter/Dpr"))
 const Transporter = lazy(() => import("./comp/Transporter"))
 
+const SecuritySettings = lazy(() => import("./comp/Security/Settings"))
+const SecuritySupport = lazy(() => import("./comp/Security/Support"))
+const SecurityDpr = lazy(() => import("./comp/Security/Dpr"))
+const Security = lazy(() => import("./comp/Security"))
+
 function App() {
   return (
     <Suspense fallback={<>Loading...</>}>
@@ -101,6 +106,12 @@ function App() {
           <Route path='setting' element={<TransporterSettings />} />
           <Route path='upload' element={<TransporterUploadLR />} />
           <Route path='view' element={<TransporterViewLR />} />
+        </Route>
+
+        <Route path="security" element={<Security />}>
+          <Route path='dpr' element={<SecurityDpr />} />
+          <Route path='support' element={<SecuritySupport />} />
+          <Route path='setting' element={<SecuritySettings />} />
         </Route>
       </Routes>
     </Suspense>

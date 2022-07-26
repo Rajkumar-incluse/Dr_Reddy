@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import getRandom from '../../helper/getRandom';
 import data from '../../dummy/manager/dpr';
 
 import PassiveCCDRList from './Modals/CCDRList/Passive';
@@ -13,11 +12,6 @@ function Dpr() {
   const updateOpen = val => setOpen(val)
 
   const closeModal = () => setOpen('')
-
-  const onClkccdr = i => {
-    const type = i % 3 === 0 ? 'activeCCDRList' : 'passiveCCDRList'
-    updateOpen(type)
-  }
 
   return (
     <section className='dfc h-full overflow-y-hidden bg-[#f7f7f7]'>
@@ -38,8 +32,6 @@ function Dpr() {
               <td className='pl-12 pr-2 py-4 text-gray-500 font-medium'>DPR No.</td>
               <td className='px-2 py-4 text-gray-500 font-medium'>DPR Date</td>
               <td className='px-2 py-4 text-gray-500 font-medium'>Transport Mode</td>
-              <td className='px-2 py-4 text-gray-500 font-medium'>Started At</td>
-              <td className='px-2 py-4 text-gray-500 font-medium'>Delivered At</td>
               <td className='px-2 py-4 text-gray-500 font-medium'>Packing list</td>
               <td className='px-2 py-4 text-gray-500 font-medium'>CCDR</td>
               <td className='px-2 py-4 text-gray-500 font-medium'>CCDR Status</td>
@@ -50,11 +42,9 @@ function Dpr() {
             {
               data.map((d, i) => (
                 <tr key={d.id} className='text-sm'>
-                  <td className='pl-12 pr-2 py-1'>1278{getRandom(10, 100)}</td>
+                  <td className='pl-12 pr-2 py-1'>{d.dprNum}</td>
                   <td className='px-2 py-1'>{d.start}</td>
-                  <td className='px-2 py-1'>{i % 3 === 0 ? 'Active' : 'Passive'}</td>
-                  <td className='px-2 py-1'>{d.start}</td>
-                  <td className='px-2 py-1'>{d.end}</td>
+                  <td className='px-2 py-1'>{d.mode}</td>
                   <td className='px-2 py-1'>
                     <button
                       className="w-16 h-6 p-0 text-sm text-center text-white bg-[#6e5bc5] hover:bg-[#8778c9] rounded-full"
@@ -66,7 +56,7 @@ function Dpr() {
                   <td className='px-2 py-1'>
                     <button
                       className="w-16 h-6 p-0 text-sm text-center text-white bg-[#6e5bc5] hover:bg-[#8778c9] rounded-full"
-                      onClick={() => onClkccdr(i)}
+                      onClick={() => updateOpen(d.mode)}
                     >
                       View
                     </button>
@@ -94,7 +84,7 @@ function Dpr() {
       />
 
       {
-        open === 'passiveCCDRList' &&
+        open === 'Passive' &&
         <PassiveCCDRList
           isOpen
           closeModal={closeModal}
@@ -102,7 +92,7 @@ function Dpr() {
       }
 
       {
-        open === 'activeCCDRList' &&
+        open === 'Active' &&
         <ActiveCCDRList
           isOpen
           closeModal={closeModal}

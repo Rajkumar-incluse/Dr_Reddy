@@ -44,6 +44,10 @@ function Login() {
     if (deatails.email === "transporter" && deatails.pass === "transporter") {
       navigate('/transporter/dpr')
     }
+
+    if (deatails.email === "security" && deatails.pass === "security") {
+      navigate('/security/dpr')
+    }
   }
 
   return (
