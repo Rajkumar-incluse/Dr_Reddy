@@ -91,10 +91,16 @@ function UploadLR() {
   })
 
   const closeModal = () => {
-    setModal({
+    setModal(p => ({
+      ...p,
       state: false,
-      data: {}
-    })
+    }))
+    setTimeout(() => {
+      setModal(p => ({
+        ...p,
+        data: {}
+      }))
+    }, 1000)
   }
 
   const openModal = data => {
@@ -140,8 +146,10 @@ function UploadLR() {
       </div>
 
       <DocsHandler
+        hasEdit
         isOpen={modal.state}
         closeModal={closeModal}
+        openModal={openModal}
         type={modal.data.type}
         title={modal.data.title}
         dprNo={modal.data.dprNo}

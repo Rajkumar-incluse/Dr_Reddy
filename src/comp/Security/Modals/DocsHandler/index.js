@@ -2,7 +2,7 @@ import Modal, { ModalHeader } from '../../../UIComp/Modal';
 import Upload from './Upload';
 import View from './View';
 
-function DocsHandler({ isOpen, closeModal, type, dprNo = '', title = '' }) {
+function DocsHandler({ isOpen, closeModal, openModal, type, dprNo = '', title = '', hasEdit = false }) {
   return (
     <Modal
       isOpen={isOpen}
@@ -14,7 +14,19 @@ function DocsHandler({ isOpen, closeModal, type, dprNo = '', title = '' }) {
         closeModal={closeModal}
       />
 
-      <div><strong>DPR No:</strong> {dprNo}</div>
+      <div className='df justify-between'>
+        <p><strong>DPR No:</strong> {dprNo}</p>
+
+        {
+          hasEdit && type === "View" &&
+          <button
+            className='block bg-[#6e5bc5] text-white hover:bg-[#6453b1] text-sm'
+            onClick={() => openModal({ type: 'Upload', dprNo, title })}
+          >
+            Edit
+          </button>
+        }
+      </div>
 
       {
         type === 'Upload'
