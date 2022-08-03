@@ -130,7 +130,7 @@ function UploadLR() {
                   <td className="px-4 py-2">
                     <button
                       className={`w-24 py-0.5 text-sm rounded-full text-white ${li.lrCopy === 'Upload' ? "bg-green-400 hover:bg-green-600" : "bg-[#6e5bc5] hover:bg-[#4b3a92]"}`}
-                      onClick={() => openModal({ type: li.lrCopy, title: 'LR Copy', dprNo: li.dprNo })}
+                      onClick={() => openModal({ type: li.lrCopy, title: 'LR Copy', dprNo: li.dprNo, hasEdit: li.status !== "Approved" })}
                     >
                       {li.lrCopy}
                     </button>
@@ -146,7 +146,7 @@ function UploadLR() {
       </div>
 
       <DocsHandler
-        hasEdit
+        hasEdit={modal.data.hasEdit}
         isOpen={modal.state}
         closeModal={closeModal}
         openModal={openModal}

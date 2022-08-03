@@ -1,4 +1,4 @@
-import ApproveOrRejectBtn from "../../../../Common/ApproveOrRejectBtn"
+// import ApproveOrRejectBtn from "../../../../Common/ApproveOrRejectBtn"
 
 function Step6() {
   return (
@@ -30,7 +30,7 @@ function Step6() {
               <td className='px-4 py-1 border' rowSpan='2'>Time out of Refrigeration (C=B-A)</td>
               <td className='px-4 py-1 border' colSpan='2'>label pasted</td>
               <td className='px-4 py-1 border' colSpan='2'>Carry Strapping of packed boxes.</td>
-              <td className='px-4 py-1 border' rowSpan='2'>Done by</td>
+              {/* <td className='px-4 py-1 border' rowSpan='2'>Done by</td> */}
             </tr>
             <tr>
               <td className='px-4 py-1 border'>From</td>
@@ -77,14 +77,14 @@ function Step6() {
                   type="radio"
                 />
               </td>
-              <td className='px-4 py-2 border'>
+              {/* <td className='px-4 py-2 border'>
                 <div className='dfc'>
                   <div className='mb-3'>Raj kumar 12.06.2022</div>
                   <div className="df">
                     <ApproveOrRejectBtn />
                   </div>
                 </div>
-              </td>
+              </td> */}
             </tr>
 
             <tr>
@@ -109,11 +109,11 @@ function Step6() {
                     <input className='w-12 p-0 border-0 border-b rounded-none' type="text" />
                     Min
                   </div>
-                  <div className="df my-2">
+                  {/* <div className="df my-2">
                     <strong className="font-medium">Overall packing activity Verified by: </strong>
                     <span>Raj kumar 12.06.2022</span>
                     <ApproveOrRejectBtn />
-                  </div>
+                  </div> */}
                   <div className='df my-2'>
                     <strong className='shrink-0 font-medium'>Remarks (if any):</strong>
                     <input type="text" />

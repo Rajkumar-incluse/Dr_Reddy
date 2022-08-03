@@ -19,24 +19,24 @@ const list = [
     task: 'Approval of CCDR',
     by: 'Warehouse Supervisor',
   },
-  {
-    key: '4',
-    status: 'completed',
-    task: 'Approval of Item Count',
-    by: 'Warehouse Supervisor',
-  },
-  {
-    key: '5',
-    status: 'completed',
-    task: 'Approval of Item Count',
-    by: 'DRL Security',
-  },
-  {
-    key: '6',
-    status: 'rejected',
-    task: 'Approval of Item Count',
-    by: 'Transporter',
-  },
+  // {
+  //   key: '4',
+  //   status: 'completed',
+  //   task: 'Approval of Item Count',
+  //   by: 'Warehouse Supervisor',
+  // },
+  // {
+  //   key: '5',
+  //   status: 'completed',
+  //   task: 'Approval of Item Count',
+  //   by: 'DRL Security',
+  // },
+  // {
+  //   key: '6',
+  //   status: 'rejected',
+  //   task: 'Approval of Item Count',
+  //   by: 'Transporter',
+  // },
   {
     key: '7',
     status: 'in-progress',

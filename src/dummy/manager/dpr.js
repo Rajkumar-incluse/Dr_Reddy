@@ -30,7 +30,7 @@ const data = [
     start: '03-05-2022 10:30 AM',
     end: '03-05-2022 8:00 PM',
     mode: 'Active',
-    status: 'completed',
+    status: 'not-started',
     dprNum: getRandom(0, 10000)
   },
   {
@@ -46,7 +46,7 @@ const data = [
     start: '05-05-2022 8:15 AM',
     end: '05-05-2022 8:40 PM',
     mode: 'Active',
-    status: 'in-progress',
+    status: 'not-started',
     dprNum: getRandom(0, 10000)
   },
   {
@@ -78,7 +78,7 @@ const data = [
     start: '10-05-2022 10:30 AM',
     end: '10-05-2022 8:00 PM',
     mode: 'Active',
-    status: 'completed',
+    status: 'not-started',
     dprNum: getRandom(0, 10000)
   },
   {
@@ -102,7 +102,7 @@ const data = [
     start: '13-05-2022 10:30 AM',
     end: '13-05-2022 8:00 PM',
     mode: 'Active',
-    status: 'rejected',
+    status: 'not-started',
     dprNum: getRandom(0, 10000)
   },
   {
@@ -142,7 +142,7 @@ const data = [
     start: '18-05-2022 11:30 AM',
     end: '18-05-2022 5:00 PM',
     mode: 'Active',
-    status: 'rejected',
+    status: 'not-started',
     dprNum: getRandom(0, 10000)
   },
   {
@@ -151,6 +151,30 @@ const data = [
     end: '19-05-2022 8:30 PM',
     mode: 'Passive',
     status: 'in-progress',
+    dprNum: getRandom(0, 10000)
+  },
+  {
+    id: 'id-20',
+    start: '20-05-2022 9:30 AM',
+    end: '20-05-2022 8:30 PM',
+    mode: 'Passive',
+    status: 'in-progress',
+    dprNum: getRandom(0, 10000)
+  },
+  {
+    id: 'id-21',
+    start: '21-05-2022 4:30 AM',
+    end: '21-05-2022 6:00 PM',
+    mode: 'Passive',
+    status: 'completed',
+    dprNum: getRandom(0, 10000)
+  },
+  {
+    id: 'id-22',
+    start: '22-05-2022 1:00 AM',
+    end: '22-05-2022 3:30 PM',
+    mode: 'Passive',
+    status: 'rejected',
     dprNum: getRandom(0, 10000)
   },
 ]

@@ -1,4 +1,4 @@
-import ApproveOrRejectBtn from "../../../../Common/ApproveOrRejectBtn"
+// import ApproveOrRejectBtn from "../../../../Common/ApproveOrRejectBtn"
 
 function Step3() {
   return (
@@ -108,7 +108,7 @@ function Step3() {
           <button className='bg-[#6e5bc5] text-white'>Add</button>
         </div>
 
-        <div className='df my-6'>
+        {/* <div className='df my-6'>
           <div>Done By: </div>
           <div>Raj kumar</div>
           <div className="dc mr-auto">
@@ -116,7 +116,7 @@ function Step3() {
           </div>
           <div>Date:</div>
           <div>12.06.2022</div>
-        </div>
+        </div> */}
       </div>
     </div>
   )

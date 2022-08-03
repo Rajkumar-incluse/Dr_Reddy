@@ -39,7 +39,7 @@ const list = [
     to: '/manager/upload'
   },
   {
-    title: "Transporter Document",
+    title: "Approve Document",
     icon: <Doc />,
     to: '/manager/transporter-doc'
   },

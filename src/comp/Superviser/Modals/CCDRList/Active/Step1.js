@@ -6,7 +6,7 @@ function Step1() {
         <p className="text-gray-600">(Choose yes or no after verification as applicable)</p>
       </div>
 
-      <table className="w-full">
+      <table className="w-full mb-4">
         <thead>
           <tr>
             <td className="py-2 text-center font-semibold border">Sr. No.</td>

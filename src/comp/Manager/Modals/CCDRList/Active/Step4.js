@@ -1,4 +1,4 @@
-import ApproveOrRejectBtn from "../../../../Common/ApproveOrRejectBtn"
+// import ApproveOrRejectBtn from "../../../../Common/ApproveOrRejectBtn"
 import RadioBtns from "../../../../Common/RadioBtns"
 
 function Step4() {
@@ -65,7 +65,7 @@ function Step4() {
               <td className="px-4 py-1 border">Tracking mode (Web/SAP/Phone/Mail etc.)</td>
               <td className="px-4 py-1 border">Shipment reaced to CFA/Stockiest (Date/Time)</td>
               <td className="px-4 py-1 border">Cold chain compliance <br /> by reviewing the temp. data</td>
-              <td className="px-4 py-1 border">Verified by</td>
+              {/* <td className="px-4 py-1 border">Verified by</td> */}
             </tr>
           </thead>
 
@@ -79,14 +79,14 @@ function Step4() {
                   groupBy='compliance'
                 />
               </td>
-              <td className="px-4 py-1 border">
+              {/* <td className="px-4 py-1 border">
                 <div className="dfc">
                   <div>Raj kumar 12.06.2022</div>
                   <div className='dc'>
                     <ApproveOrRejectBtn />
                   </div>
                 </div>
-              </td>
+              </td> */}
             </tr>
           </tbody>
         </table>

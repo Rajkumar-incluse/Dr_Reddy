@@ -117,7 +117,7 @@ function UploadLR() {
           <thead>
             <tr className='sticky top-0 bg-white font-medium text-gray-500'>
               <td className='p-4'>DPR No.</td>
-              <td className='p-4'>LR Copy</td>
+              <td className='p-4'>Signed LR Copy</td>
               <td className='p-4'>Seal Code</td>
             </tr>
           </thead>

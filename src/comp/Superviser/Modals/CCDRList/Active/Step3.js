@@ -1,4 +1,4 @@
-import ApproveOrRejectBtn from "../../../../Common/ApproveOrRejectBtn"
+// import ApproveOrRejectBtn from "../../../../Common/ApproveOrRejectBtn"
 
 function Step3() {
   return (
@@ -70,11 +70,11 @@ function Step3() {
                     <input className='w-12 p-0 border-0 border-b rounded-none' type="text" />
                     Min.
                   </div>
-                  <div className="df my-2">
+                  {/* <div className="df my-2">
                     <strong className='font-medium'>Overall packing activity Verified by :</strong>
                     <span>Raj kumar 12.06.2022</span>
                     <ApproveOrRejectBtn />
-                  </div>
+                  </div> */}
                   <div className='df my-2'>
                     <strong className='shrink-0 font-medium'>Remarks (if any):</strong>
                     <input type="text" />

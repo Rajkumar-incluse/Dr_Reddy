@@ -48,6 +48,7 @@ function TransportedDoc() {
             <tr className='sticky top-0 bg-white font-medium text-gray-500'>
               <td className='p-4'>DPR No.</td>
               <td className='p-4'>LR Copy</td>
+              <td className='p-4'>Seal Code</td>
               <td className='p-4'>Status</td>
             </tr>
           </thead>
@@ -66,7 +67,16 @@ function TransportedDoc() {
                     </button>
                   </td>
                   <td className="px-4 py-2">
+                    <button
+                      className="w-24 py-0.5 text-sm rounded-full text-white bg-[#6e5bc5] hover:bg-[#4b3a92]"
+                      onClick={() => openModal({ title: 'Seal Code', dprNo: li.dprNo })}
+                    >
+                      View
+                    </button>
+                  </td>
+                  <td className="px-4 py-2">
                     <select className="py-1">
+                      <option value="" disabled></option>
                       <option value="Approve">Approve</option>
                       <option value="Reject">Reject</option>
                     </select>

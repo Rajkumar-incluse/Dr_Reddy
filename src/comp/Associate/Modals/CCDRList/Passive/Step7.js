@@ -1,4 +1,4 @@
-import ApproveOrRejectBtn from "../../../../Common/ApproveOrRejectBtn"
+// import ApproveOrRejectBtn from "../../../../Common/ApproveOrRejectBtn"
 
 function Step7() {
   return (
@@ -11,7 +11,7 @@ function Step7() {
             <td className='px-4 py-1 border'>Tracking mode <br /> (Web/SAP/Phone/mail etc.)</td>
             <td className='px-4 py-1 border'>Shipment Reached to <br /> CFA/Stockiest (D) (Date /time)</td>
             <td className='px-4 py-1 border' colSpan='2'>Total transit hours in HH:MM <br /> (E=D-B)</td>
-            <td className='px-4 py-1 border'>Done by</td>
+            {/* <td className='px-4 py-1 border'>Done by</td> */}
           </tr>
         </thead>
         <tbody>
@@ -20,14 +20,14 @@ function Step7() {
             <td className='px-4 py-1 border'><input type="text" /></td>
             <td className='px-4 py-1 border'>Should not exceed Validity period of 68:55 hrs.</td>
             <td className='px-4 py-1 border'><input type="text" /></td>
-            <td className='px-4 py-2 border'>
+            {/* <td className='px-4 py-2 border'>
               <div className='dfc'>
                 <div>Raj kumar 12.06.2022</div>
                 <div>
                   <ApproveOrRejectBtn />
                 </div>
               </div>
-            </td>
+            </td> */}
           </tr>
         </tbody>
       </table>

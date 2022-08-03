@@ -1,4 +1,4 @@
-import ApproveOrRejectBtn from "../../../../Common/ApproveOrRejectBtn"
+// import ApproveOrRejectBtn from "../../../../Common/ApproveOrRejectBtn"
 import RadioBtns from "../../../../Common/RadioBtns"
 
 function Step1() {
@@ -9,7 +9,7 @@ function Step1() {
         <p className="text-gray-600">(Choose yes or no after verification as applicable)</p>
       </div>
 
-      <table className="w-full">
+      <table className="w-full mb-4">
         <thead>
           <tr>
             <td className="py-2 text-center font-semibold border">Sr. No.</td>
@@ -78,7 +78,7 @@ function Step1() {
         </tfoot>
       </table>
 
-      <div className="df my-6">
+      {/* <div className="df my-6">
         <div>Checked By: </div>
         <div>Raj kumar</div>
         <div className="dc mr-auto">
@@ -86,7 +86,7 @@ function Step1() {
         </div>
         <div>Date:</div>
         <div>12.06.2022</div>
-      </div>
+      </div> */}
     </div>
   )
 }

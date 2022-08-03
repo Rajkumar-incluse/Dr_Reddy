@@ -50,6 +50,16 @@ function Settings() {
   return (
     <section className='h-full overflow-y-hidden bg-[#f7f7f7]'>
       <div className='max-w-xl my-8 mx-auto p-8 bg-white rounded-2xl'>
+        {
+          !edit &&
+          <button
+            className='block ml-auto bg-[#6e5bc5] text-white hover:bg-[#6453b1]'
+            onClick={updateEdit}
+          >
+            Edit
+          </button>
+        }
+
         <img className='w-40 h-40 mx-auto rounded-full' src={uerImg} alt="user" />
         <div className='dc gap-6 font-semibold text-lg my-4'>
           <p
@@ -122,16 +132,6 @@ function Settings() {
               onChange={onChange}
             />
           </>
-        }
-
-        {
-          !edit &&
-          <button
-            className='block mx-auto bg-[#6e5bc5] text-white hover:bg-[#6453b1]'
-            onClick={updateEdit}
-          >
-            Edit
-          </button>
         }
 
         {
