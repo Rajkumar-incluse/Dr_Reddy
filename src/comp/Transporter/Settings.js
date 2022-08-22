@@ -53,7 +53,7 @@ function Settings() {
         {
           !edit &&
           <button
-            className='block mx-auto bg-[#6e5bc5] text-white hover:bg-[#6453b1]'
+            className='block ml-auto bg-[#6e5bc5] text-white hover:bg-[#6453b1]'
             onClick={updateEdit}
           >
             Edit
