@@ -1,17 +1,22 @@
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
 import logo from '../../assets/img/logo3.png';
 import { ReactComponent as Notification } from '../../assets/svg/common/notification.svg';
 import { ReactComponent as TriArrow } from '../../assets/svg/arrows/traiangle.svg';
 import { DropDownWrapper } from '../UIComp/DropDown';
+import { onLogoutSuccess } from '../../action-reducers/login/loginAction';
 
 function Nav() {
+  const userDetails = useSelector(({ login }) => login.userDetails)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const onClk = val => {
     if (val === "Profile") {
-      navigate('/superviser/setting')
+      navigate(`/${userDetails?.role}/setting`)
     } else if (val === 'Log out') {
-      navigate('/')
+      dispatch(onLogoutSuccess())
     }
   }
 

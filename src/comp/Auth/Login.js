@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useQuery } from "react-query";
+import { useDispatch } from 'react-redux';
 
-import { login } from "../../utils/callApi";
+import { login } from "../../action-reducers/login/loginAction";
 
 import { ReactComponent as LoginImg } from '../../assets/svg/auth/login.svg';
 import AnimeInputField from "../Common/AnimeInputField";
@@ -11,45 +11,40 @@ import logoUh from '../../assets/img/uh-logo.png';
 import logo from '../../assets/img/logo2.png';
 
 function Login() {
+  const [isLoading, setIsLoading] = useState(false)
   const [details, setDetails] = useState({
     email: 'admin123@gmail.com', // admin123@gmail.com
     password: 'pwd_admin123' // pwd_admin123
   })
 
   const navigate = useNavigate()
-
-  const { isLoading, refetch } = useQuery(
-    "login",
-    () => login(details),
-    {
-      enabled: false,
-      staleTime: 0,
-      onSuccess(data) {
-        const roles = {
-          transporter: '/transporter/dpr',
-          superviser: '/superviser/dpr',
-          associate: '/associate/dpr',
-          security: '/security/dpr',
-          manager: '/manager/dashboard',
-          admin: '/admin/user',
-          cfa: '/cfa/dpr',
-        }
-
-        const to = roles[data?.role] || ""
-        if (to) {
-          setTimeout(() => {
-            navigate(to)
-          }, 1000)
-        }
-      }
-    }
-  )
+  const dispatch = useDispatch()
 
   const onChange = e => {
     setDetails(p => ({
       ...p,
       [e.target.name]: e.target.value
     }))
+  }
+
+  const onSuccess = (data) => {
+    const roles = {
+      transporter: '/transporter/dpr',
+      superviser: '/superviser/dpr',
+      associate: '/associate/dpr',
+      security: '/security/dpr',
+      manager: '/manager/dashboard',
+      admin: '/admin/user',
+      cfa: '/cfa/dpr',
+    }
+
+    const to = roles[data?.role] || ""
+    if (to) navigate(to)
+  }
+
+  const onSubmit = () => {
+    setIsLoading(true)
+    dispatch(login(details, onSuccess))
   }
 
   return (
@@ -92,7 +87,7 @@ function Login() {
 
           <button
             className={`my-6 px-8 ${isLoading ? "cursor-default" : "hover:bg-[#b0c3fd]"} bg-[#dfe7fe] transition-colors mx-auto rounded-full`}
-            onClick={refetch}
+            onClick={onSubmit}
             disabled={isLoading}
           >
             Login

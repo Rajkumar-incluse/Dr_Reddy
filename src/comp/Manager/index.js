@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
-import Nav from "./Nav";
+import Nav from "../Template/Nav";
 import '../../style/app.css';
 
 function Manager() {

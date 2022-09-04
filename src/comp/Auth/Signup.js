@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { useQuery } from "react-query";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-import { createOrg } from "../../utils/callApi";
+import { createOrg } from "../../action-reducers/login/loginAction";
 
 import { ReactComponent as LoginImg } from '../../assets/svg/auth/create_account1.svg';
 import AnimeInputField from "../Common/AnimeInputField";
 
 function Signup() {
+  const [isLoading, setIsLoading] = useState(false)
   const [details, setDetails] = useState({
     BusinessEmail: "admin1234k0@gmail.com",
     PhoneNumber: "9876543210",
@@ -19,19 +19,7 @@ function Signup() {
     Country: "India",
     State: "Tamilnadu",
   })
-
-  const { isLoading, data, refetch } = useQuery(
-    "createOrg",
-    () => createOrg(details),
-    {
-      enabled: false,
-      onSuccess(data) {
-        console.log(data)
-      }
-    }
-  )
-
-  console.log(isLoading, data)
+  const navigate = useNavigate()
 
   const onChange = e => {
     setDetails(p => ({
@@ -40,9 +28,10 @@ function Signup() {
     }))
   }
 
-  // const onSubmit = () => {
-  //   console.log(details)
-  // }
+  const onSubmit = () => {
+    setIsLoading(true)
+    createOrg(details, () => navigate('/'))
+  }
 
   return (
     <div className="dc auth-bg h-screen bg-no-repeat bg-cover bg-center">
@@ -140,9 +129,9 @@ function Signup() {
           </div>
 
           <button
-            className="mt-6 mb-2 px-8 bg-[#dfe7fe] hover:bg-[#b0c3fd] transition-colors mx-auto rounded-full"
-            // onClick={onSubmit}
-            onClick={refetch}
+            className={`mt-6 mb-2 px-8 ${isLoading ? "cursor-default" : "hover:bg-[#b0c3fd]"} bg-[#dfe7fe] transition-colors mx-auto rounded-full`}
+            onClick={onSubmit}
+            disabled={isLoading}
           >
             Signup
           </button>

@@ -1,21 +1,39 @@
 import { useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { registerUser } from '../../../action-reducers/admin/adminAction';
+
 import Modal, { ModalHeader } from '../../UIComp/Modal';
 import user from '../../../assets/img/user.png';
 
 function AddMember({ isOpen, closeModal }) {
+  const [isLoading, setIsLoading] = useState(false)
   const [details, setDetails] = useState({
-    phoneNumber: "",
-    firstName: "",
-    lastName: "",
-    email: "",
+    phoneNumber: "9999666667", // 9999666667
+    firstName: "Raj", // Raj
+    lastName: "Kumar", // Kumar
+    email: "raj12@gmail.com", // raj12@gmail.com
     role: ""
   })
   const inputRef = useRef()
+  const dispatch = useDispatch()
 
-  const onChange = e => {
+  const onFileChange = e => {
     // let files = e.target.files
     // const allFiles = Object.keys(files).map(each => files[each])
     // inputRef.current.value = ""
+  }
+
+  const onChange = e => {
+    setDetails(p => ({
+      ...p,
+      [e.target.name]: e.target.value
+    }))
+  }
+
+  const onSubmit = () => {
+    setIsLoading(true)
+    dispatch(registerUser(details, closeModal))
   }
 
   return (
@@ -40,7 +58,7 @@ function AddMember({ isOpen, closeModal }) {
         <input
           onClickCapture={e => e.stopPropagation()}
           className='hidden'
-          onChange={onChange}
+          onChange={onFileChange}
           type="file"
           ref={inputRef}
         />
@@ -48,38 +66,72 @@ function AddMember({ isOpen, closeModal }) {
 
       <div className='grid grid-cols-2 gap-4 mt-8'>
         <div>
-          <label htmlFor="">First Name</label>
-          <input type="text" />
+          <label htmlFor="add-user-">First Name</label>
+          <input
+            id='add-user-firstName'
+            type="text"
+            name='firstName'
+            value={details.firstName}
+            onChange={onChange}
+          />
         </div>
 
         <div>
-          <label htmlFor="">Last Name</label>
-          <input type="text" />
+          <label htmlFor="add-user-lastName">Last Name</label>
+          <input
+            id='add-user-lastName'
+            type="text"
+            name='lastName'
+            value={details.lastName}
+            onChange={onChange}
+          />
         </div>
 
         <div>
-          <label htmlFor="">Email</label>
-          <input type="text" />
+          <label htmlFor="add-user-email">Email</label>
+          <input
+            id='add-user-email'
+            type="text"
+            name='email'
+            value={details.email}
+            onChange={onChange}
+          />
         </div>
 
         <div>
-          <label htmlFor="">Mobile</label>
-          <input type="text" />
+          <label htmlFor="add-user-phoneNumber">Mobile</label>
+          <input
+            id='add-user-phoneNumber'
+            type="text"
+            name='phoneNumber'
+            value={details.phoneNumber}
+            onChange={onChange}
+          />
         </div>
 
         <div className='col-span-2'>
-          <label htmlFor="">Role</label>
-          <select name="" id="">
-            <option value="">Ware house supervisor</option>
-            <option value="">Ware house associate</option>
-            <option value="">Manager</option>
-            <option value="">CFA</option>
-            <option value="">Transporter</option>
+          <label htmlFor="add-user-role">Role</label>
+          <select
+            name="role"
+            id="add-user-role"
+            value={details.role}
+            onChange={onChange}
+          >
+            <option value="" disabled></option>
+            <option value="Supervisor">Ware house supervisor</option>
+            <option value="Associate">Ware house associate</option>
+            <option value="Manager">Manager</option>
+            <option value="CFA">CFA</option>
+            <option value="Transporter">Transporter</option>
           </select>
         </div>
       </div>
 
-      <button className='block w-1/2 mx-auto mt-12 bg-[#6e5bc5] text-white hover:scale-105 transition-transform rounded'>
+      <button
+        className='block w-1/2 mx-auto mt-12 bg-[#6e5bc5] text-white hover:scale-105 transition-transform rounded'
+        disabled={isLoading}
+        onClick={onSubmit}
+      >
         Create
       </button>
     </Modal>
