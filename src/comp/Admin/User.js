@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import { useQuery } from "react-query";
+
+import { getUsersList } from '../../utils/callApi';
 
 import { ReactComponent as Dot } from '../../assets/svg/common/dot.svg';
 import user1 from '../../assets/img/user/user1.jpg';
@@ -29,6 +32,18 @@ const getImg = i => {
 
 function User() {
   const [open, setOpen] = useState(false)
+
+  const { isLoading, data } = useQuery(
+    "getUsersList",
+    getUsersList,
+    {
+      onSuccess(data) {
+        console.log(data)
+      }
+    }
+  )
+
+  console.log(isLoading, data)
 
   const updateOpen = () => setOpen(p => !p)
 

@@ -1,8 +1,15 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import Modal, { ModalHeader } from '../../UIComp/Modal';
 import user from '../../../assets/img/user.png';
 
 function AddMember({ isOpen, closeModal }) {
+  const [details, setDetails] = useState({
+    phoneNumber: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    role: ""
+  })
   const inputRef = useRef()
 
   const onChange = e => {

@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { Route, Routes } from "react-router-dom";
+import Loader from './comp/Common/Loader';
 
 const ForgetPass = lazy(() => import("./comp/Auth/ForgetPass"))
 const Signup = lazy(() => import("./comp/Auth/Signup"))
@@ -54,7 +55,7 @@ const Security = lazy(() => import("./comp/Security"))
 
 function App() {
   return (
-    <Suspense fallback={<>Loading...</>}>
+    <Suspense fallback={<Loader wrapperCls='h-screen' />}>
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="signup" element={<Signup />} />

@@ -1,5 +1,9 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useQuery } from "react-query";
+
+import { login } from "../../utils/callApi";
+
 import { ReactComponent as LoginImg } from '../../assets/svg/auth/login.svg';
 import AnimeInputField from "../Common/AnimeInputField";
 import logoIgc from '../../assets/img/logo-igc.png';
@@ -7,47 +11,45 @@ import logoUh from '../../assets/img/uh-logo.png';
 import logo from '../../assets/img/logo2.png';
 
 function Login() {
-  const navigate = useNavigate()
-  const [deatails, setDetails] = useState({
-    email: '',
-    pass: ''
+  const [details, setDetails] = useState({
+    email: 'admin123@gmail.com', // admin123@gmail.com
+    password: 'pwd_admin123' // pwd_admin123
   })
+
+  const navigate = useNavigate()
+
+  const { isLoading, refetch } = useQuery(
+    "login",
+    () => login(details),
+    {
+      enabled: false,
+      staleTime: 0,
+      onSuccess(data) {
+        const roles = {
+          transporter: '/transporter/dpr',
+          superviser: '/superviser/dpr',
+          associate: '/associate/dpr',
+          security: '/security/dpr',
+          manager: '/manager/dashboard',
+          admin: '/admin/user',
+          cfa: '/cfa/dpr',
+        }
+
+        const to = roles[data?.role] || ""
+        if (to) {
+          setTimeout(() => {
+            navigate(to)
+          }, 1000)
+        }
+      }
+    }
+  )
 
   const onChange = e => {
     setDetails(p => ({
       ...p,
       [e.target.name]: e.target.value
     }))
-  }
-
-  const onSubmit = () => {
-    if (deatails.email === "admin" && deatails.pass === "admin") {
-      navigate('/admin/user')
-    }
-
-    if (deatails.email === "superviser" && deatails.pass === "superviser") {
-      navigate('/superviser/dpr')
-    }
-
-    if (deatails.email === "manager" && deatails.pass === "manager") {
-      navigate('/manager/dashboard')
-    }
-
-    if (deatails.email === "associate" && deatails.pass === "associate") {
-      navigate('/associate/dpr')
-    }
-
-    if (deatails.email === "cfa" && deatails.pass === "cfa") {
-      navigate('/cfa/dpr')
-    }
-
-    if (deatails.email === "transporter" && deatails.pass === "transporter") {
-      navigate('/transporter/dpr')
-    }
-
-    if (deatails.email === "security" && deatails.pass === "security") {
-      navigate('/security/dpr')
-    }
   }
 
   return (
@@ -74,7 +76,7 @@ function Login() {
             inpCls="border-0 border-b"
             txt="User Name"
             name="email"
-            value={deatails.email}
+            value={details.email}
             onChange={onChange}
           />
 
@@ -83,14 +85,15 @@ function Login() {
             inputType="password"
             inpCls="border-0 border-b"
             txt="Password"
-            name="pass"
-            value={deatails.pass}
+            name="password"
+            value={details.password}
             onChange={onChange}
           />
 
           <button
-            className="my-6 px-8 bg-[#dfe7fe] hover:bg-[#b0c3fd] transition-colors mx-auto rounded-full"
-            onClick={onSubmit}
+            className={`my-6 px-8 ${isLoading ? "cursor-default" : "hover:bg-[#b0c3fd]"} bg-[#dfe7fe] transition-colors mx-auto rounded-full`}
+            onClick={refetch}
+            disabled={isLoading}
           >
             Login
           </button>
@@ -104,7 +107,6 @@ function Login() {
       <div className="df text-xl">
         Designed and Developed by
         <img className="w-12" src={logoIgc} alt="logoIgc" />
-        {/* <strong className="font-semibold">Inclusive Growth Chain</strong> */}
       </div>
     </div>
   )

@@ -158,6 +158,13 @@
     @apply bg-inherit w-4 h-4 rotate-45 -z-1 border border-inherit;
   }
 
+  /* css loader */
+  .loader {
+    @apply 
+      w-10 h-10 border-4 animate-spin rounded-full 
+      border-main-100 border-t-main-900
+    ;
+  }
 
   /* login */
   .anime-input-placeholder {
