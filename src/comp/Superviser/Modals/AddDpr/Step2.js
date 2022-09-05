@@ -1,31 +1,28 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { createDpr } from "../../../../action-reducers/dpr/dprAction";
 
-function Step2() {
+function Step2({ dprInfo, closeModal }) {
+  const [isLoading, setIsLoading] = useState(false)
+  const [data, setData] = useState([])
   const [err, setErr] = useState('')
+  const dispatch = useDispatch()
+
   const [newProduct, setNewProduct] = useState({
     shipperNum: '',
     product: '',
     quantity: '',
   })
 
-  const [tabList, setTabList] = useState([
-    {
-      product: 'Cresp 40mcg PFS Hospital Supply DOM',
-      batchNo: 'N210620A',
-      quantity: 180,
-      unpacked: 180,
+  const [tabList, setTabList] = useState(
+    Object?.entries(dprInfo?.products?.[0])?.map(([key, value], i) => ({
+      product: key,
+      batchNo: `N210A${value}${i}Z`,
+      quantity: Number(value),
+      unpacked: Number(value),
       packed: 0,
-    },
-    {
-      product: 'Grastim 300mcg/ml Vial',
-      batchNo: '4420032',
-      quantity: 1200,
-      unpacked: 1200,
-      packed: 0,
-    },
-  ])
-
-  const [data, setData] = useState([])
+    })) || []
+  )
 
   const onChange = e => {
     setNewProduct(p => ({
@@ -67,24 +64,34 @@ function Step2() {
     })
   }
 
+  const onFinalSubmit = () => {
+    setIsLoading(true)
+    let last = data[data.length - 1]
+    let payload = {
+      ...dprInfo,
+      packingList: data.map(d => ({
+        bNo: d.batchNo,
+        sNo: `${d.shipperNum} of ${last.shipperNum}`,
+        product: d.product,
+        quantity: d.quantity
+      }))
+    }
+    dispatch(createDpr(payload, closeModal))
+  }
+
   return (
     <>
-      {/* <div className="df">
-        <h2 className="text-xl font-medium -mt-2 mb-2">Packing list</h2>
-        <p className="ml-auto font-semibold">Shipper No: 1234</p>
-      </div> */}
-
       <div className="grid grid-cols-2 gap-4 mb-4">
         <div>
-          <h4 className="text-lg font-semibold">Shipper No: 89213600</h4>
+          <h4 className="text-lg font-semibold">Shipper No: {dprInfo.shipperNo}</h4>
           <div className="df">
             <h5 className="text-lg font-medium">From : </h5>
-            <p>Hydrabad, 500 090, A.P.</p>
+            <p>{dprInfo.from}</p>
           </div>
 
           <div className="df">
             <h5 className="text-lg font-medium">To : </h5>
-            <p>Dr.Reddys Lab Ltd, C\o-Pharmacare Logistics Pvt Ltd, Bhiwandi, Dist Thane, 421 302.</p>
+            <p>{dprInfo.to}</p>
           </div>
         </div>
 
@@ -142,7 +149,7 @@ function Step2() {
               tabList
                 .filter(t => t.unpacked > 0)
                 .map(t => (
-                  <option value={t.product}>
+                  <option key={t.product} value={t.product}>
                     {t.product}
                   </option>
                 ))
@@ -201,7 +208,8 @@ function Step2() {
 
       <button
         className="block mt-4 ml-auto bg-[#6e5bc5] text-white disabled:opacity-80"
-        disabled={!data.length}
+        disabled={!data.length || isLoading}
+        onClick={onFinalSubmit}
       >
         Submit
       </button>

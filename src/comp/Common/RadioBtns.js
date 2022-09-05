@@ -1,14 +1,17 @@
 import { useId } from 'react';
 
-function Inputs({ l, groupBy }) {
+function Inputs({ l, selected, groupBy, onChange = () => { }, }) {
   const id = useId()
 
   return (
     <div key={l}>
       <input
         className="inline-block w-fit mr-1 align-middle cursor-pointer"
-        type='radio'
+        checked={selected.toLowerCase() === l.toLowerCase()}
+        onChange={() => onChange(l)}
+        value={l}
         name={groupBy}
+        type='radio'
         id={id}
       />
       <label
@@ -21,7 +24,12 @@ function Inputs({ l, groupBy }) {
   )
 }
 
-function RadioBtns({ wrapperCls = 'dc gap-4', list = ["Yes", 'No'], groupBy = '' }) {
+function RadioBtns({
+  wrapperCls = 'dc gap-4',
+  list = ["Yes", 'No'],
+  groupBy = '', selected = '',
+  onChange = () => { },
+}) {
   return (
     <div className={wrapperCls}>
       {
@@ -30,6 +38,8 @@ function RadioBtns({ wrapperCls = 'dc gap-4', list = ["Yes", 'No'], groupBy = ''
             key={l}
             l={l}
             groupBy={groupBy}
+            selected={selected}
+            onChange={onChange}
           />
         ))
       }

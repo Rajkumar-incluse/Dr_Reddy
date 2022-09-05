@@ -13,8 +13,8 @@ import logo from '../../assets/img/logo2.png';
 function Login() {
   const [isLoading, setIsLoading] = useState(false)
   const [details, setDetails] = useState({
-    email: 'admin123@gmail.com', // admin123@gmail.com
-    password: 'pwd_admin123' // pwd_admin123
+    email: 'admin@gmail.com', // admin@gmail.com
+    password: 'pwd_admin' // pwd_admin
   })
 
   const navigate = useNavigate()
@@ -30,7 +30,7 @@ function Login() {
   const onSuccess = (data) => {
     const roles = {
       transporter: '/transporter/dpr',
-      superviser: '/superviser/dpr',
+      supervisor: '/supervisor/dpr',
       associate: '/associate/dpr',
       security: '/security/dpr',
       manager: '/manager/dashboard',

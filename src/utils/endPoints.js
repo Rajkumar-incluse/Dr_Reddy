@@ -10,7 +10,7 @@ const endPoints = {
   getUserList: '/participantapi/Users',
   checkDpr: '/dpr/search?dprno=',
   createDpr: '/dpr',
-  getDprInfo: '/dpr?dprNo=' // &id=
+  getDprInfo: '/dpr' // ?dprNo= &id=
 }
 
 export default endPoints

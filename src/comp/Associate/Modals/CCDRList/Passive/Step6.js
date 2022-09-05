@@ -1,6 +1,4 @@
-// import ApproveOrRejectBtn from "../../../../Common/ApproveOrRejectBtn"
-
-function Step6() {
+function Step6({ details, onChange }) {
   return (
     <div className='dfc gap-0 pb-6 max-w-[90vw] max-h-[70vh]'>
       <h1 className="my-6 text-xl font-bold">6. Outer Box Packing Details: </h1>
@@ -77,14 +75,6 @@ function Step6() {
                   type="radio"
                 />
               </td>
-              {/* <td className='px-4 py-2 border'>
-                <div className='dfc'>
-                  <div className='mb-3'>Raj kumar 12.06.2022</div>
-                  <div className="df">
-                    <ApproveOrRejectBtn />
-                  </div>
-                </div>
-              </td> */}
             </tr>
 
             <tr>
@@ -109,11 +99,6 @@ function Step6() {
                     <input className='w-12 p-0 border-0 border-b rounded-none' type="text" />
                     Min
                   </div>
-                  {/* <div className="df my-2">
-                    <strong className="font-medium">Overall packing activity Verified by: </strong>
-                    <span>Raj kumar 12.06.2022</span>
-                    <ApproveOrRejectBtn />
-                  </div> */}
                   <div className='df my-2'>
                     <strong className='shrink-0 font-medium'>Remarks (if any):</strong>
                     <input type="text" />

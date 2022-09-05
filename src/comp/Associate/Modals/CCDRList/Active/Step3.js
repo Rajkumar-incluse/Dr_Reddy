@@ -1,6 +1,8 @@
-// import ApproveOrRejectBtn from "../../../../Common/ApproveOrRejectBtn"
+import { useState } from "react";
 
-function Step3() {
+function Step3({ details, onChange }) {
+  const [list] = useState(["Date", "BoxNumFrom", "BoxNumTo", "ProductName", "BatchNum", "Quantity", "StartTime", "EndTime", "TOR", "DoneBy"])
+
   return (
     <div className='dfc gap-0 pb-6 max-w-[90vw] max-h-[70vh]'>
       <h1 className="my-6 text-xl font-bold">3. Product packaging: </h1>
@@ -37,16 +39,20 @@ function Step3() {
 
           <tbody>
             <tr>
-              <td className='px-4 py-1 border'><input type="text" /></td>
-              <td className='px-4 py-1 border'><input type="text" /></td>
-              <td className='px-4 py-1 border'><input type="text" /></td>
-              <td className='px-4 py-1 border'><input type="text" /></td>
-              <td className='px-4 py-1 border'><input type="text" /></td>
-              <td className='px-4 py-1 border'><input type="text" /></td>
-              <td className='px-4 py-1 border'><input type="text" /></td>
-              <td className='px-4 py-1 border'><input type="text" /></td>
-              <td className='px-4 py-1 border'><input type="text" /></td>
-              <td className='px-4 py-1 border'><input type="text" /></td>
+              {
+                list.map(li => (
+                  <td
+                    key={li}
+                    className='px-4 py-1 border'
+                  >
+                    <input
+                      type="text"
+                      value={details.ProductPacking[li]}
+                      onChange={e => onChange("ProductPacking", li, e.target.value)}
+                    />
+                  </td>
+                ))
+              }
             </tr>
 
             <tr>
@@ -67,17 +73,21 @@ function Step3() {
                   </div>
                   <div className='df my-2'>
                     <strong className='font-medium'>Maximum time out of Refrigeration (TOR) :</strong>
-                    <input className='w-12 p-0 border-0 border-b rounded-none' type="text" />
+                    <input
+                      className='w-12 p-0 border-0 border-b rounded-none'
+                      type="text"
+                      value={details.ProductPacking.MaxTOR}
+                      onChange={e => onChange("ProductPacking", "MaxTOR", e.target.value)}
+                    />
                     Min.
                   </div>
-                  {/* <div className="df my-2">
-                    <strong className='font-medium'>Overall packing activity Verified by :</strong>
-                    <span>Raj kumar 12.06.2022</span>
-                    <ApproveOrRejectBtn />
-                  </div> */}
                   <div className='df my-2'>
                     <strong className='shrink-0 font-medium'>Remarks (if any):</strong>
-                    <input type="text" />
+                    <input
+                      type="text"
+                      value={details.ProductPacking.Remarks}
+                      onChange={e => onChange("ProductPacking", "Remarks", e.target.value)}
+                    />
                   </div>
                 </div>
               </td>

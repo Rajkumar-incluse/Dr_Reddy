@@ -7,6 +7,9 @@ const adminReducer = (state = initialState, { type, payload }) => {
     case adminConstants.GET_USERS:
       return [...payload]
 
+    case adminConstants.ADD_USER:
+      return [...state, { ...payload }]
+
     default: return state
   }
 }

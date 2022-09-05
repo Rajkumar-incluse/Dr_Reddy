@@ -13,6 +13,132 @@ import Step9 from './Step9';
 
 function Passive({ isOpen, closeModal }) {
   const [step, setStep] = useState(0)
+  const [details, setDetails] = useState({
+    GeneralInstruction: {
+      InstructionIdPassive: "",
+      ProperCleaning: "",
+      Callibration: "",
+      GelPackPacking: "",
+      PackingOperation: "",
+      EquipmentValidity: "",
+      PicklistAndBoxesCount: "",
+      Remarks: "",
+      CreatedBy: "",
+      CreatedOn: "",
+      ModifiedBy: "",
+      ModifiedOn: "",
+      Notes: "",
+    },
+    PackingOperation: {
+      OperationId: "",
+      InstructionIdPassive: "",
+      PolyBox28L: "",
+      GelPackFrozen: "",
+      GelPackCold: "",
+      DataLoggerNum: "",
+      CalibrationDueDate: "",
+      PlacedInShipperNum: "",
+      InHouseBatchNum: "",
+      Quantity: "",
+      GelPackUnloadingDate: "",
+      GelPackUnloadingTime: "",
+      GelPackPlacingDate: "",
+      GelPackPlacingTime: "",
+      TotalConditioning: "",
+      CreatedBy: "",
+      CreatedOn: "",
+      ModifiedBy: "",
+      ModifiedOn: "",
+      Notes: "",
+    },
+    InnerBoxPacking: {
+      InnerBoxId: "",
+      OperationId: "",
+      Date: "",
+      BoxNumFrom: "",
+      BoxNumTo: "",
+      ProductName: "",
+      BatchNum: "",
+      PackedQuant: "",
+      PackingStartTime: "",
+      PackingEndTime: "",
+      TOR: "",
+      DoneBy: "",
+      MaxTOR: "",
+      Remarks: "",
+      CreatedBy: "",
+      CreatedOn: "",
+      ModifiedBy: "",
+      ModifiedOn: "",
+      Notes: "",
+    },
+    OuterBoxPacking: {
+      OuterBoxId: "",
+      OperationId: "",
+      Date: "",
+      BoxNumFrom: "",
+      BoxNumTo: "",
+      StartTime: "",
+      EndTIme: "",
+      TOR: "",
+      LabelPasted: "",
+      StrappedBox: "",
+      MaxTOR: "",
+      Remarks: "",
+      CreatedBy: "",
+      CreatedOn: "",
+      ModifiedBy: "",
+      ModifiedOn: "",
+      Notes: "",
+    },
+    ShipmentTracking: {
+      ShipperId: "",
+      OperationId: "",
+      TrackingMode: "",
+      ReachingTime: "",
+      TransitHours: "",
+      CreatedBy: "",
+      CreatedOn: "",
+      ModifiedBy: "",
+      ModifiedOn: "",
+      Notes: "",
+    },
+    DocumentVerification: {
+      DocumentId: "",
+      OperationId: "",
+      MinConditioned1: "",
+      MinConditioned2: "",
+      FrozenGelPack: "",
+      ReqMaterial: "",
+      Compliance: "",
+      Remarks: "",
+      CreatedBy: "",
+      CreatedOn: "",
+      ModifiedBy: "",
+      ModifiedOn: "",
+      Notes: "",
+    },
+    FinalSignIn: {
+      FinalSignInId: "",
+      PreparedBy: "",
+      ApproveBy: "",
+      CreatedBy: "",
+      CreatedOn: "",
+      ModifiedBy: "",
+      ModifiedOn: "",
+      Notes: "",
+    }
+  })
+
+  const onChange = (parentKey, currentKey, value) => {
+    setDetails(prev => ({
+      ...prev,
+      [parentKey]: {
+        ...prev[parentKey],
+        [currentKey]: value
+      }
+    }))
+  }
 
   return (
     <Modal
@@ -25,15 +151,15 @@ function Passive({ isOpen, closeModal }) {
       />
 
       {step === 0 && <Step0 />}
-      {step === 1 && <Step1 />}
+      {step === 1 && <Step1 details={details} onChange={onChange} />}
       {step === 2 && <Step2 />}
-      {step === 3 && <Step3 />}
-      {step === 4 && <Step4 />}
-      {step === 5 && <Step5 />}
-      {step === 6 && <Step6 />}
-      {step === 7 && <Step7 />}
-      {step === 8 && <Step8 />}
-      {step === 9 && <Step9 />}
+      {step === 3 && <Step3 details={details} onChange={onChange} />}
+      {step === 4 && <Step4 details={details} onChange={onChange} />}
+      {step === 5 && <Step5 details={details} onChange={onChange} />}
+      {step === 6 && <Step6 details={details} onChange={onChange} />}
+      {step === 7 && <Step7 details={details} onChange={onChange} />}
+      {step === 8 && <Step8 details={details} onChange={onChange} />}
+      {step === 9 && <Step9 details={details} onChange={onChange} />}
 
       <div className='df'>
         {

@@ -118,11 +118,11 @@ function AddMember({ isOpen, closeModal }) {
             onChange={onChange}
           >
             <option value="" disabled></option>
-            <option value="Supervisor">Ware house supervisor</option>
-            <option value="Associate">Ware house associate</option>
-            <option value="Manager">Manager</option>
-            <option value="CFA">CFA</option>
-            <option value="Transporter">Transporter</option>
+            <option value="supervisor">Ware house supervisor</option>
+            <option value="associate">Ware house associate</option>
+            <option value="manager">Manager</option>
+            <option value="cfa">CFA</option>
+            <option value="transporter">Transporter</option>
           </select>
         </div>
       </div>

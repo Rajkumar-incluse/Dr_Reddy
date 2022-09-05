@@ -1,7 +1,6 @@
-// import ApproveOrRejectBtn from "../../../../Common/ApproveOrRejectBtn"
-import RadioBtns from "../../../../Common/RadioBtns"
+import RadioBtns from "../../../../Common/RadioBtns";
 
-function Step1() {
+function Step1({ details, onChange }) {
   return (
     <div className="max-w-4xl">
       <div className="df my-6">
@@ -25,6 +24,8 @@ function Step1() {
             <td className="px-4 py-1 border">
               <RadioBtns
                 groupBy='cleaned-properly'
+                selected={details.GeneralInstruction.ProperCleaning}
+                onChange={l => onChange("GeneralInstruction", "ProperCleaning", l)}
               />
             </td>
           </tr>
@@ -36,6 +37,8 @@ function Step1() {
                 type="text"
                 placeholder="Temp"
                 className="py-1 my-1"
+                value={details.GeneralInstruction.Callibration}
+                onChange={e => onChange("GeneralInstruction", "ProperCleaning", e.target.value)}
               />
             </td>
           </tr>
@@ -45,6 +48,8 @@ function Step1() {
             <td className="px-4 py-1 border">
               <RadioBtns
                 groupBy='easy-handling'
+                selected={details.GeneralInstruction.CratesAvail}
+                onChange={l => onChange("GeneralInstruction", "CratesAvail", l)}
               />
             </td>
           </tr>
@@ -54,6 +59,8 @@ function Step1() {
             <td className="px-4 py-1 border">
               <RadioBtns
                 groupBy='packing-operation'
+                selected={details.GeneralInstruction.TrolleyAvail}
+                onChange={l => onChange("GeneralInstruction", "TrolleyAvail", l)}
               />
             </td>
           </tr>
@@ -63,6 +70,8 @@ function Step1() {
             <td className="px-4 py-1 border">
               <RadioBtns
                 groupBy='validity-period'
+                selected={details.GeneralInstruction.EquipmentValidity}
+                onChange={l => onChange("GeneralInstruction", "EquipmentValidity", l)}
               />
             </td>
           </tr>
@@ -72,21 +81,16 @@ function Step1() {
           <td colSpan='3' className="px-4 py-1 border">
             <div className="df">
               <p className="shrink-0">Remarks (if any) :</p>
-              <input className="w-full my-2" type="text" />
+              <input
+                className="w-full my-2"
+                type="text"
+                value={details.GeneralInstruction.Remarks}
+                onChange={e => onChange("GeneralInstruction", "Remarks", e.target.value)}
+              />
             </div>
           </td>
         </tfoot>
       </table>
-
-      {/* <div className="df my-6">
-        <div>Checked By: </div>
-        <div>Raj kumar</div>
-        <div className="dc mr-auto">
-          <ApproveOrRejectBtn />
-        </div>
-        <div>Date:</div>
-        <div>12.06.2022</div>
-      </div> */}
     </div>
   )
 }

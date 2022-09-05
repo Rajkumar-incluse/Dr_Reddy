@@ -68,7 +68,7 @@ function App() {
           <Route path='setting' element={<AdminSettings />} />
         </Route>
 
-        <Route path="superviser" element={<Superviser />}>
+        <Route path="supervisor" element={<Superviser />}>
           <Route path='dpr' element={<SuperviserDpr />} />
           <Route path='support' element={<SuperviserSupport />} />
           <Route path='setting' element={<SuperviserSettings />} />

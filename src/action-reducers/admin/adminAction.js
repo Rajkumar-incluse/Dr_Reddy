@@ -5,13 +5,17 @@ import adminConstants from './adminConstants';
 export function registerUser(data, onSuccess) {
   return async dispatch => {
     try {
-      const res = await sendApiReq({
+      const payload = await sendApiReq({
         method: 'post',
         url: endPoints.registerUser,
         data,
       })
 
-      console.log(res)
+      dispatch({
+        type: adminConstants.ADD_USER,
+        payload
+      })
+      onSuccess()
 
     } catch (error) {
       console.log(error)

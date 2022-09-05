@@ -1,6 +1,4 @@
-// import ApproveOrRejectBtn from "../../../../Common/ApproveOrRejectBtn"
-
-function Step3() {
+function Step3({ details, onChange }) {
   return (
     <div className='dfc gap-0 pb-6 max-w-[90vw] max-h-[70vh]'>
       <h1 className="my-6 text-xl font-bold">3. Packaging Operation :</h1>
@@ -99,24 +97,10 @@ function Step3() {
           </tbody>
         </table>
 
-        {/* <div className='df justify-end'>
-          <button className='bg-[#6e5bc5] text-white'>Add</button>
-        </div> */}
-
         <div className='df justify-between my-6'>
           <p className="text-gray-600"># External data logger is for reference purpose only.</p>
           <button className='bg-[#6e5bc5] text-white'>Add</button>
         </div>
-
-        {/* <div className='df my-6'>
-          <div>Done By: </div>
-          <div>Raj kumar</div>
-          <div className="dc mr-auto">
-            <ApproveOrRejectBtn />
-          </div>
-          <div>Date:</div>
-          <div>12.06.2022</div>
-        </div> */}
       </div>
     </div>
   )

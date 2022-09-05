@@ -1,7 +1,6 @@
-// import ApproveOrRejectBtn from "../../../../Common/ApproveOrRejectBtn"
 import RadioBtns from "../../../../Common/RadioBtns"
 
-function Step8() {
+function Step8({ details, onChange }) {
   return (
     <div>
       <h1 className="my-6 text-xl font-bold">8. Document Verification: </h1>
@@ -12,9 +11,6 @@ function Step8() {
             <td className='px-4 py-2 border'>Sl. No.</td>
             <td className='px-4 py-2 border'>Details of verifications</td>
             <td className='px-4 py-2 border'>Yes/No</td>
-            {/* <td className='px-4 py-2 border'>
-              Verified by <br /> (Warehose)
-            </td> */}
           </tr>
         </thead>
 
@@ -27,14 +23,6 @@ function Step8() {
                 groupBy='Conditioned-Frozen'
               />
             </td>
-            {/* <td className='px-4 py-2 border' rowSpan='5'>
-              <div className='dfc'>
-                <div>Raj kumar 12.06.2022</div>
-                <div>
-                  <ApproveOrRejectBtn />
-                </div>
-              </div>
-            </td> */}
           </tr>
           <tr>
             <td className='px-4 py-2 border'>2</td>

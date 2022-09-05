@@ -7,17 +7,17 @@ const list = [
   {
     title: "DPR Info",
     icon: <Dpr />,
-    to: '/superviser/dpr'
+    to: '/supervisor/dpr'
   },
   {
     title: "Support",
     icon: <Support />,
-    to: '/superviser/support'
+    to: '/supervisor/support'
   },
   {
     title: "Settings",
     icon: <Setting />,
-    to: '/superviser/setting'
+    to: '/supervisor/setting'
   }
 ]
 

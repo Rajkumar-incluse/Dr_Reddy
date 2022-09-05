@@ -9,6 +9,82 @@ import Step5 from './Step5';
 
 function Passive({ isOpen, closeModal }) {
   const [step, setStep] = useState(0)
+  const [details, setDetails] = useState({
+    GeneralInstruction: {
+      InstructionId: "",
+      ProperCleaning: "",
+      Callibration: "",
+      CratesAvail: "",
+      TrolleyAvail: "",
+      EquipmentValidity: "",
+      Remarks: "",
+      CreatedBy: "",
+      CreatedOn: "",
+      ModifiedBy: "",
+      ModifiedOn: "",
+      Notes: "",
+    },
+    ProductPacking: {
+      ProductId: "",
+      InstructionId: "",
+      Date: "",
+      BoxNumFrom: "",
+      BoxNumTo: "",
+      ProductName: "",
+      BatchNum: "",
+      Quantity: "",
+      StartTime: "",
+      EndTime: "",
+      TOR: "",
+      DoneBy: "",
+      MaxTOR: "",
+      Remarks: "",
+      CreatedBy: "",
+      CreatedOn: "",
+      ModifiedBy: "",
+      PlacedInShipperNum: "",
+      Notes: "",
+    },
+    CrateShiftingActive: {
+      CrateId: "",
+      ProductId: "",
+      TruckChamberTemp: "",
+      ColdRoomTime: "",
+      ContainerTime: "",
+      TOR: "",
+      DataLoggerUsages: "",
+      DataLoggerNum: "",
+      CallibrationDueDate: "",
+      ShipmentTrackingMode: "",
+      CFAReaching: "",
+      Compliance: "",
+      CreatedBy: "",
+      CreatedOn: "",
+      ModifiedBy: "",
+      ModifiedOn: "",
+      Notes: "",
+    },
+    FinalSignIn: {
+      FinalSignInId: "",
+      PreparedBy: "",
+      ApproveBy: "",
+      CreatedBy: "",
+      CreatedOn: "",
+      ModifiedBy: "",
+      ModifiedOn: "",
+      Notes: "",
+    }
+  })
+
+  const onChange = (parentKey, currentKey, value) => {
+    setDetails(prev => ({
+      ...prev,
+      [parentKey]: {
+        ...prev[parentKey],
+        [currentKey]: value
+      }
+    }))
+  }
 
   return (
     <Modal
@@ -21,11 +97,11 @@ function Passive({ isOpen, closeModal }) {
       />
 
       {step === 0 && <Step0 />}
-      {step === 1 && <Step1 />}
+      {step === 1 && <Step1 details={details} onChange={onChange} />}
       {step === 2 && <Step2 />}
-      {step === 3 && <Step3 />}
-      {step === 4 && <Step4 />}
-      {step === 5 && <Step5 />}
+      {step === 3 && <Step3 details={details} onChange={onChange} />}
+      {step === 4 && <Step4 details={details} onChange={onChange} />}
+      {step === 5 && <Step5 details={details} onChange={onChange} />}
 
       <div className='df'>
         {

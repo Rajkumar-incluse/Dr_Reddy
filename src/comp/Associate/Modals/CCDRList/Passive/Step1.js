@@ -1,7 +1,6 @@
-// import ApproveOrRejectBtn from "../../../../Common/ApproveOrRejectBtn"
-import RadioBtns from "../../../../Common/RadioBtns"
+import RadioBtns from "../../../../Common/RadioBtns";
 
-function Step1() {
+function Step1({ details, onChange }) {
   return (
     <div className="max-w-4xl">
       <div className="df my-6">
@@ -79,16 +78,6 @@ function Step1() {
           </td>
         </tfoot>
       </table>
-
-      {/* <div className="df my-6">
-        <div>Checked By: </div>
-        <div>Raj kumar</div>
-        <div className="dc mr-auto">
-          <ApproveOrRejectBtn />
-        </div>
-        <div>Date:</div>
-        <div>12.06.2022</div>
-      </div> */}
     </div>
   )
 }

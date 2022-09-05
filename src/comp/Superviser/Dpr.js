@@ -1,17 +1,30 @@
 import { useState } from 'react';
+// import { useEffect, useState } from 'react';
+// import { useDispatch } from 'react-redux';
 import data from '../../dummy/manager/dpr';
+
+// import { getDprInfo } from '../../action-reducers/dpr/dprAction';
 
 import PassiveCCDRList from './Modals/CCDRList/Passive';
 import ActiveCCDRList from './Modals/CCDRList/Active';
 import DprList from './Modals/DprList';
+// import Loader from '../Common/Loader';
 import AddDpr from './Modals/AddDpr';
 
 function Dpr() {
+  // const [isLoading, setIsLoading] = useState(true)
   const [open, setOpen] = useState("")
+  // const dispatch = useDispatch()
+
+  // useEffect(() => {
+  //   dispatch(getDprInfo({}, () => setIsLoading(false)))
+  // }, [dispatch])
 
   const updateOpen = val => setOpen(val)
 
   const closeModal = () => setOpen('')
+
+  // if (isLoading) return <Loader wrapperCls='h-full' />
 
   return (
     <section className='dfc h-full overflow-y-hidden bg-[#f7f7f7]'>
@@ -74,15 +87,21 @@ function Dpr() {
         </table>
       </div>
 
-      <AddDpr
-        isOpen={open === 'addDpr'}
-        closeModal={closeModal}
-      />
+      {
+        open === 'addDpr' &&
+        <AddDpr
+          isOpen
+          closeModal={closeModal}
+        />
+      }
 
-      <DprList
-        isOpen={open === 'dprList'}
-        closeModal={closeModal}
-      />
+      {
+        open === 'dprList' &&
+        <DprList
+          isOpen
+          closeModal={closeModal}
+        />
+      }
 
       {
         open === 'Passive' &&

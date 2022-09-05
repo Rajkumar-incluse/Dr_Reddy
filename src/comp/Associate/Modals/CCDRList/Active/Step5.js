@@ -1,6 +1,6 @@
 import ApproveOrRejectBtn from "../../../../Common/ApproveOrRejectBtn"
 
-function Step5() {
+function Step5({ details, onChange }) {
   return (
     <div className="w-96 text-center">
       <h1 className="my-6 text-xl font-medium">Final Sign In</h1>

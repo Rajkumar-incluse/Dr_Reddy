@@ -1,6 +1,6 @@
 import box from '../../../../../assets/img/box.png';
 
-function Step5() {
+function Step5({ details, onChange }) {
   return (
     <div className='dfc gap-0 pb-6 max-w-[90vw] max-h-[70vh]'>
       <div className='df my-6'>
