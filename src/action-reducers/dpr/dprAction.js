@@ -50,15 +50,36 @@ export function getDprInfo({ dprNo, id }, onSuccess) {
       let url = endPoints.getDprInfo
       if (dprNo) {
         url = url + `?dprNo=${dprNo}`
-        if (id) {
-          url = url + `&id=${id}`
-        }
       }
+
+      if (id) {
+        let prefix = dprNo ? "&" : "?"
+        url = url + `${prefix}id=${id}`
+      }
+
       const res = await sendApiReq({ url })
 
-      console.log(res)
+      if (endPoints.getDprInfo === url) {
+        dispatch({
+          type: dprConstants.GET_DPR_LIST,
+          payload: res
+        })
+      }
 
-      // onSuccess()
+      if (id) {
+        let data1 = res[0]
+        let payload = {
+          ...data1,
+          packingList: JSON.parse(data1.packingList),
+          products: JSON.parse(data1.products),
+        }
+        dispatch({
+          type: dprConstants.UPDATE_DPR,
+          payload
+        })
+      }
+
+      onSuccess()
 
     } catch (error) {
       console.log(error)

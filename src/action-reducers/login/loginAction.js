@@ -16,10 +16,10 @@ export function parseJwt(token) {
   return JSON.parse(window.atob(base64))
 }
 
-export function login(data, onSuccess) {
+export function login(data, onSuccess, onError) {
   return async dispatch => {
     try {
-      const { token } = await sendApiReq({
+      const { token, firstName = '', lastName = '', role = '' } = await sendApiReq({
         isAuthendicated: false,
         method: 'post',
         url: endPoints.login,
@@ -27,7 +27,10 @@ export function login(data, onSuccess) {
       })
       setTokenToApp(token)
 
-      let payload = parseJwt(token)
+      let payload = {
+        firstName, lastName, role,
+        ...parseJwt(token)
+      }
 
       dispatch({
         type: loginConstants.LOGIN_SUCCESSFUL,
@@ -38,6 +41,7 @@ export function login(data, onSuccess) {
 
     } catch (error) {
       console.log(error)
+      onError()
     }
   }
 }

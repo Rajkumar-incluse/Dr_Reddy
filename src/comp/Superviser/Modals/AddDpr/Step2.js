@@ -167,7 +167,7 @@ function Step2({ dprInfo, closeModal }) {
           />
 
           <button
-            className="block mt-4 mx-auto bg-[#6e5bc5] text-white"
+            className="block mt-4 mx-auto bg-[#6e5bc5] text-white hover:opacity-90"
             onClick={onSubmit}
           >
             Add
@@ -193,7 +193,7 @@ function Step2({ dprInfo, closeModal }) {
             <tbody>
               {
                 data.map(d => (
-                  <tr key={d.key} className='even:bg-slate-200'>
+                  <tr key={d.id} className='even:bg-slate-200'>
                     <td className="px-4 py-1">{d.shipperNum} of {data[data.length - 1]?.shipperNum}</td>
                     <td className="px-4 py-1">{d.product}</td>
                     <td className="px-4 py-1 text-center">{d.batchNo}</td>

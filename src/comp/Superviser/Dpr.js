@@ -1,30 +1,31 @@
-import { useState } from 'react';
-// import { useEffect, useState } from 'react';
-// import { useDispatch } from 'react-redux';
-import data from '../../dummy/manager/dpr';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { format } from 'date-fns';
+import cn from 'classnames';
 
-// import { getDprInfo } from '../../action-reducers/dpr/dprAction';
+import { getDprInfo } from '../../action-reducers/dpr/dprAction';
 
 import PassiveCCDRList from './Modals/CCDRList/Passive';
 import ActiveCCDRList from './Modals/CCDRList/Active';
 import DprList from './Modals/DprList';
-// import Loader from '../Common/Loader';
+import Loader from '../Common/Loader';
 import AddDpr from './Modals/AddDpr';
 
 function Dpr() {
-  // const [isLoading, setIsLoading] = useState(true)
-  const [open, setOpen] = useState("")
-  // const dispatch = useDispatch()
+  const dprList = useSelector(({ dpr }) => dpr.list || [])
+  const [isLoading, setIsLoading] = useState(true)
+  const [open, setOpen] = useState({ type: "", id: "" })
+  const dispatch = useDispatch()
 
-  // useEffect(() => {
-  //   dispatch(getDprInfo({}, () => setIsLoading(false)))
-  // }, [dispatch])
+  useEffect(() => {
+    dispatch(getDprInfo({}, () => setIsLoading(false)))
+  }, [dispatch])
 
-  const updateOpen = val => setOpen(val)
+  const updateOpen = (type, id) => setOpen({ type, id })
 
-  const closeModal = () => setOpen('')
+  const closeModal = () => setOpen({ type: "", id: "" })
 
-  // if (isLoading) return <Loader wrapperCls='h-full' />
+  if (isLoading) return <Loader wrapperCls='h-full' />
 
   return (
     <section className='dfc h-full overflow-y-hidden bg-[#f7f7f7]'>
@@ -53,15 +54,15 @@ function Dpr() {
 
           <tbody>
             {
-              data.map((d, i) => (
+              dprList.map(d => (
                 <tr key={d.id} className='text-sm'>
-                  <td className='pl-12 pr-2 py-1'>{d.dprNum}</td>
-                  <td className='px-2 py-1'>{d.start}</td>
-                  <td className='px-2 py-1'>{d.mode}</td>
+                  <td className='pl-12 pr-2 py-1'>{d.dprNo}</td>
+                  <td className='px-2 py-1'>{format(new Date(d?.effectiveDate), "dd-MM-yyyy")}</td>
+                  <td className='px-2 py-1 first-letter:uppercase'>{d.transportMode}</td>
                   <td className='px-2 py-1'>
                     <button
                       className="w-16 h-6 p-0 text-sm text-center text-white bg-[#6e5bc5] hover:bg-[#8778c9] rounded-full"
-                      onClick={() => updateOpen('dprList')}
+                      onClick={() => updateOpen('dprList', d.id)}
                     >
                       View
                     </button>
@@ -69,15 +70,21 @@ function Dpr() {
                   <td className='px-2 py-1'>
                     <button
                       className="w-16 h-6 p-0 text-sm text-center text-white bg-[#6e5bc5] hover:bg-[#6455a3] rounded-full disabled:bg-[#8778c9]"
-                      disabled={d.status === "not-started"}
-                      onClick={() => updateOpen(d.mode)}
+                      disabled={d.ccdrStatus === "not-started"}
+                      onClick={() => updateOpen(d.transportMode)}
                     >
                       View
                     </button>
                   </td>
                   <td className='px-2 py-1'>
-                    <button className={`w-24 h-6 p-0 text-sm text-center rounded-full ${d.status === "completed" ? "bg-green-200 text-green-800" : ""} ${d.status === "not-started" ? " bg-slate-300 text-slate-800" : ""} ${d.status === "in-progress" ? "bg-yellow-200 text-yellow-900" : ""} ${d.status === "rejected" ? "bg-red-200 text-red-900" : ""}`}>
-                      {d.status}
+                    <button className={
+                      cn("w-24 h-6 p-0 text-sm text-center rounded-full", {
+                        "bg-slate-300 text-slate-800": d.ccdrStatus === "not-started",
+                        "bg-yellow-200 text-yellow-900": d.ccdrStatus === "in-progress",
+                        "bg-green-200 text-green-800": d.ccdrStatus === "completed" || d.ccdrStatus === "accepted",
+                        "bg-red-200 text-red-900": d.ccdrStatus === "rejected",
+                      })}>
+                      {d.ccdrStatus}
                     </button>
                   </td>
                 </tr>
@@ -88,7 +95,7 @@ function Dpr() {
       </div>
 
       {
-        open === 'addDpr' &&
+        open.type === 'addDpr' &&
         <AddDpr
           isOpen
           closeModal={closeModal}
@@ -96,15 +103,16 @@ function Dpr() {
       }
 
       {
-        open === 'dprList' &&
+        open.type === 'dprList' &&
         <DprList
           isOpen
+          id={open.id}
           closeModal={closeModal}
         />
       }
 
       {
-        open === 'Passive' &&
+        open.type === 'Passive' &&
         <PassiveCCDRList
           isOpen
           closeModal={closeModal}
@@ -112,7 +120,7 @@ function Dpr() {
       }
 
       {
-        open === 'Active' &&
+        open.type === 'Active' &&
         <ActiveCCDRList
           isOpen
           closeModal={closeModal}

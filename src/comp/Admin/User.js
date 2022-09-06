@@ -85,7 +85,7 @@ function User() {
                   <td className='px-2 py-1'>{u.firstName} {u.lastName}</td>
                   <td className='px-2 py-1'>{u.phoneNumber}</td>
                   <td className='px-2 py-1'>{u.email}</td>
-                  <td className='px-2 py-1'>{u.role}</td>
+                  <td className='px-2 py-1 first-letter:uppercase'>{u.role}</td>
                   <td className='px-2 py-1'>
                     <button className={`dc w-20 h-6 p-0 rounded-full ${u.status === 'active' ? ' bg-green-200 text-green-900' : ' bg-red-200 text-red-900'}`}>
                       {u.status === 'active' ? "Active" : "Inactive"}

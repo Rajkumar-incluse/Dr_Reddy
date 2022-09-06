@@ -44,7 +44,7 @@ function Login() {
 
   const onSubmit = () => {
     setIsLoading(true)
-    dispatch(login(details, onSuccess))
+    dispatch(login(details, onSuccess, () => setIsLoading(false)))
   }
 
   return (

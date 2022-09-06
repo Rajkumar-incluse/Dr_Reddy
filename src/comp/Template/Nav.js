@@ -28,8 +28,8 @@ function Nav() {
 
       <div className='df'>
         <div>
-          <p>Raj kumar</p>
-          <p className='text-sm'>Head of the department</p>
+          <p className='first-letter:uppercase'>{userDetails?.firstName} {userDetails?.lastName}</p>
+          <p className='text-sm first-letter:uppercase'>{userDetails?.role}</p>
         </div>
 
         <DropDownWrapper
