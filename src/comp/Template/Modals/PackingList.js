@@ -5,7 +5,7 @@ import Loader from '../../Common/Loader';
 
 import { getDprInfo } from '../../../action-reducers/dpr/dprAction';
 
-function DprList({ isOpen, id = '', closeModal }) {
+function PackingList({ isOpen, id = '', closeModal }) {
   const packingList = useSelector(({ dpr }) => dpr.list?.find(d => d.id === id)?.packingList || [])
   const [isLoading, setIsLoading] = useState(true)
 
@@ -29,7 +29,7 @@ function DprList({ isOpen, id = '', closeModal }) {
       <div className='max-h-80 overflow-y-auto'>
         {
           isLoading ?
-            <Loader wrapperCls='h-hull' />
+            <Loader wrapperCls='h-40' />
             :
             <table className='w-full'>
               <thead>
@@ -43,8 +43,8 @@ function DprList({ isOpen, id = '', closeModal }) {
 
               <tbody>
                 {
-                  packingList.map(d => (
-                    <tr key={d.sNo} className='even:bg-slate-200'>
+                  packingList.map((d, i) => (
+                    <tr key={i} className='even:bg-slate-200'>
                       <td className="px-4 py-1">{d.sNo}</td>
                       <td className="px-4 py-1">{d.product}</td>
                       <td className="px-4 py-1">{d.bNo}</td>
@@ -60,4 +60,4 @@ function DprList({ isOpen, id = '', closeModal }) {
   )
 }
 
-export default DprList
+export default PackingList

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Step3({ details, onChange }) {
+function Step3({ type, details, onChange }) {
   const [list] = useState(["Date", "BoxNumFrom", "BoxNumTo", "ProductName", "BatchNum", "Quantity", "StartTime", "EndTime", "TOR", "DoneBy"])
 
   return (
@@ -49,6 +49,7 @@ function Step3({ details, onChange }) {
                       type="text"
                       value={details.ProductPacking[li]}
                       onChange={e => onChange("ProductPacking", li, e.target.value)}
+                      disabled={type === "View"}
                     />
                   </td>
                 ))
@@ -78,6 +79,7 @@ function Step3({ details, onChange }) {
                       type="text"
                       value={details.ProductPacking.MaxTOR}
                       onChange={e => onChange("ProductPacking", "MaxTOR", e.target.value)}
+                      disabled={type === "View"}
                     />
                     Min.
                   </div>
@@ -87,6 +89,7 @@ function Step3({ details, onChange }) {
                       type="text"
                       value={details.ProductPacking.Remarks}
                       onChange={e => onChange("ProductPacking", "Remarks", e.target.value)}
+                      disabled={type === "View"}
                     />
                   </div>
                 </div>

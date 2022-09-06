@@ -1,6 +1,6 @@
 import RadioBtns from "../../../../Common/RadioBtns";
 
-function Step1({ details, onChange }) {
+function Step1({ type, details, onChange }) {
   return (
     <div className="max-w-4xl">
       <div className="df my-6">
@@ -26,6 +26,7 @@ function Step1({ details, onChange }) {
                 groupBy='cleaned-properly'
                 selected={details.GeneralInstruction.ProperCleaning}
                 onChange={l => onChange("GeneralInstruction", "ProperCleaning", l)}
+                disabled={type === "View"}
               />
             </td>
           </tr>
@@ -35,10 +36,11 @@ function Step1({ details, onChange }) {
             <td className="px-4 py-1 border">
               <input
                 type="text"
+                disabled={type === "View"}
                 placeholder="Temp"
                 className="py-1 my-1"
                 value={details.GeneralInstruction.Callibration}
-                onChange={e => onChange("GeneralInstruction", "ProperCleaning", e.target.value)}
+                onChange={e => onChange("GeneralInstruction", "Callibration", e.target.value)}
               />
             </td>
           </tr>
@@ -50,6 +52,7 @@ function Step1({ details, onChange }) {
                 groupBy='easy-handling'
                 selected={details.GeneralInstruction.CratesAvail}
                 onChange={l => onChange("GeneralInstruction", "CratesAvail", l)}
+                disabled={type === "View"}
               />
             </td>
           </tr>
@@ -61,6 +64,7 @@ function Step1({ details, onChange }) {
                 groupBy='packing-operation'
                 selected={details.GeneralInstruction.TrolleyAvail}
                 onChange={l => onChange("GeneralInstruction", "TrolleyAvail", l)}
+                disabled={type === "View"}
               />
             </td>
           </tr>
@@ -72,23 +76,27 @@ function Step1({ details, onChange }) {
                 groupBy='validity-period'
                 selected={details.GeneralInstruction.EquipmentValidity}
                 onChange={l => onChange("GeneralInstruction", "EquipmentValidity", l)}
+                disabled={type === "View"}
               />
             </td>
           </tr>
         </tbody>
 
         <tfoot>
-          <td colSpan='3' className="px-4 py-1 border">
-            <div className="df">
-              <p className="shrink-0">Remarks (if any) :</p>
-              <input
-                className="w-full my-2"
-                type="text"
-                value={details.GeneralInstruction.Remarks}
-                onChange={e => onChange("GeneralInstruction", "Remarks", e.target.value)}
-              />
-            </div>
-          </td>
+          <tr>
+            <td colSpan='3' className="px-4 py-1 border">
+              <div className="df">
+                <p className="shrink-0">Remarks (if any) :</p>
+                <input
+                  className="w-full my-2"
+                  type="text"
+                  value={details.GeneralInstruction.Remarks}
+                  onChange={e => onChange("GeneralInstruction", "Remarks", e.target.value)}
+                  disabled={type === "View"}
+                />
+              </div>
+            </td>
+          </tr>
         </tfoot>
       </table>
     </div>

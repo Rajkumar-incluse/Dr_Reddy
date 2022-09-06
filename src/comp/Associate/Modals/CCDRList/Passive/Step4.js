@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function Step4({ details, onChange }) {
+function Step4({ type, details, onChange }) {
   const [list] = useState(["Date", "BoxNumFrom", "BoxNumTo", "ProductName", "BatchNum", "PackedQuant", "PackingStartTime", "PackingEndTime", "TOR", "DoneBy"])
 
   return (
@@ -47,6 +47,7 @@ function Step4({ details, onChange }) {
                   >
                     <input
                       type="text"
+                      disabled={type === "View"}
                       value={details.InnerBoxPacking[li]}
                       onChange={e => onChange("InnerBoxPacking", li, e.target.value)}
                     />
@@ -76,6 +77,7 @@ function Step4({ details, onChange }) {
                     <input
                       className='w-12 p-0 border-0 border-b rounded-none'
                       type="text"
+                      disabled={type === "View"}
                       value={details.InnerBoxPacking.MaxTOR}
                       onChange={e => onChange("InnerBoxPacking", "MaxTOR", e.target.value)}
                     />
@@ -85,6 +87,7 @@ function Step4({ details, onChange }) {
                     <strong className='shrink-0 font-medium'>Remarks (if any):</strong>
                     <input
                       type="text"
+                      disabled={type === "View"}
                       value={details.InnerBoxPacking.Remarks}
                       onChange={e => onChange("InnerBoxPacking", "Remarks", e.target.value)}
                     />

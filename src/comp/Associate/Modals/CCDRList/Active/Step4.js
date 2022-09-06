@@ -1,7 +1,7 @@
 import { useState } from "react";
 import RadioBtns from "../../../../Common/RadioBtns";
 
-function Step4({ details, onChange }) {
+function Step4({ type, details, onChange }) {
   const [list] = useState(['Compliance', 'Not compliance'])
 
   return (
@@ -23,46 +23,52 @@ function Step4({ details, onChange }) {
         </div>
 
         <table className='w-full table-fixed my-6'>
-          <tr>
-            <td className="px-4 py-1 border">Reefer truck chamber temperature</td>
-            <td className="px-4 py-1 border">
-              <input
-                type="text"
-                value={details.CrateShiftingActive.TruckChamberTemp}
-                onChange={e => onChange("CrateShiftingActive", "TruckChamberTemp", e.target.value)}
-              />
-            </td>
-          </tr>
-          <tr>
-            <td className="px-4 py-1 border">Time at which packed crates are taken out of cold room (X):</td>
-            <td className="px-4 py-1 border">
-              <input
-                type="text"
-                value={details.CrateShiftingActive.ColdRoomTime}
-                onChange={e => onChange("CrateShiftingActive", "ColdRoomTime", e.target.value)}
-              />
-            </td>
-          </tr>
-          <tr>
-            <td className="px-4 py-1 border">Time at which packed crates are shifted into reefer container (Y):</td>
-            <td className="px-4 py-1 border">
-              <input
-                type="text"
-                value={details.CrateShiftingActive.ContainerTime}
-                onChange={e => onChange("CrateShiftingActive", "ContainerTime", e.target.value)}
-              />
-            </td>
-          </tr>
-          <tr>
-            <td className="px-4 py-1 border">Time out of refrigeration: (Z=Y-X) (Allowable time out of refrigeration (TOR): 12 min.)</td>
-            <td className="px-4 py-1 border">
-              <input
-                type="text"
-                value={details.CrateShiftingActive.TOR}
-                onChange={e => onChange("CrateShiftingActive", "TOR", e.target.value)}
-              />
-            </td>
-          </tr>
+          <tbody>
+            <tr>
+              <td className="px-4 py-1 border">Reefer truck chamber temperature</td>
+              <td className="px-4 py-1 border">
+                <input
+                  type="text"
+                  value={details.CrateShiftingActive.TruckChamberTemp}
+                  onChange={e => onChange("CrateShiftingActive", "TruckChamberTemp", e.target.value)}
+                  disabled={type === "View"}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td className="px-4 py-1 border">Time at which packed crates are taken out of cold room (X):</td>
+              <td className="px-4 py-1 border">
+                <input
+                  type="text"
+                  value={details.CrateShiftingActive.ColdRoomTime}
+                  onChange={e => onChange("CrateShiftingActive", "ColdRoomTime", e.target.value)}
+                  disabled={type === "View"}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td className="px-4 py-1 border">Time at which packed crates are shifted into reefer container (Y):</td>
+              <td className="px-4 py-1 border">
+                <input
+                  type="text"
+                  value={details.CrateShiftingActive.ContainerTime}
+                  onChange={e => onChange("CrateShiftingActive", "ContainerTime", e.target.value)}
+                  disabled={type === "View"}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td className="px-4 py-1 border">Time out of refrigeration: (Z=Y-X) (Allowable time out of refrigeration (TOR): 12 min.)</td>
+              <td className="px-4 py-1 border">
+                <input
+                  type="text"
+                  value={details.CrateShiftingActive.TOR}
+                  onChange={e => onChange("CrateShiftingActive", "TOR", e.target.value)}
+                  disabled={type === "View"}
+                />
+              </td>
+            </tr>
+          </tbody>
         </table>
 
         <table className="w-full my-6 text-center">
@@ -81,6 +87,7 @@ function Step4({ details, onChange }) {
                   type="text"
                   value={details.CrateShiftingActive.DataLoggerUsages}
                   onChange={e => onChange("CrateShiftingActive", "DataLoggerUsages", e.target.value)}
+                  disabled={type === "View"}
                 />
               </td>
               <td className="px-4 py-1 border">
@@ -88,6 +95,7 @@ function Step4({ details, onChange }) {
                   type="text"
                   value={details.CrateShiftingActive.DataLoggerNum}
                   onChange={e => onChange("CrateShiftingActive", "DataLoggerNum", e.target.value)}
+                  disabled={type === "View"}
                 />
               </td>
               <td className="px-4 py-1 border">
@@ -95,6 +103,7 @@ function Step4({ details, onChange }) {
                   type="text"
                   value={details.CrateShiftingActive.CallibrationDueDate}
                   onChange={e => onChange("CrateShiftingActive", "CallibrationDueDate", e.target.value)}
+                  disabled={type === "View"}
                 />
               </td>
             </tr>
@@ -119,6 +128,7 @@ function Step4({ details, onChange }) {
                   type="text"
                   value={details.CrateShiftingActive.ShipmentTrackingMode}
                   onChange={e => onChange("CrateShiftingActive", "ShipmentTrackingMode", e.target.value)}
+                  disabled={type === "View"}
                 />
               </td>
               <td className="px-4 py-1 border">
@@ -126,6 +136,7 @@ function Step4({ details, onChange }) {
                   type="text"
                   value={details.CrateShiftingActive.CFAReaching}
                   onChange={e => onChange("CrateShiftingActive", "CFAReaching", e.target.value)}
+                  disabled={type === "View"}
                 />
               </td>
               <td className="px-4 py-1 border text-left">
@@ -134,6 +145,7 @@ function Step4({ details, onChange }) {
                   groupBy='compliance'
                   selected={details.CrateShiftingActive.Compliance}
                   onChange={l => onChange("CrateShiftingActive", "Compliance", l)}
+                  disabled={type === "View"}
                 />
               </td>
             </tr>

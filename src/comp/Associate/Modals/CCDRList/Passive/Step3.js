@@ -1,4 +1,4 @@
-function Step3({ details, onChange }) {
+function Step3({ type, details, onChange }) {
   return (
     <div className='dfc gap-0 pb-6 max-w-[90vw] max-h-[70vh]'>
       <h1 className="my-6 text-xl font-bold">3. Packaging Operation :</h1>
@@ -35,6 +35,7 @@ function Step3({ details, onChange }) {
               <td className='px-4 py-1 border' rowSpan='2'>
                 <input
                   type="text"
+                  disabled={type === "View"}
                   value={details.PackingOperation?.PolyBox28L}
                   onChange={e => onChange("PackingOperation", "PolyBox28L", e.target.value)}
                 />
@@ -43,6 +44,7 @@ function Step3({ details, onChange }) {
               <td className='px-4 py-1 border' rowSpan='2'>
                 <input
                   type="text"
+                  disabled={type === "View"}
                   value={details.PackingOperation?.GelPackFrozen}
                   onChange={e => onChange("PackingOperation", "GelPackFrozen", e.target.value)}
                 />
@@ -51,6 +53,7 @@ function Step3({ details, onChange }) {
               <td className='px-4 py-1 border'>
                 <input
                   type="text"
+                  disabled={type === "View"}
                   value={details.PackingOperation?.GelPackCold}
                   onChange={e => onChange("PackingOperation", "GelPackCold", e.target.value)}
                 />
@@ -62,6 +65,7 @@ function Step3({ details, onChange }) {
               <td className='px-4 py-1 border'>
                 <input
                   type="text"
+                  disabled={type === "View"}
                   value={details.PackingOperation?.TruckChamberTemp}
                   onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
                 />
@@ -80,6 +84,7 @@ function Step3({ details, onChange }) {
               <td className='px-4 py-1 border' colSpan='2'>
                 <input
                   type="text"
+                  disabled={type === "View"}
                   value={details.PackingOperation?.TruckChamberTemp}
                   onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
                 />
@@ -87,6 +92,7 @@ function Step3({ details, onChange }) {
               <td className='px-4 py-1 border'>
                 <input
                   type="text"
+                  disabled={type === "View"}
                   value={details.PackingOperation?.TruckChamberTemp}
                   onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
                 />
@@ -94,6 +100,7 @@ function Step3({ details, onChange }) {
               <td className='px-4 py-1 border' rowSpan='2'>
                 <input
                   type="text"
+                  disabled={type === "View"}
                   value={details.PackingOperation?.TruckChamberTemp}
                   onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
                 />
@@ -105,6 +112,7 @@ function Step3({ details, onChange }) {
               <td className='px-4 py-1 border' colSpan='2'>
                 <input
                   type="text"
+                  disabled={type === "View"}
                   value={details.PackingOperation?.TruckChamberTemp}
                   onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
                 />
@@ -112,6 +120,7 @@ function Step3({ details, onChange }) {
               <td className='px-4 py-1 border' rowSpan='2'>
                 <input
                   type="text"
+                  disabled={type === "View"}
                   value={details.PackingOperation?.TruckChamberTemp}
                   onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
                 />
@@ -145,6 +154,7 @@ function Step3({ details, onChange }) {
               <td className='px-4 py-1 border'>
                 <input
                   type="text"
+                  disabled={type === "View"}
                   value={details.PackingOperation?.TruckChamberTemp}
                   onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
                 />
@@ -152,6 +162,7 @@ function Step3({ details, onChange }) {
               <td className='px-4 py-1 border'>
                 <input
                   type="text"
+                  disabled={type === "View"}
                   value={details.PackingOperation?.TruckChamberTemp}
                   onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
                 />
@@ -159,6 +170,7 @@ function Step3({ details, onChange }) {
               <td className='px-4 py-1 border'>
                 <input
                   type="text"
+                  disabled={type === "View"}
                   value={details.PackingOperation?.TruckChamberTemp}
                   onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
                 />
@@ -166,6 +178,7 @@ function Step3({ details, onChange }) {
               <td className='px-4 py-1 border'>
                 <input
                   type="text"
+                  disabled={type === "View"}
                   value={details.PackingOperation?.TruckChamberTemp}
                   onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
                 />
@@ -173,6 +186,7 @@ function Step3({ details, onChange }) {
               <td className='px-4 py-1 border'>
                 <input
                   type="text"
+                  disabled={type === "View"}
                   value={details.PackingOperation?.TruckChamberTemp}
                   onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
                 />
@@ -180,6 +194,7 @@ function Step3({ details, onChange }) {
               <td className='px-4 py-1 border'>
                 <input
                   type="text"
+                  disabled={type === "View"}
                   value={details.PackingOperation?.TruckChamberTemp}
                   onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
                 />
@@ -187,6 +202,7 @@ function Step3({ details, onChange }) {
               <td className='px-4 py-1 border'>
                 <input
                   type="text"
+                  disabled={type === "View"}
                   value={details.PackingOperation?.TruckChamberTemp}
                   onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
                 />

@@ -1,5 +1,6 @@
+import { format } from 'date-fns';
 
-function Step0() {
+function Step0({ dprInfo }) {
   return (
     <div className="max-w-4xl">
       <h1 className="my-6 text-2xl text-center font-bold">Cold Chain PRODUCT DISPATCH RECORD</h1>
@@ -8,49 +9,49 @@ function Step0() {
         <p>
           <strong className="inline-block w-28 font-medium">Document No</strong>
           <strong className=" inline-block w-4">:</strong>
-          CCDR/PB2822
+          {dprInfo?.documentNo}
         </p>
 
         <p>
           <strong className="inline-block w-28 font-medium">Version</strong>
           <strong className=" inline-block w-4">:</strong>
-          1,0,CURRENT
+          {dprInfo?.version},CURRENT
         </p>
 
         <p>
           <strong className="inline-block w-28 font-medium">Reference SOP No.</strong>
           <strong className=" inline-block w-4">:</strong>
-          SOP-CFTO-DC-0042
+          {dprInfo?.referenceSOPNo}
         </p>
 
         <p>
           <strong className="inline-block w-28 font-medium">Legacy Document No.</strong>
           <strong className=" inline-block w-4">:</strong>
-          FTGDC050/A10
+          {dprInfo?.legacyDocNo}
         </p>
 
         <p>
           <strong className="inline-block w-28 font-medium">Department</strong>
           <strong className=" inline-block w-4">:</strong>
-          Global Distribution Center
+          {dprInfo?.department}
         </p>
 
         <p>
           <strong className="inline-block w-28 font-medium">Effective Date</strong>
           <strong className=" inline-block w-4">:</strong>
-          18 JAN 2022
+          {format(new Date(dprInfo?.createdOn), "dd-MM-yyyy")}
         </p>
 
         <p>
           <strong className="inline-block w-28 font-medium">Pick list No</strong>
           <strong className=" inline-block w-4">:</strong>
-          87654321
+          {dprInfo?.pickingListNo}
         </p>
 
         <p>
           <strong className="inline-block w-28 font-medium">Destination</strong>
           <strong className=" inline-block w-4">:</strong>
-          Delhi
+          {dprInfo?.to}
         </p>
       </div>
     </div>

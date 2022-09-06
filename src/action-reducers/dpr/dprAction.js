@@ -73,6 +73,7 @@ export function getDprInfo({ dprNo, id }, onSuccess) {
           packingList: JSON.parse(data1.packingList),
           products: JSON.parse(data1.products),
         }
+
         dispatch({
           type: dprConstants.UPDATE_DPR,
           payload
@@ -80,6 +81,81 @@ export function getDprInfo({ dprNo, id }, onSuccess) {
       }
 
       onSuccess()
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export function getCCDRInfo({ dprNo, dprId }, onSuccess) {
+  return async dispatch => {
+    try {
+      let url = endPoints.getCCDRInfo
+      if (dprNo) {
+        url = url + `?dprNo=${dprNo}`
+      }
+
+      if (dprId) {
+        let prefix = dprNo ? "&" : "?"
+        url = url + `${prefix}dprId=${dprId}`
+      }
+
+      const res = await sendApiReq({ url })
+      onSuccess(res[0])
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export function createCCDR(data, onSuccess) {
+  return async dispatch => {
+    try {
+      const res = await sendApiReq({
+        method: 'post',
+        url: endPoints.createCCDR,
+        data,
+      })
+
+      console.log(res)
+
+      // let payload = {
+      //   ...res,
+      //   packingList: JSON.parse(res.packingList),
+      //   products: JSON.parse(res.products),
+      // }
+      // console.log(payload)
+
+      // dispatch({
+      //   type: dprConstants.ADD_DPR,
+      //   payload
+      // })
+      // onSuccess()
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export function updateCCDRStatus(data, onSuccess) {
+  return async dispatch => {
+    try {
+      const res = await sendApiReq({
+        method: 'put',
+        url: endPoints.updateCCDRStatus,
+        data
+      })
+
+      console.log(res)
+
+      // dispatch({
+      //   type: dprConstants.ADD_DPR,
+      //   payload
+      // })
+      // onSuccess()
 
     } catch (error) {
       console.log(error)

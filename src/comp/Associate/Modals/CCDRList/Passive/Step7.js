@@ -1,4 +1,4 @@
-function Step7({ details, onChange }) {
+function Step7({ type, details, onChange }) {
   return (
     <div>
       <h1 className="my-6 text-xl font-bold">7. Shipment Tracking: </h1>
@@ -16,6 +16,7 @@ function Step7({ details, onChange }) {
             <td className='px-4 py-1 border'>
               <input
                 type="text"
+                disabled={type === "View"}
                 value={details.ShipmentTracking.TrackingMode}
                 onChange={e => onChange("ShipmentTracking", "TrackingMode", e.target.value)}
               />
@@ -23,6 +24,7 @@ function Step7({ details, onChange }) {
             <td className='px-4 py-1 border'>
               <input
                 type="text"
+                disabled={type === "View"}
                 value={details.ShipmentTracking.ReachingTime}
                 onChange={e => onChange("ShipmentTracking", "ReachingTime", e.target.value)}
               />
@@ -31,6 +33,7 @@ function Step7({ details, onChange }) {
             <td className='px-4 py-1 border'>
               <input
                 type="text"
+                disabled={type === "View"}
                 value={details.ShipmentTracking.TransitHours}
                 onChange={e => onChange("ShipmentTracking", "TransitHours", e.target.value)}
               />

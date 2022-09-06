@@ -1,6 +1,6 @@
 import RadioBtns from "../../../../Common/RadioBtns";
 
-function Step1({ details, onChange }) {
+function Step1({ type, details, onChange }) {
   return (
     <div className="max-w-4xl">
       <div className="df my-6">
@@ -24,6 +24,7 @@ function Step1({ details, onChange }) {
                 groupBy='cleaned-properly'
                 selected={details.GeneralInstruction.ProperCleaning}
                 onChange={l => onChange("GeneralInstruction", "ProperCleaning", l)}
+                disabled={type === "View"}
               />
             </td>
           </tr>
@@ -34,6 +35,7 @@ function Step1({ details, onChange }) {
                 type="text"
                 placeholder="Temp"
                 className="py-1 my-1"
+                disabled={type === "View"}
                 value={details.GeneralInstruction.Callibration}
                 onChange={e => onChange("GeneralInstruction", "Callibration", e.target.value)}
               />
@@ -46,6 +48,7 @@ function Step1({ details, onChange }) {
                 groupBy='conditioning'
                 selected={details.GeneralInstruction.GelPackPacking}
                 onChange={l => onChange("GeneralInstruction", "GelPackPacking", l)}
+                disabled={type === "View"}
               />
             </td>
           </tr>
@@ -56,6 +59,7 @@ function Step1({ details, onChange }) {
                 groupBy='packing-operation'
                 selected={details.GeneralInstruction.PackingOperation}
                 onChange={l => onChange("GeneralInstruction", "PackingOperation", l)}
+                disabled={type === "View"}
               />
             </td>
           </tr>
@@ -66,6 +70,7 @@ function Step1({ details, onChange }) {
                 groupBy='validity-period'
                 selected={details.GeneralInstruction.EquipmentValidity}
                 onChange={l => onChange("GeneralInstruction", "EquipmentValidity", l)}
+                disabled={type === "View"}
               />
             </td>
           </tr>
@@ -76,6 +81,7 @@ function Step1({ details, onChange }) {
                 groupBy='attach'
                 selected={details.GeneralInstruction.PicklistAndBoxesCount}
                 onChange={l => onChange("GeneralInstruction", "PicklistAndBoxesCount", l)}
+                disabled={type === "View"}
               />
             </td>
           </tr>
@@ -89,6 +95,7 @@ function Step1({ details, onChange }) {
                 <input
                   className="w-full my-2"
                   type="text"
+                  disabled={type === "View"}
                   value={details.GeneralInstruction.Remarks}
                   onChange={e => onChange("GeneralInstruction", "Remarks", e.target.value)}
                 />

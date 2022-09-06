@@ -10,7 +10,10 @@ const endPoints = {
   getUserList: '/participantapi/Users',
   checkDpr: '/dpr/search?dprno=',
   createDpr: '/dpr',
-  getDprInfo: '/dpr' // ?dprNo= &id=
+  getDprInfo: '/dpr', // ?dprNo= &id=
+  createCCDR: '/ccdr',
+  getCCDRInfo: '/ccdr', // ?dprNo=&dprId=
+  updateCCDRStatus: "/ccdr/status"
 }
 
 export default endPoints

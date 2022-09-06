@@ -7,7 +7,7 @@ import { getDprInfo } from '../../action-reducers/dpr/dprAction';
 
 import PassiveCCDRList from './Modals/CCDRList/Passive';
 import ActiveCCDRList from './Modals/CCDRList/Active';
-import DprList from './Modals/DprList';
+import PackingList from '../Template/Modals/PackingList';
 import Loader from '../Common/Loader';
 import AddDpr from './Modals/AddDpr';
 
@@ -57,12 +57,12 @@ function Dpr() {
               dprList.map(d => (
                 <tr key={d.id} className='text-sm'>
                   <td className='pl-12 pr-2 py-1'>{d.dprNo}</td>
-                  <td className='px-2 py-1'>{format(new Date(d?.effectiveDate), "dd-MM-yyyy")}</td>
+                  <td className='px-2 py-1'>{format(new Date(d?.effectiveDate), "dd-MM-yyyy hh:mm aa")}</td>
                   <td className='px-2 py-1 first-letter:uppercase'>{d.transportMode}</td>
                   <td className='px-2 py-1'>
                     <button
                       className="w-16 h-6 p-0 text-sm text-center text-white bg-[#6e5bc5] hover:bg-[#8778c9] rounded-full"
-                      onClick={() => updateOpen('dprList', d.id)}
+                      onClick={() => updateOpen('packingList', d.id)}
                     >
                       View
                     </button>
@@ -77,13 +77,16 @@ function Dpr() {
                     </button>
                   </td>
                   <td className='px-2 py-1'>
-                    <button className={
-                      cn("w-24 h-6 p-0 text-sm text-center rounded-full", {
-                        "bg-slate-300 text-slate-800": d.ccdrStatus === "not-started",
-                        "bg-yellow-200 text-yellow-900": d.ccdrStatus === "in-progress",
-                        "bg-green-200 text-green-800": d.ccdrStatus === "completed" || d.ccdrStatus === "accepted",
-                        "bg-red-200 text-red-900": d.ccdrStatus === "rejected",
-                      })}>
+                    <button
+                      className={
+                        cn("w-24 h-6 p-0 text-sm text-center rounded-full", {
+                          "bg-slate-300 text-slate-800": d.ccdrStatus === "not-started",
+                          "bg-yellow-200 text-yellow-900": d.ccdrStatus === "in-progress",
+                          "bg-green-200 text-green-800": d.ccdrStatus === "completed" || d.ccdrStatus === "accepted",
+                          "bg-red-200 text-red-900": d.ccdrStatus === "rejected",
+                        })
+                      }
+                    >
                       {d.ccdrStatus}
                     </button>
                   </td>
@@ -103,8 +106,8 @@ function Dpr() {
       }
 
       {
-        open.type === 'dprList' &&
-        <DprList
+        open.type === 'packingList' &&
+        <PackingList
           isOpen
           id={open.id}
           closeModal={closeModal}

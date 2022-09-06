@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function Step6({ details, onChange }) {
+function Step6({ type, details, onChange }) {
   const [list] = useState(["BoxNumFrom", "BoxNumTo", "StartTime", "EndTIme", "TOR"])
 
   return (
@@ -57,6 +57,7 @@ function Step6({ details, onChange }) {
                   >
                     <input
                       type="text"
+                      disabled={type === "View"}
                       value={details.OuterBoxPacking[li]}
                       onChange={e => onChange("OuterBoxPacking", li, e.target.value)}
                     />
@@ -70,6 +71,7 @@ function Step6({ details, onChange }) {
                   type="radio"
                   value="yes"
                   id='out-LabelPasted-yes'
+                  disabled={type === "View"}
                   checked={details.OuterBoxPacking.LabelPasted === "yes"}
                   onChange={e => onChange("OuterBoxPacking", "LabelPasted", e.target.value)}
                 />
@@ -81,6 +83,7 @@ function Step6({ details, onChange }) {
                   type="radio"
                   value="no"
                   id='out-LabelPasted-no'
+                  disabled={type === "View"}
                   checked={details.OuterBoxPacking.LabelPasted === "no"}
                   onChange={e => onChange("OuterBoxPacking", "LabelPasted", e.target.value)}
                 />
@@ -92,6 +95,7 @@ function Step6({ details, onChange }) {
                   type="radio"
                   value="yes"
                   id='out-StrappedBox-yes'
+                  disabled={type === "View"}
                   checked={details.OuterBoxPacking.StrappedBox === "yes"}
                   onChange={e => onChange("OuterBoxPacking", "StrappedBox", e.target.value)}
                 />
@@ -103,6 +107,7 @@ function Step6({ details, onChange }) {
                   type="radio"
                   value="no"
                   id='out-StrappedBox-no'
+                  disabled={type === "View"}
                   checked={details.OuterBoxPacking.StrappedBox === "no"}
                   onChange={e => onChange("OuterBoxPacking", "StrappedBox", e.target.value)}
                 />
@@ -131,6 +136,7 @@ function Step6({ details, onChange }) {
                     <input
                       className='w-12 p-0 border-0 border-b rounded-none'
                       type="text"
+                      disabled={type === "View"}
                       value={details.OuterBoxPacking.MaxTOR}
                       onChange={e => onChange("OuterBoxPacking", "MaxTOR", e.target.value)}
                     />
@@ -140,6 +146,7 @@ function Step6({ details, onChange }) {
                     <strong className='shrink-0 font-medium'>Remarks (if any):</strong>
                     <input
                       type="text"
+                      disabled={type === "View"}
                       value={details.OuterBoxPacking.Remarks}
                       onChange={e => onChange("OuterBoxPacking", "Remarks", e.target.value)}
                     />
