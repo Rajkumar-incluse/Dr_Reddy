@@ -1,4 +1,8 @@
+import { useState } from 'react';
+
 function Step6({ details, onChange }) {
+  const [list] = useState(["BoxNumFrom", "BoxNumTo", "StartTime", "EndTIme", "TOR"])
+
   return (
     <div className='dfc gap-0 pb-6 max-w-[90vw] max-h-[70vh]'>
       <h1 className="my-6 text-xl font-bold">6. Outer Box Packing Details: </h1>
@@ -16,7 +20,11 @@ function Step6({ details, onChange }) {
 
         <div className="df my-4">
           <p>Date</p>
-          <input type="text" />
+          <input
+            type="text"
+            value={details.OuterBoxPacking.Date}
+            onChange={e => onChange("OuterBoxPacking", "Date", e.target.value)}
+          />
         </div>
 
         <table className='w-full my-6'>
@@ -28,37 +36,53 @@ function Step6({ details, onChange }) {
               <td className='px-4 py-1 border' rowSpan='2'>Time out of Refrigeration (C=B-A)</td>
               <td className='px-4 py-1 border' colSpan='2'>label pasted</td>
               <td className='px-4 py-1 border' colSpan='2'>Carry Strapping of packed boxes.</td>
-              {/* <td className='px-4 py-1 border' rowSpan='2'>Done by</td> */}
             </tr>
             <tr>
               <td className='px-4 py-1 border'>From</td>
               <td className='px-4 py-1 border'>To</td>
-              <td className='px-4 py-1 border'>Yes</td>
-              <td className='px-4 py-1 border'>No</td>
-              <td className='px-4 py-1 border'>Yes</td>
-              <td className='px-4 py-1 border'>No</td>
+              <td className='px-4 py-1 border'><label htmlFor="out-LabelPasted-yes">Yes</label></td>
+              <td className='px-4 py-1 border'><label htmlFor="out-LabelPasted-no">No</label></td>
+              <td className='px-4 py-1 border'><label htmlFor="out-StrappedBox-yes">Yes</label></td>
+              <td className='px-4 py-1 border'><label htmlFor="out-StrappedBox-no">No</label></td>
             </tr>
           </thead>
 
           <tbody>
             <tr>
-              <td className='px-4 py-1 border'><input type="text" /></td>
-              <td className='px-4 py-1 border'><input type="text" /></td>
-              <td className='px-4 py-1 border'><input type="text" /></td>
-              <td className='px-4 py-1 border'><input type="text" /></td>
-              <td className='px-4 py-1 border'><input type="text" /></td>
+              {
+                list.map(li => (
+                  <td
+                    key={li}
+                    className='px-4 py-1 border'
+                  >
+                    <input
+                      type="text"
+                      value={details.OuterBoxPacking[li]}
+                      onChange={e => onChange("OuterBoxPacking", li, e.target.value)}
+                    />
+                  </td>
+                ))
+              }
               <td className='px-4 py-1 border'>
                 <input
                   className="cursor-pointer"
-                  name="label-passed"
+                  name="LabelPasted"
                   type="radio"
+                  value="yes"
+                  id='out-LabelPasted-yes'
+                  checked={details.OuterBoxPacking.LabelPasted === "yes"}
+                  onChange={e => onChange("OuterBoxPacking", "LabelPasted", e.target.value)}
                 />
               </td>
               <td className='px-4 py-1 border'>
                 <input
                   className="cursor-pointer"
-                  name="label-passed"
+                  name="LabelPasted"
                   type="radio"
+                  value="no"
+                  id='out-LabelPasted-no'
+                  checked={details.OuterBoxPacking.LabelPasted === "no"}
+                  onChange={e => onChange("OuterBoxPacking", "LabelPasted", e.target.value)}
                 />
               </td>
               <td className='px-4 py-1 border'>
@@ -66,6 +90,10 @@ function Step6({ details, onChange }) {
                   className="cursor-pointer"
                   name="packed-boxes"
                   type="radio"
+                  value="yes"
+                  id='out-StrappedBox-yes'
+                  checked={details.OuterBoxPacking.StrappedBox === "yes"}
+                  onChange={e => onChange("OuterBoxPacking", "StrappedBox", e.target.value)}
                 />
               </td>
               <td className='px-4 py-1 border'>
@@ -73,6 +101,10 @@ function Step6({ details, onChange }) {
                   className="cursor-pointer"
                   name="packed-boxes"
                   type="radio"
+                  value="no"
+                  id='out-StrappedBox-no'
+                  checked={details.OuterBoxPacking.StrappedBox === "no"}
+                  onChange={e => onChange("OuterBoxPacking", "StrappedBox", e.target.value)}
                 />
               </td>
             </tr>
@@ -96,12 +128,21 @@ function Step6({ details, onChange }) {
                   </div>
                   <div className="df my-2">
                     <strong className="font-medium">Maximum Time out of Refrigeration (TOR): </strong>
-                    <input className='w-12 p-0 border-0 border-b rounded-none' type="text" />
+                    <input
+                      className='w-12 p-0 border-0 border-b rounded-none'
+                      type="text"
+                      value={details.OuterBoxPacking.MaxTOR}
+                      onChange={e => onChange("OuterBoxPacking", "MaxTOR", e.target.value)}
+                    />
                     Min
                   </div>
                   <div className='df my-2'>
                     <strong className='shrink-0 font-medium'>Remarks (if any):</strong>
-                    <input type="text" />
+                    <input
+                      type="text"
+                      value={details.OuterBoxPacking.Remarks}
+                      onChange={e => onChange("OuterBoxPacking", "Remarks", e.target.value)}
+                    />
                   </div>
                 </div>
               </td>

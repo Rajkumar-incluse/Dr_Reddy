@@ -1,4 +1,8 @@
+import { useState } from 'react';
+
 function Step4({ details, onChange }) {
+  const [list] = useState(["Date", "BoxNumFrom", "BoxNumTo", "ProductName", "BatchNum", "PackedQuant", "PackingStartTime", "PackingEndTime", "TOR", "DoneBy"])
+
   return (
     <div className='dfc gap-0 pb-6 max-w-[90vw] max-h-[70vh]'>
       <h1 className="my-6 text-xl font-bold">4. Cold Chain Inner Box Packing</h1>
@@ -35,16 +39,20 @@ function Step4({ details, onChange }) {
 
           <tbody>
             <tr>
-              <td className='px-4 py-1 border'><input type="text" /></td>
-              <td className='px-4 py-1 border'><input type="text" /></td>
-              <td className='px-4 py-1 border'><input type="text" /></td>
-              <td className='px-4 py-1 border'><input type="text" /></td>
-              <td className='px-4 py-1 border'><input type="text" /></td>
-              <td className='px-4 py-1 border'><input type="text" /></td>
-              <td className='px-4 py-1 border'><input type="text" /></td>
-              <td className='px-4 py-1 border'><input type="text" /></td>
-              <td className='px-4 py-1 border'><input type="text" /></td>
-              <td className='px-4 py-1 border'><input type="text" /></td>
+              {
+                list.map(li => (
+                  <td
+                    key={li}
+                    className='px-4 py-1 border'
+                  >
+                    <input
+                      type="text"
+                      value={details.InnerBoxPacking[li]}
+                      onChange={e => onChange("InnerBoxPacking", li, e.target.value)}
+                    />
+                  </td>
+                ))
+              }
             </tr>
 
             <tr>
@@ -65,12 +73,21 @@ function Step4({ details, onChange }) {
                   </div>
                   <div className='df my-2'>
                     <strong className='font-medium'>Maximum time out of Refrigeration (TOR) :</strong>
-                    <input className='w-12 p-0 border-0 border-b rounded-none' type="text" />
+                    <input
+                      className='w-12 p-0 border-0 border-b rounded-none'
+                      type="text"
+                      value={details.InnerBoxPacking.MaxTOR}
+                      onChange={e => onChange("InnerBoxPacking", "MaxTOR", e.target.value)}
+                    />
                     Min.
                   </div>
                   <div className='df my-2'>
                     <strong className='shrink-0 font-medium'>Remarks (if any):</strong>
-                    <input type="text" />
+                    <input
+                      type="text"
+                      value={details.InnerBoxPacking.Remarks}
+                      onChange={e => onChange("InnerBoxPacking", "Remarks", e.target.value)}
+                    />
                   </div>
                 </div>
               </td>

@@ -17,51 +17,107 @@ function Step3({ details, onChange }) {
         </div>
 
         <table className='w-full my-6 text-center'>
-          <tr>
-            <td className='px-4 py-1 border' rowSpan='4'>Packaging material requirement details</td>
-            <td className='px-4 py-1 border border-b-0'>Poly Box 28 L</td>
-            <td className='px-4 py-1 border border-b-0' colSpan='2'>Gel pack</td>
-            <td className='px-4 py-1 border border-b-0' colSpan='2'>Gel pack</td>
-          </tr>
+          <tbody>
+            <tr>
+              <td className='px-4 py-1 border' rowSpan='4'>Packaging material requirement details</td>
+              <td className='px-4 py-1 border border-b-0'>Poly Box 28 L</td>
+              <td className='px-4 py-1 border border-b-0' colSpan='2'>Gel pack</td>
+              <td className='px-4 py-1 border border-b-0' colSpan='2'>Gel pack</td>
+            </tr>
 
-          <tr>
-            <td className='px-4 py-1 border border-t-0'>(Qty. in nos.)</td>
-            <td className='px-4 py-1 border border-t-0' colSpan='2'>(Frozen at-18 &deg; C and below)</td>
-            <td className='px-4 py-1 border border-t-0' colSpan='2'>(Cold at 2-8 &deg; C)</td>
-          </tr>
+            <tr>
+              <td className='px-4 py-1 border border-t-0'>(Qty. in nos.)</td>
+              <td className='px-4 py-1 border border-t-0' colSpan='2'>(Frozen at-18 &deg; C and below)</td>
+              <td className='px-4 py-1 border border-t-0' colSpan='2'>(Cold at 2-8 &deg; C)</td>
+            </tr>
 
-          <tr>
-            <td className='px-4 py-1 border' rowSpan='2'><input type="text" /></td>
-            <td className='px-4 py-1 border' rowSpan='2'>3 No. of 3 kg/box</td>
-            <td className='px-4 py-1 border' rowSpan='2'><input type="text" /></td>
-            <td className='px-4 py-1 border'>2 No. of 2 kg/box</td>
-            <td className='px-4 py-1 border'><input type="text" /></td>
-          </tr>
+            <tr>
+              <td className='px-4 py-1 border' rowSpan='2'>
+                <input
+                  type="text"
+                  value={details.PackingOperation?.PolyBox28L}
+                  onChange={e => onChange("PackingOperation", "PolyBox28L", e.target.value)}
+                />
+              </td>
+              <td className='px-4 py-1 border' rowSpan='2'>3 No. of 3 kg/box</td>
+              <td className='px-4 py-1 border' rowSpan='2'>
+                <input
+                  type="text"
+                  value={details.PackingOperation?.GelPackFrozen}
+                  onChange={e => onChange("PackingOperation", "GelPackFrozen", e.target.value)}
+                />
+              </td>
+              <td className='px-4 py-1 border'>2 No. of 2 kg/box</td>
+              <td className='px-4 py-1 border'>
+                <input
+                  type="text"
+                  value={details.PackingOperation?.GelPackCold}
+                  onChange={e => onChange("PackingOperation", "GelPackCold", e.target.value)}
+                />
+              </td>
+            </tr>
 
-          <tr>
-            <td className='px-4 py-1 border'>2 No. of 3 kg/box</td>
-            <td className='px-4 py-1 border'><input type="text" /></td>
-          </tr>
+            <tr>
+              <td className='px-4 py-1 border'>2 No. of 3 kg/box</td>
+              <td className='px-4 py-1 border'>
+                <input
+                  type="text"
+                  value={details.PackingOperation?.TruckChamberTemp}
+                  onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
+                />
+              </td>
+            </tr>
 
-          <tr>
-            <td className='px-4 py-1 border' rowSpan='3'>Data Logger usages detail (if applicable)</td>
-            <td className='px-4 py-1 border' colSpan='3'>Data Logger No.</td>
-            <td className='px-4 py-1 border'>Calibration due date</td>
-            <td className='px-4 py-1 border'>Placed in Shipper no.</td>
-          </tr>
+            <tr>
+              <td className='px-4 py-1 border' rowSpan='3'>Data Logger usages detail (if applicable)</td>
+              <td className='px-4 py-1 border' colSpan='3'>Data Logger No.</td>
+              <td className='px-4 py-1 border'>Calibration due date</td>
+              <td className='px-4 py-1 border'>Placed in Shipper no.</td>
+            </tr>
 
-          <tr>
-            <td className='px-4 py-1 border'>Internal box</td>
-            <td className='px-4 py-1 border' colSpan='2'><input type="text" /></td>
-            <td className='px-4 py-1 border'><input type="text" /></td>
-            <td className='px-4 py-1 border' rowSpan='2'><input type="text" /></td>
-          </tr>
+            <tr>
+              <td className='px-4 py-1 border'>Internal box</td>
+              <td className='px-4 py-1 border' colSpan='2'>
+                <input
+                  type="text"
+                  value={details.PackingOperation?.TruckChamberTemp}
+                  onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
+                />
+              </td>
+              <td className='px-4 py-1 border'>
+                <input
+                  type="text"
+                  value={details.PackingOperation?.TruckChamberTemp}
+                  onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
+                />
+              </td>
+              <td className='px-4 py-1 border' rowSpan='2'>
+                <input
+                  type="text"
+                  value={details.PackingOperation?.TruckChamberTemp}
+                  onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
+                />
+              </td>
+            </tr>
 
-          <tr>
-            <td className='px-4 py-1 border'>External box</td>
-            <td className='px-4 py-1 border' colSpan='2'><input type="text" /></td>
-            <td className='px-4 py-1 border' rowSpan='2'><input type="text" /></td>
-          </tr>
+            <tr>
+              <td className='px-4 py-1 border'>External box</td>
+              <td className='px-4 py-1 border' colSpan='2'>
+                <input
+                  type="text"
+                  value={details.PackingOperation?.TruckChamberTemp}
+                  onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
+                />
+              </td>
+              <td className='px-4 py-1 border' rowSpan='2'>
+                <input
+                  type="text"
+                  value={details.PackingOperation?.TruckChamberTemp}
+                  onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
+                />
+              </td>
+            </tr>
+          </tbody>
         </table>
 
 
@@ -86,13 +142,55 @@ function Step3({ details, onChange }) {
           <tbody>
             <tr>
               <td className='px-4 py-1 border'>3000grams</td>
-              <td className='px-4 py-1 border'><input type="text" /></td>
-              <td className='px-4 py-1 border'><input type="text" /></td>
-              <td className='px-4 py-1 border'><input type="text" /></td>
-              <td className='px-4 py-1 border'><input type="text" /></td>
-              <td className='px-4 py-1 border'><input type="text" /></td>
-              <td className='px-4 py-1 border'><input type="text" /></td>
-              <td className='px-4 py-1 border'><input type="text" /></td>
+              <td className='px-4 py-1 border'>
+                <input
+                  type="text"
+                  value={details.PackingOperation?.TruckChamberTemp}
+                  onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
+                />
+              </td>
+              <td className='px-4 py-1 border'>
+                <input
+                  type="text"
+                  value={details.PackingOperation?.TruckChamberTemp}
+                  onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
+                />
+              </td>
+              <td className='px-4 py-1 border'>
+                <input
+                  type="text"
+                  value={details.PackingOperation?.TruckChamberTemp}
+                  onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
+                />
+              </td>
+              <td className='px-4 py-1 border'>
+                <input
+                  type="text"
+                  value={details.PackingOperation?.TruckChamberTemp}
+                  onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
+                />
+              </td>
+              <td className='px-4 py-1 border'>
+                <input
+                  type="text"
+                  value={details.PackingOperation?.TruckChamberTemp}
+                  onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
+                />
+              </td>
+              <td className='px-4 py-1 border'>
+                <input
+                  type="text"
+                  value={details.PackingOperation?.TruckChamberTemp}
+                  onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
+                />
+              </td>
+              <td className='px-4 py-1 border'>
+                <input
+                  type="text"
+                  value={details.PackingOperation?.TruckChamberTemp}
+                  onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
+                />
+              </td>
             </tr>
           </tbody>
         </table>

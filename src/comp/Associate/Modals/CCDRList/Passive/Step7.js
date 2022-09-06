@@ -13,10 +13,28 @@ function Step7({ details, onChange }) {
         </thead>
         <tbody>
           <tr>
-            <td className='px-4 py-1 border'><input type="text" /></td>
-            <td className='px-4 py-1 border'><input type="text" /></td>
+            <td className='px-4 py-1 border'>
+              <input
+                type="text"
+                value={details.ShipmentTracking.TrackingMode}
+                onChange={e => onChange("ShipmentTracking", "TrackingMode", e.target.value)}
+              />
+            </td>
+            <td className='px-4 py-1 border'>
+              <input
+                type="text"
+                value={details.ShipmentTracking.ReachingTime}
+                onChange={e => onChange("ShipmentTracking", "ReachingTime", e.target.value)}
+              />
+            </td>
             <td className='px-4 py-1 border'>Should not exceed Validity period of 68:55 hrs.</td>
-            <td className='px-4 py-1 border'><input type="text" /></td>
+            <td className='px-4 py-1 border'>
+              <input
+                type="text"
+                value={details.ShipmentTracking.TransitHours}
+                onChange={e => onChange("ShipmentTracking", "TransitHours", e.target.value)}
+              />
+            </td>
           </tr>
         </tbody>
       </table>

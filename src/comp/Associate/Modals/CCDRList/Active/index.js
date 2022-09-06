@@ -11,22 +11,14 @@ function Passive({ isOpen, closeModal }) {
   const [step, setStep] = useState(0)
   const [details, setDetails] = useState({
     GeneralInstruction: {
-      InstructionId: "",
       ProperCleaning: "",
       Callibration: "",
       CratesAvail: "",
       TrolleyAvail: "",
       EquipmentValidity: "",
       Remarks: "",
-      CreatedBy: "",
-      CreatedOn: "",
-      ModifiedBy: "",
-      ModifiedOn: "",
-      Notes: "",
     },
     ProductPacking: {
-      ProductId: "",
-      InstructionId: "",
       Date: "",
       BoxNumFrom: "",
       BoxNumTo: "",
@@ -39,15 +31,8 @@ function Passive({ isOpen, closeModal }) {
       DoneBy: "",
       MaxTOR: "",
       Remarks: "",
-      CreatedBy: "",
-      CreatedOn: "",
-      ModifiedBy: "",
-      PlacedInShipperNum: "",
-      Notes: "",
     },
     CrateShiftingActive: {
-      CrateId: "",
-      ProductId: "",
       TruckChamberTemp: "",
       ColdRoomTime: "",
       ContainerTime: "",
@@ -58,22 +43,7 @@ function Passive({ isOpen, closeModal }) {
       ShipmentTrackingMode: "",
       CFAReaching: "",
       Compliance: "",
-      CreatedBy: "",
-      CreatedOn: "",
-      ModifiedBy: "",
-      ModifiedOn: "",
-      Notes: "",
     },
-    FinalSignIn: {
-      FinalSignInId: "",
-      PreparedBy: "",
-      ApproveBy: "",
-      CreatedBy: "",
-      CreatedOn: "",
-      ModifiedBy: "",
-      ModifiedOn: "",
-      Notes: "",
-    }
   })
 
   const onChange = (parentKey, currentKey, value) => {

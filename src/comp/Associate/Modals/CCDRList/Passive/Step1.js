@@ -22,6 +22,8 @@ function Step1({ details, onChange }) {
             <td className="px-4 py-1 border">
               <RadioBtns
                 groupBy='cleaned-properly'
+                selected={details.GeneralInstruction.ProperCleaning}
+                onChange={l => onChange("GeneralInstruction", "ProperCleaning", l)}
               />
             </td>
           </tr>
@@ -32,6 +34,8 @@ function Step1({ details, onChange }) {
                 type="text"
                 placeholder="Temp"
                 className="py-1 my-1"
+                value={details.GeneralInstruction.Callibration}
+                onChange={e => onChange("GeneralInstruction", "Callibration", e.target.value)}
               />
             </td>
           </tr>
@@ -40,6 +44,8 @@ function Step1({ details, onChange }) {
             <td className="px-4 py-1 border">
               <RadioBtns
                 groupBy='conditioning'
+                selected={details.GeneralInstruction.GelPackPacking}
+                onChange={l => onChange("GeneralInstruction", "GelPackPacking", l)}
               />
             </td>
           </tr>
@@ -48,6 +54,8 @@ function Step1({ details, onChange }) {
             <td className="px-4 py-1 border">
               <RadioBtns
                 groupBy='packing-operation'
+                selected={details.GeneralInstruction.PackingOperation}
+                onChange={l => onChange("GeneralInstruction", "PackingOperation", l)}
               />
             </td>
           </tr>
@@ -56,6 +64,8 @@ function Step1({ details, onChange }) {
             <td className="px-4 py-1 border">
               <RadioBtns
                 groupBy='validity-period'
+                selected={details.GeneralInstruction.EquipmentValidity}
+                onChange={l => onChange("GeneralInstruction", "EquipmentValidity", l)}
               />
             </td>
           </tr>
@@ -64,18 +74,27 @@ function Step1({ details, onChange }) {
             <td className="px-4 py-1 border">
               <RadioBtns
                 groupBy='attach'
+                selected={details.GeneralInstruction.PicklistAndBoxesCount}
+                onChange={l => onChange("GeneralInstruction", "PicklistAndBoxesCount", l)}
               />
             </td>
           </tr>
         </tbody>
 
         <tfoot>
-          <td colSpan='2' className="px-4 py-1 border">
-            <div className="df">
-              <p className="shrink-0">Remarks (if any) :</p>
-              <input className="w-full my-2" type="text" />
-            </div>
-          </td>
+          <tr>
+            <td colSpan='2' className="px-4 py-1 border">
+              <div className="df">
+                <p className="shrink-0">Remarks (if any) :</p>
+                <input
+                  className="w-full my-2"
+                  type="text"
+                  value={details.GeneralInstruction.Remarks}
+                  onChange={e => onChange("GeneralInstruction", "Remarks", e.target.value)}
+                />
+              </div>
+            </td>
+          </tr>
         </tfoot>
       </table>
     </div>

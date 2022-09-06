@@ -21,28 +21,54 @@ function Step8({ details, onChange }) {
             <td className='px-4 py-2 border'>
               <RadioBtns
                 groupBy='Conditioned-Frozen'
+                selected={details.DocumentVerification.MinConditioned1}
+                onChange={l => onChange("DocumentVerification", "MinConditioned1", l)}
               />
             </td>
           </tr>
           <tr>
             <td className='px-4 py-2 border'>2</td>
             <td className='px-4 py-2 border'>Gel pack Conditioned 2-8 for Min 72 Hrs.</td>
-            <td className='px-4 py-2 border'><input type="text" /></td>
+            <td className='px-4 py-2 border'>
+              <input
+                type="text"
+                value={details.DocumentVerification.MinConditioned2}
+                onChange={e => onChange("DocumentVerification", "MinConditioned2", e.target.value)}
+              />
+            </td>
           </tr>
           <tr>
             <td className='px-4 py-2 border'>3</td>
             <td className='px-4 py-2 border'>Frozen Gel packed pre-conditioned, for min 60 minutes.</td>
-            <td className='px-4 py-2 border'><input type="text" /></td>
+            <td className='px-4 py-2 border'>
+              <input
+                type="text"
+                value={details.DocumentVerification.FrozenGelPack}
+                onChange={e => onChange("DocumentVerification", "FrozenGelPack", e.target.value)}
+              />
+            </td>
           </tr>
           <tr>
             <td className='px-4 py-2 border'>4</td>
             <td className='px-4 py-2 border'>Required material packed as per defined procedure.</td>
-            <td className='px-4 py-2 border'><input type="text" /></td>
+            <td className='px-4 py-2 border'>
+              <input
+                type="text"
+                value={details.DocumentVerification.ReqMaterial}
+                onChange={e => onChange("DocumentVerification", "ReqMaterial", e.target.value)}
+              />
+            </td>
           </tr>
           <tr>
             <td className='px-4 py-2 border'>5</td>
             <td className='px-4 py-2 border'>Cold chain compliance based on Validations.</td>
-            <td className='px-4 py-2 border'><input type="text" /></td>
+            <td className='px-4 py-2 border'>
+              <input
+                type="text"
+                value={details.DocumentVerification.Compliance}
+                onChange={e => onChange("DocumentVerification", "Compliance", e.target.value)}
+              />
+            </td>
           </tr>
         </tbody>
 
@@ -51,7 +77,11 @@ function Step8({ details, onChange }) {
             <td className='px-4 py-2 border' colSpan='4'>
               <div className="df">
                 <p className="shrink-0">Remarks (if any):</p>
-                <input type="text" />
+                <input
+                  type="text"
+                  value={details.DocumentVerification.Remarks}
+                  onChange={e => onChange("DocumentVerification", "Remarks", e.target.value)}
+                />
               </div>
             </td>
           </tr>
