@@ -5,6 +5,7 @@ import { createCCDR, getCCDRInfo, getDprInfo } from '../../../../../action-reduc
 
 import Modal, { ModalHeader } from '../../../../UIComp/Modal';
 import Loader from '../../../../Common/Loader';
+import FinalStep from '../FinalStep';
 import Step0 from './Step0';
 import Step1 from './Step1';
 import Step2 from './Step2';
@@ -14,9 +15,8 @@ import Step5 from './Step5';
 import Step6 from './Step6';
 import Step7 from './Step7';
 import Step8 from './Step8';
-import Step9 from './Step9';
 
-function Passive({ isOpen, id, type, closeModal }) {
+function Passive({ isOpen, id, type, role, closeModal }) {
   const dprInfo = useSelector(({ dpr }) => dpr.list?.find(d => d.id === id) || {})
   const userDetails = useSelector(({ login }) => login?.userDetails || {})
   const dispatch = useDispatch()
@@ -24,6 +24,7 @@ function Passive({ isOpen, id, type, closeModal }) {
   const [isSubmiting, setIsSubmiting] = useState(false)
   const [isLoading1, setIsLoading1] = useState(true)
   const [isLoading2, setIsLoading2] = useState(type === "View")
+  const [isFinished, setIsFinished] = useState(false)
   const [step, setStep] = useState(0)
 
   const [details, setDetails] = useState({
@@ -106,16 +107,18 @@ function Passive({ isOpen, id, type, closeModal }) {
     FinalSignIn: {
       PreparedBy: {
         name: "",
-        status: ""
+        status: "",
+        Date: "",
       },
       ApprovedBy: {
         name: "",
-        status: ""
+        status: "",
+        Date: "",
       },
     },
   })
 
-  const currentRole = userDetails?.role === "supervisor" ? "ApprovedBy" : "PreparedBy"
+  const currentRole = role === "supervisor" ? "ApprovedBy" : "PreparedBy"
 
   useEffect(() => {
     dispatch(getDprInfo({ id }, () => setIsLoading1(false)))
@@ -159,6 +162,9 @@ function Passive({ isOpen, id, type, closeModal }) {
           }
 
           setDetails(payload)
+          if (payload.FinalSignIn.ApprovedBy.status) {
+            setIsFinished(true)
+          }
         }
         setIsLoading2(false)
       }))
@@ -406,13 +412,13 @@ function Passive({ isOpen, id, type, closeModal }) {
 
             {
               step === 9 &&
-              <Step9
+              <FinalStep
                 type={type}
+                role={role}
                 details={details}
                 onChange={onChange}
                 userName={`${userDetails?.firstName} ${userDetails?.lastName}`}
-                currentRole={currentRole}
-                defaultStatus={details?.FinalSignIn?.[currentRole]?.status || ""}
+                isFinished={isFinished}
               />
             }
 
@@ -439,7 +445,8 @@ function Passive({ isOpen, id, type, closeModal }) {
 
               {
                 step === 9 &&
-                type === "Edit" &&
+                !isFinished &&
+                role !== "manager" &&
                 details?.FinalSignIn?.[currentRole]?.status &&
                 <button
                   className='ml-auto bg-[#6e5bc5] text-white disabled:opacity-80'
@@ -449,7 +456,6 @@ function Passive({ isOpen, id, type, closeModal }) {
                   Submit
                 </button>
               }
-
             </div>
           </>
       }

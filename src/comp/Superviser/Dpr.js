@@ -57,7 +57,7 @@ function Dpr() {
               dprList.map(d => (
                 <tr key={d.id} className='text-sm'>
                   <td className='pl-12 pr-2 py-1'>{d.dprNo}</td>
-                  <td className='px-2 py-1'>{format(new Date(d?.effectiveDate), "dd-MM-yyyy hh:mm aa")}</td>
+                  <td className='px-2 py-1'>{d?.effectiveDate && format(new Date(d?.effectiveDate), "dd-MM-yyyy hh:mm aa")}</td>
                   <td className='px-2 py-1 first-letter:uppercase'>{d.transportMode}</td>
                   <td className='px-2 py-1'>
                     <button

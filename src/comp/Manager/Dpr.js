@@ -1,57 +1,69 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import dummyData from '../../dummy/manager/dpr';
+import { format } from 'date-fns';
+import cn from 'classnames';
+
+import { getDprInfo } from '../../action-reducers/dpr/dprAction';
 
 import { ReactComponent as Arrow } from '../../assets/svg/arrows/down.svg';
-import PassiveCCDRList from './Modals/CCDRList/Passive';
-import ActiveCCDRList from './Modals/CCDRList/Active';
+import PassiveCCDRList from '../Template/Modals/CCDRList/Passive';
+import ActiveCCDRList from '../Template/Modals/CCDRList/Active';
+import PackingList from '../Template/Modals/PackingList';
 import Filters from '../Common/Filters';
-import DprList from './Modals/DprList';
+import Loader from '../Common/Loader';
 import Status from './Modals/Status';
 
 function Dpr() {
+  const dprList = useSelector(({ dpr }) => dpr.list || [])
   const [activeStatus, setActiveStatus] = useState('')
   const [activeMode, setActiveMode] = useState('')
   const [dateFilter, setDateFilter] = useState('')
+  const [isLoading, setIsLoading] = useState(true)
   const [dprFilter, setDprFilter] = useState('')
-  const [open, setOpen] = useState("")
+  const [open, setOpen] = useState({ type: "", id: "", viewType: "" })
+  const dispatch = useDispatch()
   const navigate = useNavigate()
 
+  useEffect(() => {
+    dispatch(getDprInfo({}, () => setIsLoading(false)))
+  }, [dispatch])
+
   const data = useMemo(() => {
-    let current = [...dummyData]
+    let current = [...dprList]
 
     if (activeMode === "Active") {
-      current = current.filter(a => a.mode === "Active")
+      current = current.filter(a => a.transportMode === "active")
     }
 
     if (activeMode === "Passive") {
-      current = current.filter(a => a.mode === "Passive")
+      current = current.filter(a => a.transportMode === "passive")
     }
 
     if (activeStatus) {
-      current = current.filter(a => a.status === activeStatus)
+      current = current.filter(a => a.ccdrStatus === activeStatus)
     }
 
     if (dprFilter === "asc") {
-      current = current.sort((a, b) => a.dprNum < b.dprNum ? 1 : -1)
+      current = current.sort((a, b) => a.dprNo < b.dprNo ? 1 : -1)
     }
 
     if (dprFilter === "desc") {
-      current = current.sort((a, b) => a.dprNum < b.dprNum ? -1 : 1)
+      current = current.sort((a, b) => a.dprNo < b.dprNo ? -1 : 1)
     }
 
     if (dateFilter === "asc") {
-      current = current.sort((a, b) => new Date(a.start).getTime() < new Date(b.start).getTime() ? 1 : -1)
+      current = current.sort((a, b) => new Date(a.effectiveDate).getTime() < new Date(b.effectiveDate).getTime() ? 1 : -1)
     }
 
     if (dateFilter === "desc") {
-      current = current.sort((a, b) => new Date(a.start).getTime() < new Date(b.start).getTime() ? -1 : 1)
+      current = current.sort((a, b) => new Date(a.effectiveDate).getTime() < new Date(b.effectiveDate).getTime() ? -1 : 1)
     }
 
     return current
-  }, [dateFilter, dprFilter, activeStatus, activeMode])
+  }, [dprList, dateFilter, dprFilter, activeStatus, activeMode])
 
-  const updateOpen = val => setOpen(val)
+  const updateOpen = (type, id, viewType = '') => setOpen({ type, id, viewType })
 
   const updateDateFilter = () => {
     setDateFilter(p => {
@@ -69,7 +81,9 @@ function Dpr() {
     })
   }
 
-  const closeModal = () => setOpen('')
+  const closeModal = () => setOpen({ type: "", id: "", viewType: "" })
+
+  if (isLoading) return <Loader wrapperCls='h-full' />
 
   return (
     <section className='dfc h-full overflow-y-hidden bg-[#f7f7f7]'>
@@ -127,17 +141,17 @@ function Dpr() {
 
           <tbody>
             {
-              data.map((d, i) => (
+              data.map(d => (
                 <tr key={d.id} className='text-sm'>
-                  <td className='pl-12 pr-2 py-1'>{d.dprNum}</td>
-                  <td className='px-2 py-1'>{d.start}</td>
-                  <td className='px-2 py-1'>{d.mode}</td>
-                  <td className='px-2 py-1'>{d.start}</td>
-                  <td className='px-2 py-1'>{d.end}</td>
+                  <td className='pl-12 pr-2 py-1'>{d.dprNo}</td>
+                  <td className='px-2 py-1'>{d?.effectiveDate && format(new Date(d?.effectiveDate), "dd-MM-yyyy hh:mm aa")}</td>
+                  <td className='px-2 py-1 first-letter:uppercase'>{d.transportMode}</td>
+                  <td className='px-2 py-1'>-</td>
+                  <td className='px-2 py-1'>-</td>
                   <td className='px-2 py-1'>
                     <button
                       className="w-16 h-6 p-0 text-sm text-center text-white bg-[#6e5bc5] hover:bg-[#8778c9] rounded-full"
-                      onClick={() => updateOpen('dprList')}
+                      onClick={() => updateOpen('packingList', d.id)}
                     >
                       View
                     </button>
@@ -145,7 +159,7 @@ function Dpr() {
                   <td className='px-2 py-1'>
                     <button
                       className="w-16 h-6 p-0 text-sm text-center text-white bg-[#6e5bc5] hover:bg-[#8778c9] rounded-full"
-                      onClick={() => updateOpen(d.mode)}
+                      onClick={() => updateOpen(`${d.transportMode}CCDRList`, d.id, "View")}
                     >
                       View
                     </button>
@@ -160,10 +174,17 @@ function Dpr() {
                   </td>
                   <td className='px-2 py-1'>
                     <button
-                      className={`w-24 h-6 p-0 text-sm text-center rounded-full ${d.status === "completed" ? "bg-green-200 text-green-800" : ""} ${d.status === "not-started" ? " bg-slate-300 text-slate-800" : ""} ${d.status === "in-progress" ? "bg-yellow-200 text-yellow-900" : ""} ${d.status === "rejected" ? "bg-red-200 text-red-900" : ""}`}
-                      onClick={() => updateOpen("status")}
+                      className={
+                        cn("w-24 h-6 p-0 text-sm text-center rounded-full", {
+                          "bg-slate-300 text-slate-800": d.ccdrStatus === "not-started",
+                          "bg-yellow-200 text-yellow-900": d.ccdrStatus === "in-progress",
+                          "bg-green-200 text-green-800": d.ccdrStatus === "completed" || d.ccdrStatus === "accepted",
+                          "bg-red-200 text-red-900": d.ccdrStatus === "rejected",
+                        })
+                      }
+                      onClick={() => updateOpen("status", d.id)}
                     >
-                      {d.status}
+                      {d.ccdrStatus}
                     </button>
                   </td>
                 </tr>
@@ -174,31 +195,38 @@ function Dpr() {
       </div>
 
       {
-        open === 'dprList' &&
-        <DprList
+        open.type === 'packingList' &&
+        <PackingList
           isOpen
+          id={open.id}
           closeModal={closeModal}
         />
       }
 
       {
-        open === 'Passive' &&
+        open.type === 'passiveCCDRList' &&
         <PassiveCCDRList
           isOpen
+          id={open.id}
+          role="manager"
+          type={open.viewType}
           closeModal={closeModal}
         />
       }
 
       {
-        open === 'Active' &&
+        open.type === 'activeCCDRList' &&
         <ActiveCCDRList
           isOpen
+          id={open.id}
+          role="manager"
+          type={open.viewType}
           closeModal={closeModal}
         />
       }
 
       {
-        open === "status" &&
+        open.type === "status" &&
         <Status
           isOpen
           closeModal={closeModal}

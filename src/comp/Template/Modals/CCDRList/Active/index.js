@@ -5,14 +5,14 @@ import { createCCDR, getCCDRInfo, getDprInfo } from '../../../../../action-reduc
 
 import Modal, { ModalHeader } from '../../../../UIComp/Modal';
 import Loader from '../../../../Common/Loader';
+import FinalStep from '../FinalStep';
 import Step0 from './Step0';
 import Step1 from './Step1';
 import Step2 from './Step2';
 import Step3 from './Step3';
 import Step4 from './Step4';
-import Step5 from './Step5';
 
-function Active({ isOpen, id, type, closeModal }) {
+function Active({ isOpen, id, type, role, closeModal }) {
   const dprInfo = useSelector(({ dpr }) => dpr.list?.find(d => d.id === id) || {})
   const userDetails = useSelector(({ login }) => login?.userDetails || {})
   const dispatch = useDispatch()
@@ -20,6 +20,7 @@ function Active({ isOpen, id, type, closeModal }) {
   const [isSubmiting, setIsSubmiting] = useState(false)
   const [isLoading1, setIsLoading1] = useState(true)
   const [isLoading2, setIsLoading2] = useState(type === "View")
+  const [isFinished, setIsFinished] = useState(false)
 
   const [step, setStep] = useState(0)
 
@@ -64,16 +65,18 @@ function Active({ isOpen, id, type, closeModal }) {
     FinalSignIn: {
       PreparedBy: {
         name: "",
-        status: ""
+        status: "",
+        Date: "",
       },
       ApprovedBy: {
         name: "",
-        status: ""
+        status: "",
+        Date: "",
       },
     },
   })
 
-  const currentRole = userDetails?.role === "supervisor" ? "ApprovedBy" : "PreparedBy"
+  const currentRole = role === "supervisor" ? "ApprovedBy" : "PreparedBy"
 
   useEffect(() => {
     dispatch(getDprInfo({ id }, () => setIsLoading1(false)))
@@ -102,6 +105,9 @@ function Active({ isOpen, id, type, closeModal }) {
           }
 
           setDetails(payload)
+          if (payload.FinalSignIn.ApprovedBy.status) {
+            setIsFinished(true)
+          }
         }
         setIsLoading2(false)
       }))
@@ -248,13 +254,13 @@ function Active({ isOpen, id, type, closeModal }) {
 
             {
               step === 5 &&
-              <Step5
+              <FinalStep
                 type={type}
+                role={role}
                 details={details}
                 onChange={onChange}
                 userName={`${userDetails?.firstName} ${userDetails?.lastName}`}
-                currentRole={currentRole}
-                defaultStatus={details?.FinalSignIn?.[currentRole]?.status || ""}
+                isFinished={isFinished}
               />
             }
 
@@ -281,7 +287,8 @@ function Active({ isOpen, id, type, closeModal }) {
 
               {
                 step === 5 &&
-                type === "Edit" &&
+                !isFinished &&
+                role !== "manager" &&
                 details?.FinalSignIn?.[currentRole]?.status &&
                 <button
                   className='ml-auto bg-[#6e5bc5] text-white disabled:opacity-80'
