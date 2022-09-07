@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function Step4({ type, details, onChange }) {
+function Step4({ type, details, onChange, onListChange, addInnerBoxPacking }) {
   const [list] = useState(["Date", "BoxNumFrom", "BoxNumTo", "ProductName", "BatchNum", "PackedQuant", "PackingStartTime", "PackingEndTime", "TOR", "DoneBy"])
 
   return (
@@ -38,28 +38,37 @@ function Step4({ type, details, onChange }) {
           </thead>
 
           <tbody>
-            <tr>
-              {
-                list.map(li => (
-                  <td
-                    key={li}
-                    className='px-4 py-1 border'
-                  >
-                    <input
-                      type="text"
-                      disabled={type === "View"}
-                      value={details.InnerBoxPacking[li]}
-                      onChange={e => onChange("InnerBoxPacking", li, e.target.value)}
-                    />
-                  </td>
-                ))
-              }
-            </tr>
+            {
+              details.InnerBoxPacking.list.map(ibpl => (
+                <tr key={ibpl.id}>
+                  {
+                    list.map(li => (
+                      <td
+                        key={li}
+                        className='px-4 py-1 border'
+                      >
+                        <input
+                          type="text"
+                          disabled={type === "View"}
+                          value={ibpl[li]}
+                          onChange={e => onListChange("InnerBoxPacking", ibpl.id, li, e.target.value)}
+                        />
+                      </td>
+                    ))
+                  }
+                </tr>
+              ))
+            }
 
             <tr>
               <td className='px-4 py-1 border' colSpan='10'>
                 <div className='df justify-end'>
-                  <button className='bg-[#6e5bc5] text-white'>Add</button>
+                  <button
+                    className='bg-[#6e5bc5] text-white'
+                    onClick={addInnerBoxPacking}
+                  >
+                    Add
+                  </button>
                 </div>
               </td>
             </tr>

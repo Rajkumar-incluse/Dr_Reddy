@@ -1,4 +1,8 @@
-function Step3({ type, details, onChange }) {
+import { useState } from "react";
+
+function Step3({ type, details, onChange, addPackingOperation, onListChange }) {
+  const [list] = useState(["InHouseBatchNum", "Quantity", "GelPackUnloadingDate", "GelPackUnloadingTime", "GelPackPlacingDate", "GelPackPlacingTime", "TotalConditioning"])
+
   return (
     <div className='dfc gap-0 pb-6 max-w-[90vw] max-h-[70vh]'>
       <h1 className="my-6 text-xl font-bold">3. Packaging Operation :</h1>
@@ -54,8 +58,8 @@ function Step3({ type, details, onChange }) {
                 <input
                   type="text"
                   disabled={type === "View"}
-                  value={details.PackingOperation?.GelPackCold}
-                  onChange={e => onChange("PackingOperation", "GelPackCold", e.target.value)}
+                  value={details.PackingOperation?.GelPackCold2kg}
+                  onChange={e => onChange("PackingOperation", "GelPackCold2kg", e.target.value)}
                 />
               </td>
             </tr>
@@ -66,8 +70,8 @@ function Step3({ type, details, onChange }) {
                 <input
                   type="text"
                   disabled={type === "View"}
-                  value={details.PackingOperation?.TruckChamberTemp}
-                  onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
+                  value={details.PackingOperation?.GelPackCold3kg}
+                  onChange={e => onChange("PackingOperation", "GelPackCold3kg", e.target.value)}
                 />
               </td>
             </tr>
@@ -85,24 +89,24 @@ function Step3({ type, details, onChange }) {
                 <input
                   type="text"
                   disabled={type === "View"}
-                  value={details.PackingOperation?.TruckChamberTemp}
-                  onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
+                  value={details.PackingOperation?.DataLoggerNumInternal}
+                  onChange={e => onChange("PackingOperation", "DataLoggerNumInternal", e.target.value)}
                 />
               </td>
               <td className='px-4 py-1 border'>
                 <input
                   type="text"
                   disabled={type === "View"}
-                  value={details.PackingOperation?.TruckChamberTemp}
-                  onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
+                  value={details.PackingOperation?.CalibrationDueDateInternal}
+                  onChange={e => onChange("PackingOperation", "CalibrationDueDateInternal", e.target.value)}
                 />
               </td>
               <td className='px-4 py-1 border' rowSpan='2'>
                 <input
                   type="text"
                   disabled={type === "View"}
-                  value={details.PackingOperation?.TruckChamberTemp}
-                  onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
+                  value={details.PackingOperation?.PlacedInShipperNum}
+                  onChange={e => onChange("PackingOperation", "PlacedInShipperNum", e.target.value)}
                 />
               </td>
             </tr>
@@ -113,16 +117,16 @@ function Step3({ type, details, onChange }) {
                 <input
                   type="text"
                   disabled={type === "View"}
-                  value={details.PackingOperation?.TruckChamberTemp}
-                  onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
+                  value={details.PackingOperation?.DataLoggerNumExternal}
+                  onChange={e => onChange("PackingOperation", "DataLoggerNumExternal", e.target.value)}
                 />
               </td>
               <td className='px-4 py-1 border' rowSpan='2'>
                 <input
                   type="text"
                   disabled={type === "View"}
-                  value={details.PackingOperation?.TruckChamberTemp}
-                  onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
+                  value={details.PackingOperation?.CalibrationDueDateExternal}
+                  onChange={e => onChange("PackingOperation", "CalibrationDueDateExternal", e.target.value)}
                 />
               </td>
             </tr>
@@ -149,71 +153,39 @@ function Step3({ type, details, onChange }) {
           </thead>
 
           <tbody>
-            <tr>
-              <td className='px-4 py-1 border'>3000grams</td>
-              <td className='px-4 py-1 border'>
-                <input
-                  type="text"
-                  disabled={type === "View"}
-                  value={details.PackingOperation?.TruckChamberTemp}
-                  onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
-                />
-              </td>
-              <td className='px-4 py-1 border'>
-                <input
-                  type="text"
-                  disabled={type === "View"}
-                  value={details.PackingOperation?.TruckChamberTemp}
-                  onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
-                />
-              </td>
-              <td className='px-4 py-1 border'>
-                <input
-                  type="text"
-                  disabled={type === "View"}
-                  value={details.PackingOperation?.TruckChamberTemp}
-                  onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
-                />
-              </td>
-              <td className='px-4 py-1 border'>
-                <input
-                  type="text"
-                  disabled={type === "View"}
-                  value={details.PackingOperation?.TruckChamberTemp}
-                  onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
-                />
-              </td>
-              <td className='px-4 py-1 border'>
-                <input
-                  type="text"
-                  disabled={type === "View"}
-                  value={details.PackingOperation?.TruckChamberTemp}
-                  onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
-                />
-              </td>
-              <td className='px-4 py-1 border'>
-                <input
-                  type="text"
-                  disabled={type === "View"}
-                  value={details.PackingOperation?.TruckChamberTemp}
-                  onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
-                />
-              </td>
-              <td className='px-4 py-1 border'>
-                <input
-                  type="text"
-                  disabled={type === "View"}
-                  value={details.PackingOperation?.TruckChamberTemp}
-                  onChange={e => onChange("PackingOperation", "TruckChamberTemp", e.target.value)}
-                />
-              </td>
-            </tr>
+            {
+              details?.PackingOperation?.list?.map(pol => (
+                <tr key={pol.id}>
+                  <td className='px-4 py-1 border'>3000grams</td>
+                  {
+                    list.map(li => (
+                      <td
+                        key={li}
+                        className='px-4 py-1 border'
+                      >
+                        <input
+                          type="text"
+                          value={pol[li]}
+                          onChange={e => onListChange("PackingOperation", pol.id, li, e.target.value)}
+                          disabled={type === "View"}
+                        />
+                      </td>
+                    ))
+                  }
+                </tr>
+              ))
+            }
           </tbody>
         </table>
 
         <div className='df justify-between my-6'>
           <p className="text-gray-600"># External data logger is for reference purpose only.</p>
-          <button className='bg-[#6e5bc5] text-white'>Add</button>
+          <button
+            className='bg-[#6e5bc5] text-white'
+            onClick={addPackingOperation}
+          >
+            Add
+          </button>
         </div>
       </div>
     </div>

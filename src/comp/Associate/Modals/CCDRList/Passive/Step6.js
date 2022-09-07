@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function Step6({ type, details, onChange }) {
+function Step6({ type, details, onChange, onListChange, addOuterBoxPacking }) {
   const [list] = useState(["BoxNumFrom", "BoxNumTo", "StartTime", "EndTIme", "TOR"])
 
   return (
@@ -40,84 +40,89 @@ function Step6({ type, details, onChange }) {
             <tr>
               <td className='px-4 py-1 border'>From</td>
               <td className='px-4 py-1 border'>To</td>
-              <td className='px-4 py-1 border'><label htmlFor="out-LabelPasted-yes">Yes</label></td>
-              <td className='px-4 py-1 border'><label htmlFor="out-LabelPasted-no">No</label></td>
-              <td className='px-4 py-1 border'><label htmlFor="out-StrappedBox-yes">Yes</label></td>
-              <td className='px-4 py-1 border'><label htmlFor="out-StrappedBox-no">No</label></td>
+              <td className='px-4 py-1 border'>Yes</td>
+              <td className='px-4 py-1 border'>No</td>
+              <td className='px-4 py-1 border'>Yes</td>
+              <td className='px-4 py-1 border'>No</td>
             </tr>
           </thead>
 
           <tbody>
-            <tr>
-              {
-                list.map(li => (
-                  <td
-                    key={li}
-                    className='px-4 py-1 border'
-                  >
+            {
+              details?.OuterBoxPacking?.list?.map(obpl => (
+                <tr key={obpl.id}>
+                  {
+                    list.map(li => (
+                      <td
+                        key={li}
+                        className='px-4 py-1 border'
+                      >
+                        <input
+                          type="text"
+                          disabled={type === "View"}
+                          value={obpl[li]}
+                          onChange={e => onListChange("OuterBoxPacking", obpl.id, li, e.target.value)}
+                        />
+                      </td>
+                    ))
+                  }
+                  <td className='px-4 py-1 border'>
                     <input
-                      type="text"
+                      className="cursor-pointer"
+                      name={obpl.id + "LabelPasted"}
+                      type="radio"
+                      value="yes"
                       disabled={type === "View"}
-                      value={details.OuterBoxPacking[li]}
-                      onChange={e => onChange("OuterBoxPacking", li, e.target.value)}
+                      checked={obpl.LabelPasted === "yes"}
+                      onChange={e => onListChange("OuterBoxPacking", obpl.id, "LabelPasted", e.target.value)}
                     />
                   </td>
-                ))
-              }
-              <td className='px-4 py-1 border'>
-                <input
-                  className="cursor-pointer"
-                  name="LabelPasted"
-                  type="radio"
-                  value="yes"
-                  id='out-LabelPasted-yes'
-                  disabled={type === "View"}
-                  checked={details.OuterBoxPacking.LabelPasted === "yes"}
-                  onChange={e => onChange("OuterBoxPacking", "LabelPasted", e.target.value)}
-                />
-              </td>
-              <td className='px-4 py-1 border'>
-                <input
-                  className="cursor-pointer"
-                  name="LabelPasted"
-                  type="radio"
-                  value="no"
-                  id='out-LabelPasted-no'
-                  disabled={type === "View"}
-                  checked={details.OuterBoxPacking.LabelPasted === "no"}
-                  onChange={e => onChange("OuterBoxPacking", "LabelPasted", e.target.value)}
-                />
-              </td>
-              <td className='px-4 py-1 border'>
-                <input
-                  className="cursor-pointer"
-                  name="packed-boxes"
-                  type="radio"
-                  value="yes"
-                  id='out-StrappedBox-yes'
-                  disabled={type === "View"}
-                  checked={details.OuterBoxPacking.StrappedBox === "yes"}
-                  onChange={e => onChange("OuterBoxPacking", "StrappedBox", e.target.value)}
-                />
-              </td>
-              <td className='px-4 py-1 border'>
-                <input
-                  className="cursor-pointer"
-                  name="packed-boxes"
-                  type="radio"
-                  value="no"
-                  id='out-StrappedBox-no'
-                  disabled={type === "View"}
-                  checked={details.OuterBoxPacking.StrappedBox === "no"}
-                  onChange={e => onChange("OuterBoxPacking", "StrappedBox", e.target.value)}
-                />
-              </td>
-            </tr>
+                  <td className='px-4 py-1 border'>
+                    <input
+                      className="cursor-pointer"
+                      name={obpl.id + "LabelPasted"}
+                      type="radio"
+                      value="no"
+                      disabled={type === "View"}
+                      checked={obpl.LabelPasted === "no"}
+                      onChange={e => onListChange("OuterBoxPacking", obpl.id, "LabelPasted", e.target.value)}
+                    />
+                  </td>
+                  <td className='px-4 py-1 border'>
+                    <input
+                      className="cursor-pointer"
+                      name={obpl.id + "StrappedBox"}
+                      type="radio"
+                      value="yes"
+                      disabled={type === "View"}
+                      checked={obpl.StrappedBox === "yes"}
+                      onChange={e => onListChange("OuterBoxPacking", obpl.id, "StrappedBox", e.target.value)}
+                    />
+                  </td>
+                  <td className='px-4 py-1 border'>
+                    <input
+                      className="cursor-pointer"
+                      name={obpl.id + "StrappedBox"}
+                      type="radio"
+                      value="no"
+                      disabled={type === "View"}
+                      checked={obpl.StrappedBox === "no"}
+                      onChange={e => onListChange("OuterBoxPacking", obpl.id, "StrappedBox", e.target.value)}
+                    />
+                  </td>
+                </tr>
+              ))
+            }
 
             <tr>
               <td className='px-4 py-1 border' colSpan='10'>
                 <div className='df justify-end'>
-                  <button className='bg-[#6e5bc5] text-white'>Add</button>
+                  <button
+                    className='bg-[#6e5bc5] text-white'
+                    onClick={addOuterBoxPacking}
+                  >
+                    Add
+                  </button>
                 </div>
               </td>
             </tr>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Step3({ type, details, onChange }) {
+function Step3({ type, details, onChange, addProductPackingList, onProductPackingListChange }) {
   const [list] = useState(["Date", "BoxNumFrom", "BoxNumTo", "ProductName", "BatchNum", "Quantity", "StartTime", "EndTime", "TOR", "DoneBy"])
 
   return (
@@ -38,28 +38,37 @@ function Step3({ type, details, onChange }) {
           </thead>
 
           <tbody>
-            <tr>
-              {
-                list.map(li => (
-                  <td
-                    key={li}
-                    className='px-4 py-1 border'
-                  >
-                    <input
-                      type="text"
-                      value={details.ProductPacking[li]}
-                      onChange={e => onChange("ProductPacking", li, e.target.value)}
-                      disabled={type === "View"}
-                    />
-                  </td>
-                ))
-              }
-            </tr>
+            {
+              details?.ProductPacking?.list?.map(ppl => (
+                <tr key={ppl.id}>
+                  {
+                    list.map(li => (
+                      <td
+                        key={li}
+                        className='px-4 py-1 border'
+                      >
+                        <input
+                          type="text"
+                          value={ppl[li]}
+                          onChange={e => onProductPackingListChange(ppl.id, li, e.target.value)}
+                          disabled={type === "View"}
+                        />
+                      </td>
+                    ))
+                  }
+                </tr>
+              ))
+            }
 
             <tr>
               <td className='px-4 py-1 border' colSpan='10'>
                 <div className='df justify-end'>
-                  <button className='bg-[#6e5bc5] text-white'>Add</button>
+                  <button
+                    className='bg-[#6e5bc5] text-white'
+                    onClick={addProductPackingList}
+                  >
+                    Add
+                  </button>
                 </div>
               </td>
             </tr>

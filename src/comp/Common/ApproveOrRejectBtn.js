@@ -1,9 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-function ApproveOrRejectBtn({ onChange }) {
-  const [status, setStatus] = useState("")
+function ApproveOrRejectBtn({ type = "Edit", defaultStatus = "", onChange }) {
+  const [status, setStatus] = useState(defaultStatus || "")
+
+  useEffect(() => {
+    setStatus(defaultStatus)
+  }, [defaultStatus])
 
   const onClk = val => {
+    if (type === "View") return;
     setStatus(val)
     onChange?.(val)
   }

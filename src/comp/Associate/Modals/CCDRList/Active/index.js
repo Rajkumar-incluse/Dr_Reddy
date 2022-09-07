@@ -14,6 +14,7 @@ import Step5 from './Step5';
 
 function Active({ isOpen, id, type, closeModal }) {
   const dprInfo = useSelector(({ dpr }) => dpr.list?.find(d => d.id === id) || {})
+  const userDetails = useSelector(({ login }) => login?.userDetails || {})
   const dispatch = useDispatch()
 
   const [isLoading1, setIsLoading1] = useState(true)
@@ -30,16 +31,19 @@ function Active({ isOpen, id, type, closeModal }) {
       Remarks: "",
     },
     ProductPacking: {
-      Date: "",
-      BoxNumFrom: "",
-      BoxNumTo: "",
-      ProductName: "",
-      BatchNum: "",
-      Quantity: "",
-      StartTime: "",
-      EndTime: "",
-      TOR: "",
-      DoneBy: "",
+      list: [{
+        id: "id-0",
+        Date: "",
+        BoxNumFrom: "",
+        BoxNumTo: "",
+        ProductName: "",
+        BatchNum: "",
+        Quantity: "",
+        StartTime: "",
+        EndTime: "",
+        TOR: "",
+        DoneBy: "",
+      }],
       MaxTOR: "",
       Remarks: "",
     },
@@ -56,10 +60,18 @@ function Active({ isOpen, id, type, closeModal }) {
       Compliance: "",
     },
     FinalSignIn: {
-      PreparedBy: "",
-      ApproveBy: "",
+      PreparedBy: {
+        name: "",
+        status: ""
+      },
+      ApprovedBy: {
+        name: "",
+        status: ""
+      },
     },
   })
+
+  const currentRole = userDetails?.role === "supervisor" ? "ApprovedBy" : "PreparedBy"
 
   useEffect(() => {
     dispatch(getDprInfo({ id }, () => setIsLoading1(false)))
@@ -83,8 +95,54 @@ function Active({ isOpen, id, type, closeModal }) {
     }))
   }
 
-  const onSubmit = () => {
+  const onProductPackingListChange = (id, currentKey, value) => {
+    setDetails(prev => ({
+      ...prev,
+      ProductPacking: {
+        list: prev.ProductPacking.list.map(pr => {
+          if (pr.id === id) {
+            return {
+              ...pr,
+              [currentKey]: value
+            }
+          }
 
+          return pr
+        }),
+        MaxTOR: prev.ProductPacking.MaxTOR,
+        Remarks: prev.ProductPacking.Remarks,
+      }
+    }))
+  }
+
+  const addProductPackingList = () => {
+    setDetails(prev => ({
+      ...prev,
+      ProductPacking: {
+        list: [
+          ...prev.ProductPacking.list,
+          {
+            id: `id-${prev.ProductPacking.list.length}`,
+            Date: "",
+            BoxNumFrom: "",
+            BoxNumTo: "",
+            ProductName: "",
+            BatchNum: "",
+            Quantity: "",
+            StartTime: "",
+            EndTime: "",
+            TOR: "",
+            DoneBy: "",
+          }
+        ],
+        MaxTOR: prev.ProductPacking.MaxTOR,
+        Remarks: prev.ProductPacking.Remarks,
+      }
+    }))
+  }
+
+  const onSubmit = () => {
+    console.log(details)
   }
 
   return (
@@ -102,11 +160,49 @@ function Active({ isOpen, id, type, closeModal }) {
           ? <Loader wrapperCls='w-[50vw] h-40' />
           : <>
             {step === 0 && <Step0 dprInfo={dprInfo} />}
-            {step === 1 && <Step1 type={type} details={details} onChange={onChange} />}
+
+            {
+              step === 1 &&
+              <Step1
+                type={type}
+                details={details}
+                onChange={onChange}
+              />
+            }
+
             {step === 2 && <Step2 />}
-            {step === 3 && <Step3 type={type} details={details} onChange={onChange} />}
-            {step === 4 && <Step4 type={type} details={details} onChange={onChange} />}
-            {step === 5 && <Step5 type={type} details={details} onChange={onChange} />}
+
+            {
+              step === 3 &&
+              <Step3
+                type={type}
+                details={details}
+                onChange={onChange}
+                addProductPackingList={addProductPackingList}
+                onProductPackingListChange={onProductPackingListChange}
+              />
+            }
+
+            {
+              step === 4 &&
+              <Step4
+                type={type}
+                details={details}
+                onChange={onChange}
+              />
+            }
+
+            {
+              step === 5 &&
+              <Step5
+                type={type}
+                details={details}
+                onChange={onChange}
+                userName={`${userDetails?.firstName} ${userDetails?.lastName}`}
+                currentRole={currentRole}
+                defaultStatus={details?.FinalSignIn?.[currentRole]?.status || ""}
+              />
+            }
 
             <div className='df'>
               {
@@ -131,9 +227,10 @@ function Active({ isOpen, id, type, closeModal }) {
 
               {
                 step === 5 &&
+                type === "Edit" &&
+                details?.FinalSignIn?.[currentRole]?.status &&
                 <button
                   className='ml-auto bg-[#6e5bc5] text-white'
-                  disabled={!details.FinalSignIn.PreparedBy}
                   onClick={onSubmit}
                 >
                   Submit
