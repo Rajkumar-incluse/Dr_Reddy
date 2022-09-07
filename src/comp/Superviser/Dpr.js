@@ -5,8 +5,8 @@ import cn from 'classnames';
 
 import { getDprInfo } from '../../action-reducers/dpr/dprAction';
 
-import PassiveCCDRList from './Modals/CCDRList/Passive';
-import ActiveCCDRList from './Modals/CCDRList/Active';
+import PassiveCCDRList from '../Template/Modals/CCDRList/Passive';
+import ActiveCCDRList from '../Template/Modals/CCDRList/Active';
 import PackingList from '../Template/Modals/PackingList';
 import Loader from '../Common/Loader';
 import AddDpr from './Modals/AddDpr';
@@ -14,16 +14,16 @@ import AddDpr from './Modals/AddDpr';
 function Dpr() {
   const dprList = useSelector(({ dpr }) => dpr.list || [])
   const [isLoading, setIsLoading] = useState(true)
-  const [open, setOpen] = useState({ type: "", id: "" })
+  const [open, setOpen] = useState({ type: "", id: "", viewType: "" })
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(getDprInfo({}, () => setIsLoading(false)))
   }, [dispatch])
 
-  const updateOpen = (type, id) => setOpen({ type, id })
+  const updateOpen = (type, id, viewType = '') => setOpen({ type, id, viewType })
 
-  const closeModal = () => setOpen({ type: "", id: "" })
+  const closeModal = () => setOpen({ type: "", id: "", viewType: "" })
 
   if (isLoading) return <Loader wrapperCls='h-full' />
 
@@ -71,7 +71,7 @@ function Dpr() {
                     <button
                       className="w-16 h-6 p-0 text-sm text-center text-white bg-[#6e5bc5] hover:bg-[#6455a3] rounded-full disabled:bg-[#8778c9]"
                       disabled={d.ccdrStatus === "not-started"}
-                      onClick={() => updateOpen(d.transportMode)}
+                      onClick={() => updateOpen(`${d.transportMode}CCDRList`, d.id, "View")}
                     >
                       View
                     </button>
@@ -115,17 +115,23 @@ function Dpr() {
       }
 
       {
-        open.type === 'Passive' &&
+        open.type === 'passiveCCDRList' &&
         <PassiveCCDRList
           isOpen
+          id={open.id}
+          role="supervisor"
+          type={open.viewType}
           closeModal={closeModal}
         />
       }
 
       {
-        open.type === 'Active' &&
+        open.type === 'activeCCDRList' &&
         <ActiveCCDRList
           isOpen
+          id={open.id}
+          role="supervisor"
+          type={open.viewType}
           closeModal={closeModal}
         />
       }

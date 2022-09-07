@@ -5,8 +5,8 @@ import cn from 'classnames';
 
 import { getDprInfo } from '../../action-reducers/dpr/dprAction';
 
-import PassiveCCDRList from './Modals/CCDRList/Passive';
-import ActiveCCDRList from './Modals/CCDRList/Active';
+import PassiveCCDRList from '../Template/Modals/CCDRList/Passive';
+import ActiveCCDRList from '../Template/Modals/CCDRList/Active';
 import PackingList from '../Template/Modals/PackingList';
 import Loader from '../Common/Loader';
 
@@ -106,8 +106,9 @@ function Dpr() {
         open.type === 'passiveCCDRList' &&
         <PassiveCCDRList
           isOpen
-          type={open.viewType}
           id={open.id}
+          role="associate"
+          type={open.viewType}
           closeModal={closeModal}
         />
       }
@@ -116,8 +117,9 @@ function Dpr() {
         open.type === 'activeCCDRList' &&
         <ActiveCCDRList
           isOpen
-          type={open.viewType}
           id={open.id}
+          role="associate"
+          type={open.viewType}
           closeModal={closeModal}
         />
       }
