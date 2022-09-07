@@ -24,6 +24,7 @@ function Step6({ type, details, onChange, onListChange, addOuterBoxPacking }) {
             type="text"
             value={details.OuterBoxPacking.Date}
             onChange={e => onChange("OuterBoxPacking", "Date", e.target.value)}
+            disabled={type === "View"}
           />
         </div>
 
@@ -71,9 +72,9 @@ function Step6({ type, details, onChange, onListChange, addOuterBoxPacking }) {
                       className="cursor-pointer"
                       name={obpl.id + "LabelPasted"}
                       type="radio"
-                      value="yes"
+                      value="Yes"
                       disabled={type === "View"}
-                      checked={obpl.LabelPasted === "yes"}
+                      checked={obpl.LabelPasted === "Yes"}
                       onChange={e => onListChange("OuterBoxPacking", obpl.id, "LabelPasted", e.target.value)}
                     />
                   </td>
@@ -82,9 +83,9 @@ function Step6({ type, details, onChange, onListChange, addOuterBoxPacking }) {
                       className="cursor-pointer"
                       name={obpl.id + "LabelPasted"}
                       type="radio"
-                      value="no"
+                      value="No"
                       disabled={type === "View"}
-                      checked={obpl.LabelPasted === "no"}
+                      checked={obpl.LabelPasted === "No"}
                       onChange={e => onListChange("OuterBoxPacking", obpl.id, "LabelPasted", e.target.value)}
                     />
                   </td>
@@ -93,9 +94,9 @@ function Step6({ type, details, onChange, onListChange, addOuterBoxPacking }) {
                       className="cursor-pointer"
                       name={obpl.id + "StrappedBox"}
                       type="radio"
-                      value="yes"
+                      value="Yes"
                       disabled={type === "View"}
-                      checked={obpl.StrappedBox === "yes"}
+                      checked={obpl.StrappedBox === "Yes"}
                       onChange={e => onListChange("OuterBoxPacking", obpl.id, "StrappedBox", e.target.value)}
                     />
                   </td>
@@ -104,9 +105,9 @@ function Step6({ type, details, onChange, onListChange, addOuterBoxPacking }) {
                       className="cursor-pointer"
                       name={obpl.id + "StrappedBox"}
                       type="radio"
-                      value="no"
+                      value="No"
                       disabled={type === "View"}
-                      checked={obpl.StrappedBox === "no"}
+                      checked={obpl.StrappedBox === "No"}
                       onChange={e => onListChange("OuterBoxPacking", obpl.id, "StrappedBox", e.target.value)}
                     />
                   </td>
@@ -114,18 +115,21 @@ function Step6({ type, details, onChange, onListChange, addOuterBoxPacking }) {
               ))
             }
 
-            <tr>
-              <td className='px-4 py-1 border' colSpan='10'>
-                <div className='df justify-end'>
-                  <button
-                    className='bg-[#6e5bc5] text-white'
-                    onClick={addOuterBoxPacking}
-                  >
-                    Add
-                  </button>
-                </div>
-              </td>
-            </tr>
+            {
+              type !== "View" &&
+              <tr>
+                <td className='px-4 py-1 border' colSpan='10'>
+                  <div className='df justify-end'>
+                    <button
+                      className='bg-[#6e5bc5] text-white'
+                      onClick={addOuterBoxPacking}
+                    >
+                      Add
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
           </tbody>
 
           <tfoot>

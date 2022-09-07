@@ -60,18 +60,21 @@ function Step4({ type, details, onChange, onListChange, addInnerBoxPacking }) {
               ))
             }
 
-            <tr>
-              <td className='px-4 py-1 border' colSpan='10'>
-                <div className='df justify-end'>
-                  <button
-                    className='bg-[#6e5bc5] text-white'
-                    onClick={addInnerBoxPacking}
-                  >
-                    Add
-                  </button>
-                </div>
-              </td>
-            </tr>
+            {
+              type !== "View" &&
+              <tr>
+                <td className='px-4 py-1 border' colSpan='10'>
+                  <div className='df justify-end'>
+                    <button
+                      className='bg-[#6e5bc5] text-white'
+                      onClick={addInnerBoxPacking}
+                    >
+                      Add
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
           </tbody>
 
           <tfoot>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getCCDRInfo, getDprInfo } from '../../../../../action-reducers/dpr/dprAction';
+import { createCCDR, getCCDRInfo, getDprInfo } from '../../../../../action-reducers/dpr/dprAction';
 
 import Modal, { ModalHeader } from '../../../../UIComp/Modal';
 import Loader from '../../../../Common/Loader';
@@ -21,6 +21,7 @@ function Passive({ isOpen, id, type, closeModal }) {
   const userDetails = useSelector(({ login }) => login?.userDetails || {})
   const dispatch = useDispatch()
 
+  const [isSubmiting, setIsSubmiting] = useState(false)
   const [isLoading1, setIsLoading1] = useState(true)
   const [isLoading2, setIsLoading2] = useState(type === "View")
   const [step, setStep] = useState(0)
@@ -87,6 +88,7 @@ function Passive({ isOpen, id, type, closeModal }) {
       }],
       MaxTOR: "",
       Remarks: "",
+      Date: "",
     },
     ShipmentTracking: {
       TrackingMode: "",
@@ -115,14 +117,48 @@ function Passive({ isOpen, id, type, closeModal }) {
 
   const currentRole = userDetails?.role === "supervisor" ? "ApprovedBy" : "PreparedBy"
 
-  console.log(details)
-
   useEffect(() => {
     dispatch(getDprInfo({ id }, () => setIsLoading1(false)))
     if (type === "View") {
       dispatch(getCCDRInfo({ dprId: id }, (newData) => {
         if (newData) {
-          console.log(newData)
+          let res = JSON.parse(newData.steps)
+          let payload = {
+            GeneralInstruction: {
+              ...res.GeneralInstruction,
+              ProperCleaning: res.GeneralInstruction.ProperCleaning ? "Yes" : "No",
+              GelPackPacking: res.GeneralInstruction.GelPackPacking ? "Yes" : "No",
+              PackingOperation: res.GeneralInstruction.PackingOperation ? "Yes" : "No",
+              EquipmentValidity: res.GeneralInstruction.EquipmentValidity ? "Yes" : "No",
+              PicklistAndBoxesCount: res.GeneralInstruction.PicklistAndBoxesCount ? "Yes" : "No",
+            },
+            PackingOperation: {
+              ...res.PackingOperation,
+            },
+            InnerBoxPacking: {
+              ...res.InnerBoxPacking,
+            },
+            OuterBoxPacking: {
+              ...res.OuterBoxPacking,
+              list: res.OuterBoxPacking.list.map(li => ({
+                ...li,
+                LabelPasted: li.LabelPasted ? "Yes" : "No",
+                StrappedBox: li.StrappedBox ? "Yes" : "No",
+              }))
+            },
+            ShipmentTracking: {
+              ...res.ShipmentTracking,
+            },
+            DocumentVerification: {
+              ...res.DocumentVerification,
+              MinConditioned1: res.DocumentVerification.MinConditioned1 ? "Yes" : "No",
+            },
+            FinalSignIn: {
+              ...res.FinalSignIn,
+            },
+          }
+
+          setDetails(payload)
         }
         setIsLoading2(false)
       }))
@@ -234,8 +270,56 @@ function Passive({ isOpen, id, type, closeModal }) {
         ],
         MaxTOR: prev.OuterBoxPacking.MaxTOR,
         Remarks: prev.OuterBoxPacking.Remarks,
+        Date: prev.OuterBoxPacking.Date,
       }
     }))
+  }
+
+  const onSubmit = () => {
+    const steps = {
+      GeneralInstruction: {
+        ...details.GeneralInstruction,
+        ProperCleaning: details.GeneralInstruction.ProperCleaning === "Yes",
+        GelPackPacking: details.GeneralInstruction.GelPackPacking === "Yes",
+        PackingOperation: details.GeneralInstruction.PackingOperation === "Yes",
+        EquipmentValidity: details.GeneralInstruction.EquipmentValidity === "Yes",
+        PicklistAndBoxesCount: details.GeneralInstruction.PicklistAndBoxesCount === "Yes",
+      },
+      PackingOperation: {
+        ...details.PackingOperation,
+      },
+      InnerBoxPacking: {
+        ...details.InnerBoxPacking,
+      },
+      OuterBoxPacking: {
+        ...details.OuterBoxPacking,
+        list: details.OuterBoxPacking.list.map(li => ({
+          ...li,
+          LabelPasted: li.LabelPasted === "Yes",
+          StrappedBox: li.StrappedBox === "Yes",
+        }))
+      },
+      ShipmentTracking: {
+        ...details.ShipmentTracking,
+      },
+      DocumentVerification: {
+        ...details.DocumentVerification,
+        MinConditioned1: details.DocumentVerification.MinConditioned1 === "Yes",
+      },
+      FinalSignIn: {
+        ...details.FinalSignIn,
+      },
+    }
+    setIsSubmiting(true)
+    createCCDR(
+      {
+        dprNo: dprInfo.dprNo,
+        dprId: dprInfo.id,
+        transportMode: dprInfo.transportMode,
+        steps
+      },
+      closeModal
+    )
   }
 
   return (
@@ -253,7 +337,16 @@ function Passive({ isOpen, id, type, closeModal }) {
           ? <Loader wrapperCls='w-[50vw] h-40' />
           : <>
             {step === 0 && <Step0 dprInfo={dprInfo} />}
-            {step === 1 && <Step1 details={details} onChange={onChange} />}
+
+            {
+              step === 1 &&
+              <Step1
+                type={type}
+                details={details}
+                onChange={onChange}
+              />
+            }
+
             {step === 2 && <Step2 />}
 
             {
@@ -347,8 +440,9 @@ function Passive({ isOpen, id, type, closeModal }) {
                 type === "Edit" &&
                 details?.FinalSignIn?.[currentRole]?.status &&
                 <button
-                  className='ml-auto bg-[#6e5bc5] text-white'
-                  onClick={() => setStep(p => p + 1)}
+                  className='ml-auto bg-[#6e5bc5] text-white disabled:opacity-80'
+                  disabled={isSubmiting}
+                  onClick={onSubmit}
                 >
                   Submit
                 </button>

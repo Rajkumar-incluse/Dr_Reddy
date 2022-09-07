@@ -180,12 +180,15 @@ function Step3({ type, details, onChange, addPackingOperation, onListChange }) {
 
         <div className='df justify-between my-6'>
           <p className="text-gray-600"># External data logger is for reference purpose only.</p>
-          <button
-            className='bg-[#6e5bc5] text-white'
-            onClick={addPackingOperation}
-          >
-            Add
-          </button>
+          {
+            type !== "View" &&
+            <button
+              className='bg-[#6e5bc5] text-white'
+              onClick={addPackingOperation}
+            >
+              Add
+            </button>
+          }
         </div>
       </div>
     </div>
