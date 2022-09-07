@@ -13,16 +13,16 @@ import Loader from '../Common/Loader';
 function Dpr() {
   const dprList = useSelector(({ dpr }) => dpr.list || [])
   const [isLoading, setIsLoading] = useState(true)
-  const [open, setOpen] = useState({ type: "", id: "" })
+  const [open, setOpen] = useState({ type: "", id: "", viewType: "" })
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(getDprInfo({}, () => setIsLoading(false)))
   }, [dispatch])
 
-  const updateOpen = (type, id) => setOpen({ type, id })
+  const updateOpen = (type, id, viewType = '') => setOpen({ type, id, viewType })
 
-  const closeModal = () => setOpen({ type: "", id: "" })
+  const closeModal = () => setOpen({ type: "", id: "", viewType: "" })
 
   if (isLoading) return <Loader wrapperCls='h-full' />
 
@@ -67,7 +67,7 @@ function Dpr() {
                   <td className='px-2 py-1'>
                     <button
                       className="w-16 h-6 p-0 text-sm text-center text-white bg-[#6e5bc5] hover:bg-[#8778c9] rounded-full"
-                      onClick={() => updateOpen(`${d.transportMode}CCDRList`, d.id)}
+                      onClick={() => updateOpen(`${d.transportMode}CCDRList`, d.id, d.ccdrStatus !== "not-started" ? 'View' : 'Edit')}
                     >
                       {d.ccdrStatus !== "not-started" ? 'View' : 'Edit'}
                     </button>
@@ -106,7 +106,7 @@ function Dpr() {
         open.type === 'passiveCCDRList' &&
         <PassiveCCDRList
           isOpen
-          type="Edit"
+          type={open.viewType}
           id={open.id}
           closeModal={closeModal}
         />
@@ -116,7 +116,7 @@ function Dpr() {
         open.type === 'activeCCDRList' &&
         <ActiveCCDRList
           isOpen
-          type="Edit"
+          type={open.viewType}
           id={open.id}
           closeModal={closeModal}
         />

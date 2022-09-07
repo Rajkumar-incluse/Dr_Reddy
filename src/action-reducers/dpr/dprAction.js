@@ -110,33 +110,20 @@ export function getCCDRInfo({ dprNo, dprId }, onSuccess) {
   }
 }
 
-export function createCCDR(data, onSuccess) {
-  return async dispatch => {
-    try {
-      const res = await sendApiReq({
-        method: 'post',
-        url: endPoints.createCCDR,
-        data,
-      })
+export async function createCCDR(data, onSuccess) {
+  try {
+    const res = await sendApiReq({
+      method: 'post',
+      url: endPoints.createCCDR,
+      data,
+    })
 
-      console.log(res)
+    console.log(res)
 
-      // let payload = {
-      //   ...res,
-      //   packingList: JSON.parse(res.packingList),
-      //   products: JSON.parse(res.products),
-      // }
-      // console.log(payload)
+    // onSuccess()
 
-      // dispatch({
-      //   type: dprConstants.ADD_DPR,
-      //   payload
-      // })
-      // onSuccess()
-
-    } catch (error) {
-      console.log(error)
-    }
+  } catch (error) {
+    console.log(error)
   }
 }
 

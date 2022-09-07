@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getCCDRInfo, getDprInfo } from '../../../../../action-reducers/dpr/dprAction';
+import { createCCDR, getCCDRInfo, getDprInfo } from '../../../../../action-reducers/dpr/dprAction';
 
 import Modal, { ModalHeader } from '../../../../UIComp/Modal';
 import Loader from '../../../../Common/Loader';
@@ -17,8 +17,10 @@ function Active({ isOpen, id, type, closeModal }) {
   const userDetails = useSelector(({ login }) => login?.userDetails || {})
   const dispatch = useDispatch()
 
+  const [isSubmiting, setIsSubmiting] = useState(false)
   const [isLoading1, setIsLoading1] = useState(true)
   const [isLoading2, setIsLoading2] = useState(type === "View")
+
   const [step, setStep] = useState(0)
 
   const [details, setDetails] = useState({
@@ -78,7 +80,28 @@ function Active({ isOpen, id, type, closeModal }) {
     if (type === "View") {
       dispatch(getCCDRInfo({ dprId: id }, (newData) => {
         if (newData) {
-          console.log(newData)
+          let res = JSON.parse(newData.steps)
+          let payload = {
+            GeneralInstruction: {
+              ...res.GeneralInstruction,
+              ProperCleaning: res.GeneralInstruction.ProperCleaning ? "Yes" : 'No',
+              CratesAvail: res.GeneralInstruction.CratesAvail ? "Yes" : 'No',
+              TrolleyAvail: res.GeneralInstruction.TrolleyAvail ? "Yes" : 'No',
+              EquipmentValidity: res.GeneralInstruction.EquipmentValidity ? "Yes" : 'No',
+            },
+            ProductPacking: {
+              ...res.ProductPacking,
+            },
+            CrateShiftingActive: {
+              ...res.CrateShiftingActive,
+              Compliance: res.CrateShiftingActive.Compliance ? "Compliance" : "Not compliance",
+            },
+            FinalSignIn: {
+              ...res.FinalSignIn,
+            },
+          }
+
+          setDetails(payload)
         }
         setIsLoading2(false)
       }))
@@ -142,7 +165,33 @@ function Active({ isOpen, id, type, closeModal }) {
   }
 
   const onSubmit = () => {
-    console.log(details)
+    const steps = {
+      GeneralInstruction: {
+        ...details.GeneralInstruction,
+        ProperCleaning: details.GeneralInstruction.ProperCleaning === "Yes",
+        CratesAvail: details.GeneralInstruction.CratesAvail === "Yes",
+        TrolleyAvail: details.GeneralInstruction.TrolleyAvail === "Yes",
+        EquipmentValidity: details.GeneralInstruction.EquipmentValidity === "Yes",
+      },
+      ProductPacking: {
+        ...details.ProductPacking,
+      },
+      CrateShiftingActive: {
+        ...details.CrateShiftingActive,
+        Compliance: details.CrateShiftingActive.Compliance === "Compliance",
+      },
+      FinalSignIn: {
+        ...details.FinalSignIn,
+      },
+    }
+
+    setIsSubmiting(true)
+    createCCDR({
+      dprNo: dprInfo.dprNo,
+      dprId: dprInfo.id,
+      transportMode: dprInfo.transportMode,
+      steps
+    })
   }
 
   return (
@@ -230,7 +279,8 @@ function Active({ isOpen, id, type, closeModal }) {
                 type === "Edit" &&
                 details?.FinalSignIn?.[currentRole]?.status &&
                 <button
-                  className='ml-auto bg-[#6e5bc5] text-white'
+                  className='ml-auto bg-[#6e5bc5] text-white disabled:opacity-80'
+                  disabled={isSubmiting}
                   onClick={onSubmit}
                 >
                   Submit
