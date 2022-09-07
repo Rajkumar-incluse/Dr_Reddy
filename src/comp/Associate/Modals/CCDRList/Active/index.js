@@ -186,14 +186,16 @@ function Active({ isOpen, id, type, closeModal }) {
     }
 
     setIsSubmiting(true)
-    createCCDR(
-      {
-        dprNo: dprInfo.dprNo,
-        dprId: dprInfo.id,
-        transportMode: dprInfo.transportMode,
-        steps
-      },
-      closeModal
+    dispatch(
+      createCCDR(
+        {
+          dprNo: dprInfo.dprNo,
+          dprId: dprInfo.id,
+          transportMode: dprInfo.transportMode,
+          steps
+        },
+        closeModal
+      )
     )
   }
 

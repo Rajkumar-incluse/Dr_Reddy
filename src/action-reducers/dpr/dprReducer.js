@@ -33,6 +33,21 @@ const adminReducer = (state = initialState, { type, payload }) => {
         }),
       }
 
+    case dprConstants.UPDATE_CCDR_STATUS:
+      return {
+        ...state,
+        list: state.list.map(dpr => {
+          if (dpr.id === payload.id) {
+            return {
+              ...dpr,
+              ...payload
+            }
+          }
+
+          return dpr
+        }),
+      }
+
     default: return state
   }
 }

@@ -3,6 +3,7 @@ const dprConstants = {
   ADD_DPR: "ADD_DPR",
   UPDATE_DPR: "UPDATE_DPR",
   ADD_CCDR: "ADD_CCDR",
+  UPDATE_CCDR_STATUS: "UPDATE_CCDR_STATUS",
 };
 
 export default dprConstants;

@@ -110,20 +110,27 @@ export function getCCDRInfo({ dprNo, dprId }, onSuccess) {
   }
 }
 
-export async function createCCDR(data, onSuccess) {
-  try {
-    const res = await sendApiReq({
-      method: 'post',
-      url: endPoints.createCCDR,
-      data,
-    })
+export function createCCDR(data, onSuccess) {
+  return async dispatch => {
+    try {
+      await sendApiReq({
+        method: 'post',
+        url: endPoints.createCCDR,
+        data,
+      })
 
-    console.log(res)
+      dispatch({
+        type: dprConstants.UPDATE_CCDR_STATUS,
+        payload: {
+          id: data.dprId,
+          ccdrStatus: "in-progress"
+        }
+      })
+      onSuccess()
 
-    // onSuccess()
-
-  } catch (error) {
-    console.log(error)
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 
