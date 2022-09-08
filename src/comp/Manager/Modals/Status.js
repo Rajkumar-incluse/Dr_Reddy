@@ -93,26 +93,28 @@ function Status({ isOpen, closeModal }) {
       />
 
       <table className='w-full'>
-        <tr className="sticky top-0">
-          <td className="px-4 py-1 font-medium">Task</td>
-          <td className="px-4 py-1 font-medium">Performed by</td>
-        </tr>
+        <tbody>
+          <tr className="sticky top-0">
+            <td className="px-4 py-1 font-medium">Task</td>
+            <td className="px-4 py-1 font-medium">Performed by</td>
+          </tr>
 
-        {
-          list.map(l => (
-            <tr key={l.key} className='even:bg-slate-200'>
-              <td className="px-4 py-1">{l.task}</td>
-              <td className="px-4 py-1">
-                <div className='df my-px'>
-                  <button className={`w-24 h-6 p-0 text-sm text-center rounded-full ${l.status === "completed" ? "bg-green-200 text-green-800" : ""} ${l.status === "in-progress" ? "bg-yellow-200 text-yellow-900" : ""} ${l.status === "rejected" ? "bg-red-200 text-red-900" : ""}`}>
-                    {l.status}
-                  </button>
-                  <p className='text-sm'>{l.by ? `(${l.by})` : ''}</p>
-                </div>
-              </td>
-            </tr>
-          ))
-        }
+          {
+            list.map(l => (
+              <tr key={l.key} className='even:bg-slate-200'>
+                <td className="px-4 py-1">{l.task}</td>
+                <td className="px-4 py-1">
+                  <div className='df my-px'>
+                    <button className={`w-24 h-6 p-0 text-sm text-center rounded-full ${l.status === "completed" ? "bg-green-200 text-green-800" : ""} ${l.status === "in-progress" ? "bg-yellow-200 text-yellow-900" : ""} ${l.status === "rejected" ? "bg-red-200 text-red-900" : ""}`}>
+                      {l.status}
+                    </button>
+                    <p className='text-sm'>{l.by ? `(${l.by})` : ''}</p>
+                  </div>
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
       </table>
     </Modal>
   )

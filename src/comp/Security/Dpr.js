@@ -1,12 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { format } from 'date-fns';
+import cn from 'classnames';
+
+import { getDprInfo } from '../../action-reducers/dpr/dprAction';
+
 import DocsHandler from "./Modals/DocsHandler";
-import data from '../../dummy/manager/dpr';
+import Loader from '../Common/Loader';
 
 function Dpr() {
-  const [modal, setModal] = useState({
-    state: false,
-    data: {}
-  })
+  const dprList = useSelector(({ dpr }) => dpr.list || [])
+  const [isLoading, setIsLoading] = useState(true)
+  const [modal, setModal] = useState({ state: false, data: {} })
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getDprInfo({}, () => setIsLoading(false)))
+  }, [dispatch])
 
   const closeModal = () => {
     setModal(p => ({
@@ -28,6 +38,8 @@ function Dpr() {
     })
   }
 
+  if (isLoading) return <Loader wrapperCls='h-full' />
+
   return (
     <section className='dfc h-full overflow-y-hidden bg-[#f7f7f7]'>
       <div className='df gap-4 mt-4 px-8 py-4'>
@@ -47,10 +59,10 @@ function Dpr() {
 
           <tbody>
             {
-              data.map((d, i) => (
+              dprList.map((d, i) => (
                 <tr key={d.id} className='text-sm'>
-                  <td className='pl-12 pr-2 py-1'>{d.dprNum}</td>
-                  <td className='px-2 py-1'>{d.start}</td>
+                  <td className='pl-12 pr-2 py-1'>{d.dprNo}</td>
+                  <td className='px-2 py-1'>{d?.effectiveDate && format(new Date(d?.effectiveDate), "dd-MM-yyyy hh:mm aa")}</td>
                   <td className='px-2 py-1'>
                     <button
                       className={`w-24 py-0.5 text-sm rounded-full text-white ${i % 2 === 0 ? "bg-green-400 hover:bg-green-600" : "bg-[#6e5bc5] hover:bg-[#4b3a92]"}`}
@@ -60,8 +72,17 @@ function Dpr() {
                     </button>
                   </td>
                   <td className='px-2 py-1'>
-                    <button className={`w-24 h-6 p-0 text-sm text-center rounded-full ${d.status === "completed" ? "bg-green-200 text-green-800" : ""} ${d.status === "not-started" ? " bg-slate-300 text-slate-800" : ""} ${d.status === "in-progress" ? "bg-yellow-200 text-yellow-900" : ""} ${d.status === "rejected" ? "bg-red-200 text-red-900" : ""}`}>
-                      {d.status}
+                    <button className={
+                      cn("w-24 h-6 p-0 text-sm text-center rounded-full", {
+                        "bg-slate-300 text-slate-800": d.ccdrStatus === "not-started",
+                        "bg-yellow-200 text-yellow-900": d.ccdrStatus === "in-progress",
+                        "bg-green-200 text-green-800": d.ccdrStatus === "completed" || d.ccdrStatus === "accepted",
+                        "bg-red-200 text-red-900": d.ccdrStatus === "rejected",
+                      })
+                    }
+                    >
+                      {d.ccdrStatus}
+                      {/* has to be seal code */}
                     </button>
                   </td>
                 </tr>

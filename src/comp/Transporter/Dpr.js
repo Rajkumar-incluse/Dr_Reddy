@@ -1,16 +1,29 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import getRandom from '../../helper/getRandom';
-import data from '../../dummy/manager/dpr';
-import DprList from './Modals/DprList';
+import { format } from 'date-fns';
+
+import { getDprInfo } from '../../action-reducers/dpr/dprAction';
+
+import PackingList from '../Template/Modals/PackingList';
+import Loader from '../Common/Loader';
 
 function Dpr() {
-  const [open, setOpen] = useState("")
+  const dprList = useSelector(({ dpr }) => dpr.list || [])
+  const [isLoading, setIsLoading] = useState(true)
+  const [open, setOpen] = useState({ type: "", id: "", viewType: "" })
+  const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const updateOpen = val => setOpen(val)
+  useEffect(() => {
+    dispatch(getDprInfo({}, () => setIsLoading(false)))
+  }, [dispatch])
 
-  const closeModal = () => setOpen('')
+  const updateOpen = (type, id, viewType = '') => setOpen({ type, id, viewType })
+
+  const closeModal = () => setOpen({ type: "", id: "", viewType: "" })
+
+  if (isLoading) return <Loader wrapperCls='h-full' />
 
   return (
     <section className='dfc h-full overflow-y-hidden bg-[#f7f7f7]'>
@@ -34,17 +47,17 @@ function Dpr() {
 
           <tbody>
             {
-              data.map((d, i) => (
+              dprList.map((d, i) => (
                 <tr key={d.id} className='text-sm'>
-                  <td className='pl-12 pr-2 py-1'>1278{getRandom(10, 100)}</td>
-                  <td className='px-2 py-1'>{d.start}</td>
-                  <td className='px-2 py-1'>{i % 3 === 0 ? 'Active' : 'Passive'}</td>
-                  <td className='px-2 py-1'>{d.start}</td>
-                  <td className='px-2 py-1'>{d.end}</td>
+                  <td className='pl-12 pr-2 py-1'>{d.dprNo}</td>
+                  <td className='px-2 py-1'>{d?.effectiveDate && format(new Date(d?.effectiveDate), "dd-MM-yyyy hh:mm aa")}</td>
+                  <td className='px-2 py-1 first-letter:uppercase'>{d.transportMode}</td>
+                  <td className='px-2 py-1'>-</td>
+                  <td className='px-2 py-1'>-</td>
                   <td className='px-2 py-1'>
                     <button
                       className="w-16 h-6 p-0 text-sm text-center text-white bg-[#6e5bc5] hover:bg-[#8778c9] rounded-full"
-                      onClick={() => updateOpen('dprList')}
+                      onClick={() => updateOpen('packingList', d.id)}
                     >
                       View
                     </button>
@@ -64,10 +77,14 @@ function Dpr() {
         </table>
       </div>
 
-      <DprList
-        isOpen={open === 'dprList'}
-        closeModal={closeModal}
-      />
+      {
+        open.type === 'packingList' &&
+        <PackingList
+          isOpen
+          id={open.id}
+          closeModal={closeModal}
+        />
+      }
     </section>
   )
 }
