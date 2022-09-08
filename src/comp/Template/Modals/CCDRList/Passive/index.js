@@ -162,14 +162,14 @@ function Passive({ isOpen, id, type, role, closeModal }) {
           }
 
           setDetails(payload)
-          if (payload.FinalSignIn.ApprovedBy.status) {
+          if (payload.FinalSignIn[currentRole].status) {
             setIsFinished(true)
           }
         }
         setIsLoading2(false)
       }))
     }
-  }, [dispatch, id, type])
+  }, [dispatch, id, type, currentRole])
 
   const onChange = (parentKey, currentKey, value) => {
     setDetails(prev => ({

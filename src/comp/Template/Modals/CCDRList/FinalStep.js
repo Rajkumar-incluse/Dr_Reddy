@@ -27,7 +27,8 @@ function FinalStep({ type, role, details, userName, onChange, isFinished }) {
             <div>
               <div className='mb-2 font-bold'>Prepared by</div>
               <div className='mb-1'>
-                {details.FinalSignIn.PreparedBy.name} &nbsp;
+                {details.FinalSignIn.PreparedBy.name}
+                <br />
                 {
                   details.FinalSignIn.PreparedBy.Date
                     ? format(new Date(details.FinalSignIn.PreparedBy.Date), "dd.MM.yyyy")
@@ -96,14 +97,15 @@ function FinalStep({ type, role, details, userName, onChange, isFinished }) {
           :
           <div className='df my-6'>
             <input
+              className='w-fit'
               type="checkbox"
               name="preparedBy-final-sign"
               id="preparedBy-final-sign"
               value='Yes'
               checked={!!details?.FinalSignIn?.PreparedBy?.status}
-              onChange={onStattusUpdate}
+              onChange={() => onStattusUpdate('approved')}
             />
-            <label htmlFor="preparedBy-final-sign">I hereby verified everything</label>
+            <label className='mb-0' htmlFor="preparedBy-final-sign">I hereby verified everything</label>
           </div>
       }
     </div>

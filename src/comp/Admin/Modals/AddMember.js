@@ -9,10 +9,10 @@ import user from '../../../assets/img/user.png';
 function AddMember({ isOpen, closeModal }) {
   const [isLoading, setIsLoading] = useState(false)
   const [details, setDetails] = useState({
-    phoneNumber: "9999666667", // 9999666667
-    firstName: "Raj", // Raj
-    lastName: "Kumar", // Kumar
-    email: "raj12@gmail.com", // raj12@gmail.com
+    phoneNumber: "9999666667",
+    firstName: "",
+    lastName: "Kumar",
+    email: "r1@gmail.com",
     role: ""
   })
   const inputRef = useRef()
@@ -123,12 +123,13 @@ function AddMember({ isOpen, closeModal }) {
             <option value="manager">Manager</option>
             <option value="cfa">CFA</option>
             <option value="transporter">Transporter</option>
+            <option value="security">Security</option>
           </select>
         </div>
       </div>
 
       <button
-        className='block w-1/2 mx-auto mt-12 bg-[#6e5bc5] text-white hover:scale-105 transition-transform rounded'
+        className='block w-1/2 mx-auto mt-12 bg-[#6e5bc5] text-white hover:scale-105 transition-transform rounded disabled:opacity-80 disabled:cursor-default'
         disabled={isLoading}
         onClick={onSubmit}
       >

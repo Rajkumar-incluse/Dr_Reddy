@@ -59,15 +59,15 @@ export function onLogoutSuccess() {
 
 export async function createOrg(data, onSuccess) {
   try {
-    const res = await sendApiReq({
+    await sendApiReq({
       isAuthendicated: false,
       method: 'post',
       url: endPoints.createOrg,
       data,
     })
 
-    console.log(res)
-    // onSuccess()
+    // console.log(res)
+    onSuccess()
 
   } catch (error) {
     console.log(error)
