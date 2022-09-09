@@ -1,11 +1,17 @@
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
+import { useDispatch } from 'react-redux';
+import { documentUpload } from '../../../../action-reducers/dpr/dprAction';
 
-function Upload() {
+function Upload({ data, onUpload, closeModal }) {
+  const [isLoading, setIsLoading] = useState(false)
+  const [fileData, setFileData] = useState({})
   const [file, setFile] = useState("")
+  const dispatch = useDispatch()
 
   const onDrop = useCallback((acceptedFiles) => {
     acceptedFiles.forEach((file) => {
+      setFileData(file)
       const reader = new FileReader()
 
       reader.onabort = () => console.log('file reading was aborted')
@@ -24,6 +30,23 @@ function Upload() {
       'image/*': []
     },
   })
+
+  const onSuccess = d => {
+    onUpload(data.dprId, d)
+    closeModal()
+  }
+
+  const onSubmit = () => {
+    setIsLoading(true)
+    const formData = new FormData()
+
+    formData.append("document", fileData)
+    formData.append("dprNo", data.dprNo)
+    formData.append("documentType", data.documentType)
+    formData.append("dprId", data.dprId)
+
+    dispatch(documentUpload(formData, onSuccess))
+  }
 
   return (
     <>
@@ -45,7 +68,9 @@ function Upload() {
       <textarea className='my-4' rows="2" placeholder='Remarks'></textarea>
 
       <button
-        className="block w-40 py-1.5 mx-auto text-sm rounded-full text-white bg-[#6e5bc5] hover:bg-[#4b3a92]"
+        className={`block w-40 py-1.5 mx-auto text-sm rounded-full text-white bg-[#6e5bc5] ${isLoading ? "disabled:opacity-80 disabled:cursor-default" : "hover:bg-[#4b3a92]"}`}
+        onClick={onSubmit}
+        disabled={isLoading}
       >
         Submit
       </button>

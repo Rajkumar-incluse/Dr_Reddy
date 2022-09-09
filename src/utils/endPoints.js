@@ -1,5 +1,6 @@
 export const root = {
-  baseUrl: 'http://13.127.0.50:8080/api/v1'
+  baseUrl: 'http://13.127.0.50:8080/api/v1',
+  imgUrl: "http://13.127.0.50:8080"
 }
 
 const endPoints = {
@@ -13,7 +14,9 @@ const endPoints = {
   getDprInfo: '/dpr', // ?dprNo= &id=
   createCCDR: '/ccdr',
   getCCDRInfo: '/ccdr', // ?dprNo=&dprId=
-  updateCCDRStatus: "/ccdr/status"
+  updateCCDRStatus: "/ccdr/status",
+  documentUpload: '/document',
+  getDoc: "/document"
 }
 
 export default endPoints

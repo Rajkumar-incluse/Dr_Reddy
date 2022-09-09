@@ -2,6 +2,14 @@ import sendApiReq from '../../utils/sendApiReq';
 import endPoints from '../../utils/endPoints';
 import dprConstants from './dprConstants';
 
+export const documentTypes = {
+  taxInvoice: "taxInvoice",
+  lrCopy: "lrCopy",
+  sealCode: "sealCode",
+  signedLrCopy: "signedLrCopy",
+  signedSealCode: "signedSealCode",
+}
+
 export async function checkDpr(dprno = "") {
   try {
     const res = await sendApiReq({
@@ -150,6 +158,47 @@ export function updateCCDRStatus(data, onSuccess) {
       //   payload
       // })
       // onSuccess()
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export function documentUpload(data, onSuccess) {
+  return async dispatch => {
+    try {
+      const res = await sendApiReq({
+        method: 'post',
+        url: endPoints.documentUpload,
+        headers: { 'content-type': 'multipart/form-data' },
+        data,
+      })
+
+      console.log(res)
+
+      onSuccess(res)
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export function getDoc(onSuccess = () => { }) {
+  return async dispatch => {
+    try {
+      const res = await sendApiReq({
+        url: endPoints.getDoc
+      })
+
+      let payload = res.map(r => ({
+        ...r,
+        documents: JSON.parse(r?.documents) || []
+      }))
+
+      console.log(payload)
+      onSuccess(payload)
 
     } catch (error) {
       console.log(error)
