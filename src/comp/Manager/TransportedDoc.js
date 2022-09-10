@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { useDispatch } from 'react-redux';
+import { useState } from "react";
 
-import { documentTypes, getDoc } from "../../action-reducers/dpr/dprAction";
+import { documentTypes } from "../../action-reducers/dpr/dprAction";
+import useDoc from '../../hooks/useDoc';
 
 import DocsHandler from "../Template/Modals/DocsHandler";
 import DocBtn from "../Template/DocBtn";
@@ -22,23 +22,9 @@ function Select() {
     </select>
   )
 }
+
 function TransportedDoc() {
-  const [isLoading, setIsLoading] = useState(true)
-  const [modal, setModal] = useState({ state: false, data: {} })
-  const [data, setData] = useState([])
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    const onSuccess = newData => {
-      setIsLoading(false)
-      setData(newData)
-    }
-
-    dispatch(getDoc(onSuccess))
-  }, [dispatch])
-
-  const closeModal = () => setModal({ state: false, data: {} })
-  const openModal = data => setModal({ state: true, data })
+  const { data, modal, isLoading, closeModal, openModal } = useDoc()
 
   if (isLoading) return <Loader wrapperCls='h-full' />
 

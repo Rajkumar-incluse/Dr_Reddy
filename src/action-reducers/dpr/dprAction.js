@@ -3,9 +3,9 @@ import endPoints from '../../utils/endPoints';
 import dprConstants from './dprConstants';
 
 export const documentTypes = {
-  taxInvoice: "taxInvoice",
   lrCopy: "lrCopy",
   sealCode: "sealCode",
+  taxInvoice: "taxInvoice",
   signedLrCopy: "signedLrCopy",
   signedSealCode: "signedSealCode",
 }

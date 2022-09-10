@@ -1,114 +1,14 @@
-import { useState } from "react";
-import DocsHandler from "./Modals/DocsHandler";
+import { documentTypes } from "../../action-reducers/dpr/dprAction";
+import useDoc from '../../hooks/useDoc';
 
-const data = [
-  {
-    dprNo: '18448980',
-    lrCopy: "View",
-    sealCode: 'View'
-  },
-  {
-    dprNo: '27618480',
-    lrCopy: "View",
-    sealCode: 'Upload'
-  },
-  {
-    dprNo: '18485720',
-    lrCopy: "Upload",
-    sealCode: 'View'
-  },
-  {
-    dprNo: '16735480',
-    lrCopy: "View",
-    sealCode: 'View'
-  },
-  {
-    dprNo: '16699910',
-    lrCopy: "View",
-    sealCode: 'Upload'
-  },
-  {
-    dprNo: '33479480',
-    lrCopy: "Upload",
-    sealCode: 'View'
-  },
-  {
-    dprNo: '23458488',
-    lrCopy: "Upload",
-    sealCode: 'View'
-  },
-  {
-    dprNo: '55445661',
-    lrCopy: "View",
-    sealCode: 'Upload'
-  },
-  {
-    dprNo: '64668989',
-    lrCopy: "Upload",
-    sealCode: 'View'
-  },
-  {
-    dprNo: '245678098',
-    lrCopy: "View",
-    sealCode: 'Upload'
-  },
-  {
-    dprNo: '567890987',
-    lrCopy: "View",
-    sealCode: 'Upload'
-  },
-  {
-    dprNo: '332211669',
-    lrCopy: "Upload",
-    sealCode: 'View'
-  },
-  {
-    dprNo: '23158483',
-    lrCopy: "Upload",
-    sealCode: 'View'
-  },
-  {
-    dprNo: '15005665',
-    lrCopy: "View",
-    sealCode: 'Upload'
-  },
-  {
-    dprNo: '22229891',
-    lrCopy: "Upload",
-    sealCode: 'View'
-  },
-  {
-    dprNo: '12409876',
-    lrCopy: "View",
-    sealCode: 'Upload'
-  },
-]
+import DocsHandler from "../Template/Modals/DocsHandler";
+import DocBtn from '../Template/DocBtn';
+import Loader from '../Common/Loader';
 
 function UploadLR() {
-  const [modal, setModal] = useState({
-    state: false,
-    data: {}
-  })
+  const { data, modal, isLoading, closeModal, openModal, onUpload } = useDoc()
 
-  const closeModal = () => {
-    setModal(p => ({
-      ...p,
-      state: false,
-    }))
-    setTimeout(() => {
-      setModal(p => ({
-        ...p,
-        data: {}
-      }))
-    }, 1000)
-  }
-
-  const openModal = data => {
-    setModal({
-      state: true,
-      data
-    })
-  }
+  if (isLoading) return <Loader wrapperCls='h-full' />
 
   return (
     <section className='dfc p-4 h-full overflow-y-hidden bg-[#f7f7f7]'>
@@ -124,24 +24,36 @@ function UploadLR() {
 
           <tbody>
             {
-              data.map(li => (
-                <tr key={li.dprNo} className='border-y'>
-                  <td className="px-4 py-2">{li.dprNo}</td>
+              data.map(d => (
+                <tr key={d.id} className='border-y'>
+                  <td className="px-4 py-2">{d.dprNo}</td>
                   <td className="px-4 py-2">
-                    <button
-                      className={`w-24 py-0.5 text-sm rounded-full text-white ${li.lrCopy === 'Upload' ? "bg-green-400 hover:bg-green-600" : "bg-[#6e5bc5] hover:bg-[#4b3a92]"}`}
-                      onClick={() => openModal({ type: li.lrCopy, title: 'LR Copy', dprNo: li.dprNo })}
-                    >
-                      {li.lrCopy}
-                    </button>
+                    <DocBtn
+                      documents={d.documents}
+                      docType={documentTypes.signedLrCopy}
+                      onClk={currentDoc => openModal({
+                        documentType: documentTypes.signedLrCopy,
+                        modalType: currentDoc.id ? "View" : "Upload",
+                        title: "Signed LR Copy",
+                        dprNo: d.dprNo,
+                        dprId: d.id,
+                        img: currentDoc.id ? currentDoc : ""
+                      })}
+                    />
                   </td>
                   <td className="px-4 py-2">
-                    <button
-                      className={`w-24 py-0.5 text-sm rounded-full text-white ${li.sealCode === 'Upload' ? "bg-green-400 hover:bg-green-600" : "bg-[#6e5bc5] hover:bg-[#4b3a92]"}`}
-                      onClick={() => openModal({ type: li.sealCode, title: 'Seal Code', dprNo: li.dprNo })}
-                    >
-                      {li.sealCode}
-                    </button>
+                    <DocBtn
+                      documents={d.documents}
+                      docType={documentTypes.signedSealCode}
+                      onClk={currentDoc => openModal({
+                        documentType: documentTypes.signedSealCode,
+                        modalType: currentDoc.id ? "View" : "Upload",
+                        title: "Seal Code",
+                        dprNo: d.dprNo,
+                        dprId: d.id,
+                        img: currentDoc.id ? currentDoc : ""
+                      })}
+                    />
                   </td>
                 </tr>
               ))
@@ -150,15 +62,20 @@ function UploadLR() {
         </table>
       </div>
 
-      <DocsHandler
-        hasEdit
-        isOpen={modal.state}
-        closeModal={closeModal}
-        openModal={openModal}
-        type={modal.data.type}
-        title={modal.data.title}
-        dprNo={modal.data.dprNo}
-      />
+      {
+        modal.state &&
+        <DocsHandler
+          isOpen
+          // hasEdit
+          closeModal={closeModal}
+          // openModal={openModal}
+          title={modal.data.title}
+          dprNo={modal.data.dprNo}
+          type={modal.data.modalType}
+          data={modal.data}
+          onUpload={onUpload}
+        />
+      }
     </section>
   )
 }

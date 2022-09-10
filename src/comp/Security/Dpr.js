@@ -1,43 +1,15 @@
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { format } from 'date-fns';
 import cn from 'classnames';
 
-import { documentTypes, getDoc } from '../../action-reducers/dpr/dprAction';
+import { documentTypes } from '../../action-reducers/dpr/dprAction';
+import useDoc from '../../hooks/useDoc';
 
 import DocsHandler from "../Template/Modals/DocsHandler";
 import DocBtn from "../Template/DocBtn";
 import Loader from '../Common/Loader';
 
 function Dpr() {
-  const [isLoading, setIsLoading] = useState(true)
-  const [modal, setModal] = useState({ state: false, data: {} })
-  const [data, setData] = useState([])
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    const onSuccess = newData => {
-      setIsLoading(false)
-      setData(newData)
-    }
-
-    dispatch(getDoc(onSuccess))
-  }, [dispatch])
-
-  const closeModal = () => setModal({ state: false, data: {} })
-  const openModal = data => setModal({ state: true, data })
-
-  const onUpload = (id, docs) => {
-    setData(prev => prev.map(pr => {
-      if (pr.id === id) {
-        return {
-          ...pr,
-          documents: [...pr.documents, { ...docs }]
-        }
-      }
-      return pr
-    }))
-  }
+  const { data, modal, isLoading, closeModal, openModal, onUpload } = useDoc()
 
   if (isLoading) return <Loader wrapperCls='h-full' />
 
@@ -60,40 +32,39 @@ function Dpr() {
 
           <tbody>
             {
-              data
-                .map(d => (
-                  <tr key={d.id} className='text-sm'>
-                    <td className='pl-12 pr-2 py-1'>{d.dprNo}</td>
-                    <td className='px-2 py-1'>{d?.effectiveDate && format(new Date(d?.effectiveDate), "dd-MM-yyyy hh:mm aa")}</td>
-                    <td className='px-2 py-1'>
-                      <DocBtn
-                        documents={d.documents}
-                        docType={documentTypes.sealCode}
-                        onClk={currentDoc => openModal({
-                          documentType: documentTypes.sealCode,
-                          modalType: currentDoc.id ? "View" : "Upload",
-                          dprNo: d.dprNo,
-                          dprId: d.id,
-                          img: currentDoc.id ? currentDoc : ""
-                        })}
-                      />
-                    </td>
-                    <td className='px-2 py-1'>
-                      <button className={
-                        cn("w-24 h-6 p-0 text-sm text-center rounded-full", {
-                          "bg-slate-300 text-slate-800": d.ccdrStatus === "not-started",
-                          "bg-yellow-200 text-yellow-900": d.ccdrStatus === "in-progress",
-                          "bg-green-200 text-green-800": d.ccdrStatus === "completed" || d.ccdrStatus === "accepted",
-                          "bg-red-200 text-red-900": d.ccdrStatus === "rejected",
-                        })
-                      }
-                      >
-                        {d.ccdrStatus}
-                        {/* has to be seal code */}
-                      </button>
-                    </td>
-                  </tr>
-                ))
+              data.map(d => (
+                <tr key={d.id} className='text-sm'>
+                  <td className='pl-12 pr-2 py-1'>{d.dprNo}</td>
+                  <td className='px-2 py-1'>{d?.effectiveDate && format(new Date(d?.effectiveDate), "dd-MM-yyyy hh:mm aa")}</td>
+                  <td className='px-2 py-1'>
+                    <DocBtn
+                      documents={d.documents}
+                      docType={documentTypes.sealCode}
+                      onClk={currentDoc => openModal({
+                        documentType: documentTypes.sealCode,
+                        modalType: currentDoc.id ? "View" : "Upload",
+                        dprNo: d.dprNo,
+                        dprId: d.id,
+                        img: currentDoc.id ? currentDoc : ""
+                      })}
+                    />
+                  </td>
+                  <td className='px-2 py-1'>
+                    <button className={
+                      cn("w-24 h-6 p-0 text-sm text-center rounded-full", {
+                        "bg-slate-300 text-slate-800": d.ccdrStatus === "not-started",
+                        "bg-yellow-200 text-yellow-900": d.ccdrStatus === "in-progress",
+                        "bg-green-200 text-green-800": d.ccdrStatus === "completed" || d.ccdrStatus === "accepted",
+                        "bg-red-200 text-red-900": d.ccdrStatus === "rejected",
+                      })
+                    }
+                    >
+                      {d.ccdrStatus}
+                      {/* has to be seal code */}
+                    </button>
+                  </td>
+                </tr>
+              ))
             }
           </tbody>
         </table>
