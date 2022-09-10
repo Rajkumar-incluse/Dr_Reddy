@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { format } from 'date-fns';
-import cn from 'classnames';
 
+import decideStartEndDates, { effectiveDateFormarter } from '../../helper/decideStartEndDates';
 import { getDprInfo } from '../../action-reducers/dpr/dprAction';
 
 import PackingList from '../Template/Modals/PackingList';
+import { CCDRBtn } from '../Template/Btns';
 import Loader from '../Common/Loader';
 
 function Dpr() {
@@ -52,10 +52,10 @@ function Dpr() {
               dprList.map(d => (
                 <tr key={d.id} className='text-sm'>
                   <td className='pl-12 pr-2 py-1'>{d.dprNo}</td>
-                  <td className='px-2 py-1'>{d?.effectiveDate && format(new Date(d?.effectiveDate), "dd-MM-yyyy hh:mm aa")}</td>
+                  <td className='px-2 py-1'>{effectiveDateFormarter(d?.effectiveDate)}</td>
                   <td className='px-2 py-1 first-letter:uppercase'>{d.transportMode}</td>
-                  <td className='px-2 py-1'>-</td>
-                  <td className='px-2 py-1'>-</td>
+                  <td className='px-2 py-1'>{decideStartEndDates(d?.startDate, d?.endDate)}</td>
+                  <td className='px-2 py-1'>{decideStartEndDates(d?.startDate, d?.endDate, false)}</td>
                   <td className='px-2 py-1'>
                     <button
                       className="w-16 h-6 p-0 text-sm text-center text-white bg-[#6e5bc5] hover:bg-[#8778c9] rounded-full"
@@ -73,18 +73,9 @@ function Dpr() {
                     </button>
                   </td>
                   <td className='px-2 py-1'>
-                    <button
-                      className={
-                        cn("w-24 h-6 p-0 text-sm text-center rounded-full", {
-                          "bg-slate-300 text-slate-800": d.ccdrStatus === "not-started",
-                          "bg-yellow-200 text-yellow-900": d.ccdrStatus === "in-progress",
-                          "bg-green-200 text-green-800": d.ccdrStatus === "completed" || d.ccdrStatus === "accepted",
-                          "bg-red-200 text-red-900": d.ccdrStatus === "rejected",
-                        })
-                      }
-                    >
-                      {d.ccdrStatus}
-                    </button>
+                    <CCDRBtn
+                      status={d?.ccdrStatus?.status}
+                    />
                   </td>
                 </tr>
               ))

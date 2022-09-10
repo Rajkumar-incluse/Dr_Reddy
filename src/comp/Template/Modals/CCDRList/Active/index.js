@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import cn from 'classnames';
 
-import { createCCDR, getCCDRInfo, getDprInfo } from '../../../../../action-reducers/dpr/dprAction';
+import { createCCDR, getCCDRInfo, getDprInfo, updateCCDRStatus } from '../../../../../action-reducers/dpr/dprAction';
 
 import Modal, { ModalHeader } from '../../../../UIComp/Modal';
 import Loader from '../../../../Common/Loader';
@@ -26,41 +27,41 @@ function Active({ isOpen, id, type, role, closeModal }) {
 
   const [details, setDetails] = useState({
     GeneralInstruction: {
-      ProperCleaning: "",
-      Callibration: "",
-      CratesAvail: "",
-      TrolleyAvail: "",
-      EquipmentValidity: "",
-      Remarks: "",
+      ProperCleaning: "Yes",
+      Callibration: "12",
+      CratesAvail: "Yes",
+      TrolleyAvail: "Yes",
+      EquipmentValidity: "Yes",
+      Remarks: "Nothing to say",
     },
     ProductPacking: {
       list: [{
         id: "id-0",
-        Date: "",
-        BoxNumFrom: "",
-        BoxNumTo: "",
-        ProductName: "",
-        BatchNum: "",
-        Quantity: "",
-        StartTime: "",
-        EndTime: "",
-        TOR: "",
-        DoneBy: "",
+        Date: "1662783206970",
+        BoxNumFrom: "Chennai",
+        BoxNumTo: "Agra",
+        ProductName: "Dell",
+        BatchNum: "Dell-1k",
+        Quantity: "120",
+        StartTime: "1662783206970",
+        EndTime: "1662783206970",
+        TOR: "12",
+        DoneBy: "Raj kumar",
       }],
-      MaxTOR: "",
-      Remarks: "",
+      MaxTOR: "12",
+      Remarks: "Nothing to say",
     },
     CrateShiftingActive: {
-      TruckChamberTemp: "",
-      ColdRoomTime: "",
-      ContainerTime: "",
-      TOR: "",
-      DataLoggerUsages: "",
-      DataLoggerNum: "",
-      CallibrationDueDate: "",
-      ShipmentTrackingMode: "",
-      CFAReaching: "",
-      Compliance: "",
+      TruckChamberTemp: "12",
+      ColdRoomTime: "11",
+      ContainerTime: "11",
+      TOR: "25",
+      DataLoggerUsages: "Some info",
+      DataLoggerNum: "12",
+      CallibrationDueDate: "1662783206970",
+      ShipmentTrackingMode: "Active",
+      CFAReaching: "Dont know",
+      Compliance: "Compliance",
     },
     FinalSignIn: {
       PreparedBy: {
@@ -171,40 +172,59 @@ function Active({ isOpen, id, type, role, closeModal }) {
   }
 
   const onSubmit = () => {
-    const steps = {
-      GeneralInstruction: {
-        ...details.GeneralInstruction,
-        ProperCleaning: details.GeneralInstruction.ProperCleaning === "Yes",
-        CratesAvail: details.GeneralInstruction.CratesAvail === "Yes",
-        TrolleyAvail: details.GeneralInstruction.TrolleyAvail === "Yes",
-        EquipmentValidity: details.GeneralInstruction.EquipmentValidity === "Yes",
-      },
-      ProductPacking: {
-        ...details.ProductPacking,
-      },
-      CrateShiftingActive: {
-        ...details.CrateShiftingActive,
-        Compliance: details.CrateShiftingActive.Compliance === "Compliance",
-      },
-      FinalSignIn: {
-        ...details.FinalSignIn,
-      },
-    }
-
     setIsSubmiting(true)
-    dispatch(
-      createCCDR(
-        {
+    if (role === "supervisor") {
+      console.log({
+        dprNo: dprInfo.dprNo,
+        dprId: dprInfo.id,
+        ccdrStatus: details.FinalSignIn.ApprovedBy.status
+      })
+      dispatch(
+        updateCCDRStatus({
           dprNo: dprInfo.dprNo,
           dprId: dprInfo.id,
-          transportMode: dprInfo.transportMode,
-          steps
+          ccdrStatus: details.FinalSignIn.ApprovedBy.status
         },
-        closeModal
+          closeModal
+        )
       )
-    )
+
+    } else {
+      const steps = {
+        GeneralInstruction: {
+          ...details.GeneralInstruction,
+          ProperCleaning: details.GeneralInstruction.ProperCleaning === "Yes",
+          CratesAvail: details.GeneralInstruction.CratesAvail === "Yes",
+          TrolleyAvail: details.GeneralInstruction.TrolleyAvail === "Yes",
+          EquipmentValidity: details.GeneralInstruction.EquipmentValidity === "Yes",
+        },
+        ProductPacking: {
+          ...details.ProductPacking,
+        },
+        CrateShiftingActive: {
+          ...details.CrateShiftingActive,
+          Compliance: details.CrateShiftingActive.Compliance === "Compliance",
+        },
+        FinalSignIn: {
+          ...details.FinalSignIn,
+        },
+      }
+
+      dispatch(
+        createCCDR(
+          {
+            dprNo: dprInfo.dprNo,
+            dprId: dprInfo.id,
+            transportMode: dprInfo.transportMode,
+            steps
+          },
+          closeModal
+        )
+      )
+    }
   }
 
+  console.log(role, dprInfo?.ccdrStatus?.status)
   return (
     <Modal
       isOpen={isOpen}
@@ -257,6 +277,7 @@ function Active({ isOpen, id, type, role, closeModal }) {
               <FinalStep
                 type={type}
                 role={role}
+                dprInfo={dprInfo}
                 details={details}
                 onChange={onChange}
                 userName={`${userDetails?.firstName} ${userDetails?.lastName}`}
@@ -291,7 +312,11 @@ function Active({ isOpen, id, type, role, closeModal }) {
                 role !== "manager" &&
                 details?.FinalSignIn?.[currentRole]?.status &&
                 <button
-                  className='ml-auto bg-[#6e5bc5] text-white disabled:opacity-80'
+                  className={
+                    cn("ml-auto bg-[#6e5bc5] text-white disabled:opacity-80", {
+                      "hidden": role === "supervisor" && ["approved", "rejected"].includes(dprInfo?.ccdrStatus?.status),
+                    })
+                  }
                   disabled={isSubmiting}
                   onClick={onSubmit}
                 >

@@ -36,6 +36,7 @@ export function createDpr(data, onSuccess) {
       let payload = {
         ...res,
         packingList: JSON.parse(res.packingList),
+        ccdrStatus: JSON.parse(res.ccdrStatus),
         products: JSON.parse(res.products),
       }
       // console.log(payload)
@@ -70,7 +71,10 @@ export function getDprInfo({ dprNo, id }, onSuccess) {
       if (endPoints.getDprInfo === url) {
         dispatch({
           type: dprConstants.GET_DPR_LIST,
-          payload: res
+          payload: res.map(r => ({
+            ...r,
+            ccdrStatus: JSON.parse(r.ccdrStatus)
+          }))
         })
       }
 
@@ -80,6 +84,7 @@ export function getDprInfo({ dprNo, id }, onSuccess) {
           ...data1,
           packingList: JSON.parse(data1.packingList),
           products: JSON.parse(data1.products),
+          ccdrStatus: JSON.parse(data1.ccdrStatus)
         }
 
         dispatch({
@@ -151,13 +156,16 @@ export function updateCCDRStatus(data, onSuccess) {
         data
       })
 
-      console.log(res)
+      // console.log(res)
 
-      // dispatch({
-      //   type: dprConstants.ADD_DPR,
-      //   payload
-      // })
-      // onSuccess()
+      dispatch({
+        type: dprConstants.UPDATE_CCDR_STATUS,
+        payload: {
+          id: data.dprId,
+          ccdrStatus: data.ccdrStatus
+        }
+      })
+      onSuccess()
 
     } catch (error) {
       console.log(error)
@@ -175,7 +183,7 @@ export function documentUpload(data, onSuccess) {
         data,
       })
 
-      console.log(res)
+      // console.log(res)
 
       onSuccess(res)
 
@@ -197,7 +205,7 @@ export function getDoc(onSuccess = () => { }) {
         documents: JSON.parse(r?.documents) || []
       }))
 
-      console.log(payload)
+      // console.log(payload)
       onSuccess(payload)
 
     } catch (error) {

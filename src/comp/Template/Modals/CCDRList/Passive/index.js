@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import cn from 'classnames';
 
-import { createCCDR, getCCDRInfo, getDprInfo } from '../../../../../action-reducers/dpr/dprAction';
+import { createCCDR, getCCDRInfo, getDprInfo, updateCCDRStatus } from '../../../../../action-reducers/dpr/dprAction';
 
 import Modal, { ModalHeader } from '../../../../UIComp/Modal';
 import Loader from '../../../../Common/Loader';
@@ -29,80 +30,80 @@ function Passive({ isOpen, id, type, role, closeModal }) {
 
   const [details, setDetails] = useState({
     GeneralInstruction: {
-      ProperCleaning: "",
-      Callibration: "",
-      GelPackPacking: "",
-      PackingOperation: "",
-      EquipmentValidity: "",
-      PicklistAndBoxesCount: "",
-      Remarks: "",
+      ProperCleaning: "Yes",
+      Callibration: "12",
+      GelPackPacking: "Yes",
+      PackingOperation: "Yes",
+      EquipmentValidity: "Yes",
+      PicklistAndBoxesCount: "Yes",
+      Remarks: "Nothing to say",
     },
     PackingOperation: {
-      PolyBox28L: "",
-      GelPackFrozen: "",
-      GelPackCold2kg: "",
-      GelPackCold3kg: "",
-      DataLoggerNumInternal: "",
-      DataLoggerNumExternal: "",
-      CalibrationDueDateInternal: "",
-      CalibrationDueDateExternal: "",
-      PlacedInShipperNum: "",
+      PolyBox28L: "23",
+      GelPackFrozen: "56",
+      GelPackCold2kg: "67",
+      GelPackCold3kg: "77",
+      DataLoggerNumInternal: "something",
+      DataLoggerNumExternal: "something",
+      CalibrationDueDateInternal: "something",
+      CalibrationDueDateExternal: "something",
+      PlacedInShipperNum: "55",
       list: [{
         id: 'id-0',
-        InHouseBatchNum: "",
-        Quantity: "",
-        GelPackUnloadingDate: "",
-        GelPackUnloadingTime: "",
-        GelPackPlacingDate: "",
-        GelPackPlacingTime: "",
-        TotalConditioning: "",
+        InHouseBatchNum: "r-6",
+        Quantity: "120",
+        GelPackUnloadingDate: "1662783206970",
+        GelPackUnloadingTime: "1662783206970",
+        GelPackPlacingDate: "1662783206970",
+        GelPackPlacingTime: "1662783206970",
+        TotalConditioning: "something",
       }]
     },
     InnerBoxPacking: {
       list: [{
         id: 'id-0',
-        Date: "",
-        BoxNumFrom: "",
-        BoxNumTo: "",
-        ProductName: "",
-        BatchNum: "",
-        PackedQuant: "",
-        PackingStartTime: "",
-        PackingEndTime: "",
-        TOR: "",
-        DoneBy: "",
+        Date: "1662783206970",
+        BoxNumFrom: "Chennai",
+        BoxNumTo: "Delhi",
+        ProductName: "Hp",
+        BatchNum: "Hp-12j",
+        PackedQuant: "120",
+        PackingStartTime: "1662783206970",
+        PackingEndTime: "1662783206970",
+        TOR: "34",
+        DoneBy: "Rajkumar",
       }],
-      MaxTOR: "",
-      Remarks: "",
+      MaxTOR: "12",
+      Remarks: "Nothing to say",
     },
     OuterBoxPacking: {
       list: [{
         id: 'id-0',
-        Date: "",
-        BoxNumFrom: "",
-        BoxNumTo: "",
-        StartTime: "",
-        EndTIme: "",
-        TOR: "",
-        LabelPasted: "",
-        StrappedBox: "",
+        Date: "1662783206970",
+        BoxNumFrom: "Chennai",
+        BoxNumTo: "Agra",
+        StartTime: "1662783206970",
+        EndTIme: "1662783206970",
+        TOR: "66",
+        LabelPasted: "Yes",
+        StrappedBox: "Yes",
       }],
-      MaxTOR: "",
-      Remarks: "",
-      Date: "",
+      MaxTOR: "44",
+      Remarks: "Nothing to say",
+      Date: "1662783206970",
     },
     ShipmentTracking: {
-      TrackingMode: "",
-      ReachingTime: "",
-      TransitHours: "",
+      TrackingMode: "Passive",
+      ReachingTime: "1662783206970",
+      TransitHours: "1662783206970",
     },
     DocumentVerification: {
-      MinConditioned1: "",
-      MinConditioned2: "",
-      FrozenGelPack: "",
-      ReqMaterial: "",
-      Compliance: "",
-      Remarks: "",
+      MinConditioned1: "Yes",
+      MinConditioned2: "MinConditioned2",
+      FrozenGelPack: "FrozenGelPack",
+      ReqMaterial: "ReqMaterial",
+      Compliance: "Compliance",
+      Remarks: "Nothing to say",
     },
     FinalSignIn: {
       PreparedBy: {
@@ -282,52 +283,65 @@ function Passive({ isOpen, id, type, role, closeModal }) {
   }
 
   const onSubmit = () => {
-    const steps = {
-      GeneralInstruction: {
-        ...details.GeneralInstruction,
-        ProperCleaning: details.GeneralInstruction.ProperCleaning === "Yes",
-        GelPackPacking: details.GeneralInstruction.GelPackPacking === "Yes",
-        PackingOperation: details.GeneralInstruction.PackingOperation === "Yes",
-        EquipmentValidity: details.GeneralInstruction.EquipmentValidity === "Yes",
-        PicklistAndBoxesCount: details.GeneralInstruction.PicklistAndBoxesCount === "Yes",
-      },
-      PackingOperation: {
-        ...details.PackingOperation,
-      },
-      InnerBoxPacking: {
-        ...details.InnerBoxPacking,
-      },
-      OuterBoxPacking: {
-        ...details.OuterBoxPacking,
-        list: details.OuterBoxPacking.list.map(li => ({
-          ...li,
-          LabelPasted: li.LabelPasted === "Yes",
-          StrappedBox: li.StrappedBox === "Yes",
-        }))
-      },
-      ShipmentTracking: {
-        ...details.ShipmentTracking,
-      },
-      DocumentVerification: {
-        ...details.DocumentVerification,
-        MinConditioned1: details.DocumentVerification.MinConditioned1 === "Yes",
-      },
-      FinalSignIn: {
-        ...details.FinalSignIn,
-      },
-    }
     setIsSubmiting(true)
-    dispatch(
-      createCCDR(
-        {
+    if (role === "supervisor") {
+      dispatch(
+        updateCCDRStatus({
           dprNo: dprInfo.dprNo,
           dprId: dprInfo.id,
-          transportMode: dprInfo.transportMode,
-          steps
+          ccdrStatus: details.FinalSignIn.ApprovedBy.status
         },
-        closeModal
+          closeModal
+        )
       )
-    )
+
+    } else {
+      const steps = {
+        GeneralInstruction: {
+          ...details.GeneralInstruction,
+          ProperCleaning: details.GeneralInstruction.ProperCleaning === "Yes",
+          GelPackPacking: details.GeneralInstruction.GelPackPacking === "Yes",
+          PackingOperation: details.GeneralInstruction.PackingOperation === "Yes",
+          EquipmentValidity: details.GeneralInstruction.EquipmentValidity === "Yes",
+          PicklistAndBoxesCount: details.GeneralInstruction.PicklistAndBoxesCount === "Yes",
+        },
+        PackingOperation: {
+          ...details.PackingOperation,
+        },
+        InnerBoxPacking: {
+          ...details.InnerBoxPacking,
+        },
+        OuterBoxPacking: {
+          ...details.OuterBoxPacking,
+          list: details.OuterBoxPacking.list.map(li => ({
+            ...li,
+            LabelPasted: li.LabelPasted === "Yes",
+            StrappedBox: li.StrappedBox === "Yes",
+          }))
+        },
+        ShipmentTracking: {
+          ...details.ShipmentTracking,
+        },
+        DocumentVerification: {
+          ...details.DocumentVerification,
+          MinConditioned1: details.DocumentVerification.MinConditioned1 === "Yes",
+        },
+        FinalSignIn: {
+          ...details.FinalSignIn,
+        },
+      }
+      dispatch(
+        createCCDR(
+          {
+            dprNo: dprInfo.dprNo,
+            dprId: dprInfo.id,
+            transportMode: dprInfo.transportMode,
+            steps
+          },
+          closeModal
+        )
+      )
+    }
   }
 
   return (
@@ -415,6 +429,7 @@ function Passive({ isOpen, id, type, role, closeModal }) {
               <FinalStep
                 type={type}
                 role={role}
+                dprInfo={dprInfo}
                 details={details}
                 onChange={onChange}
                 userName={`${userDetails?.firstName} ${userDetails?.lastName}`}
@@ -449,7 +464,11 @@ function Passive({ isOpen, id, type, role, closeModal }) {
                 role !== "manager" &&
                 details?.FinalSignIn?.[currentRole]?.status &&
                 <button
-                  className='ml-auto bg-[#6e5bc5] text-white disabled:opacity-80'
+                  className={
+                    cn("ml-auto bg-[#6e5bc5] text-white disabled:opacity-80", {
+                      "hidden": role === "supervisor" && ["approved", "rejected"].includes(dprInfo?.ccdrStatus?.status),
+                    })
+                  }
                   disabled={isSubmiting}
                   onClick={onSubmit}
                 >

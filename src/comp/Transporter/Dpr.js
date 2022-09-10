@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { format } from 'date-fns';
 
+import decideStartEndDates, { effectiveDateFormarter } from '../../helper/decideStartEndDates';
 import { getDprInfo } from '../../action-reducers/dpr/dprAction';
 
 import PackingList from '../Template/Modals/PackingList';
@@ -50,10 +50,10 @@ function Dpr() {
               dprList.map((d, i) => (
                 <tr key={d.id} className='text-sm'>
                   <td className='pl-12 pr-2 py-1'>{d.dprNo}</td>
-                  <td className='px-2 py-1'>{d?.effectiveDate && format(new Date(d?.effectiveDate), "dd-MM-yyyy hh:mm aa")}</td>
+                  <td className='px-2 py-1'>{effectiveDateFormarter(d?.effectiveDate)}</td>
                   <td className='px-2 py-1 first-letter:uppercase'>{d.transportMode}</td>
-                  <td className='px-2 py-1'>-</td>
-                  <td className='px-2 py-1'>-</td>
+                  <td className='px-2 py-1'>{decideStartEndDates(d?.startDate, d?.endDate)}</td>
+                  <td className='px-2 py-1'>{decideStartEndDates(d?.startDate, d?.endDate, false)}</td>
                   <td className='px-2 py-1'>
                     <button
                       className="w-16 h-6 p-0 text-sm text-center text-white bg-[#6e5bc5] hover:bg-[#8778c9] rounded-full"

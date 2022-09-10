@@ -40,7 +40,10 @@ const adminReducer = (state = initialState, { type, payload }) => {
           if (dpr.id === payload.id) {
             return {
               ...dpr,
-              ...payload
+              ccdrStatus: {
+                ...dpr.ccdrStatus,
+                status: payload.ccdrStatus
+              },
             }
           }
 

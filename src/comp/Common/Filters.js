@@ -7,7 +7,7 @@ function Filters({
 }) {
   const [offsetProps] = useState({ mainAxis: 15, alignmentAxis: -8 })
   const [data] = useState({
-    status: ['completed', 'in-progress', 'rejected'],
+    status: ['approved', 'in-progress', 'rejected'],
     mode: ['Active', 'Passive'],
   })
 

@@ -1,11 +1,10 @@
 import { format } from 'date-fns';
-import cn from 'classnames';
 
 import { documentTypes } from '../../action-reducers/dpr/dprAction';
 import useDoc from '../../hooks/useDoc';
 
 import DocsHandler from "../Template/Modals/DocsHandler";
-import DocBtn from "../Template/DocBtn";
+import { DocBtn, DocStatusBtn } from "../Template/Btns";
 import Loader from '../Common/Loader';
 
 function Dpr() {
@@ -50,18 +49,10 @@ function Dpr() {
                     />
                   </td>
                   <td className='px-2 py-1'>
-                    <button className={
-                      cn("w-24 h-6 p-0 text-sm text-center rounded-full", {
-                        "bg-slate-300 text-slate-800": d.ccdrStatus === "not-started",
-                        "bg-yellow-200 text-yellow-900": d.ccdrStatus === "in-progress",
-                        "bg-green-200 text-green-800": d.ccdrStatus === "completed" || d.ccdrStatus === "accepted",
-                        "bg-red-200 text-red-900": d.ccdrStatus === "rejected",
-                      })
-                    }
-                    >
-                      {d.ccdrStatus}
-                      {/* has to be seal code */}
-                    </button>
+                    <DocStatusBtn
+                      documents={d.documents}
+                      docType={documentTypes.sealCode}
+                    />
                   </td>
                 </tr>
               ))

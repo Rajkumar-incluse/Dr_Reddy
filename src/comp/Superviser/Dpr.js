@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { format } from 'date-fns';
-import cn from 'classnames';
 
+import { effectiveDateFormarter } from '../../helper/decideStartEndDates';
 import { getDprInfo } from '../../action-reducers/dpr/dprAction';
 
 import PassiveCCDRList from '../Template/Modals/CCDRList/Passive';
 import ActiveCCDRList from '../Template/Modals/CCDRList/Active';
 import PackingList from '../Template/Modals/PackingList';
+import { CCDRBtn } from '../Template/Btns';
 import Loader from '../Common/Loader';
 import AddDpr from './Modals/AddDpr';
 
@@ -57,7 +57,7 @@ function Dpr() {
               dprList.map(d => (
                 <tr key={d.id} className='text-sm'>
                   <td className='pl-12 pr-2 py-1'>{d.dprNo}</td>
-                  <td className='px-2 py-1'>{d?.effectiveDate && format(new Date(d?.effectiveDate), "dd-MM-yyyy hh:mm aa")}</td>
+                  <td className='px-2 py-1'>{effectiveDateFormarter(d?.effectiveDate)}</td>
                   <td className='px-2 py-1 first-letter:uppercase'>{d.transportMode}</td>
                   <td className='px-2 py-1'>
                     <button
@@ -70,25 +70,16 @@ function Dpr() {
                   <td className='px-2 py-1'>
                     <button
                       className="w-16 h-6 p-0 text-sm text-center text-white bg-[#6e5bc5] hover:bg-[#6455a3] rounded-full disabled:bg-[#8778c9]"
-                      disabled={d.ccdrStatus === "not-started"}
+                      disabled={d?.ccdrStatus?.status === "not-started"}
                       onClick={() => updateOpen(`${d.transportMode}CCDRList`, d.id, "View")}
                     >
                       View
                     </button>
                   </td>
                   <td className='px-2 py-1'>
-                    <button
-                      className={
-                        cn("w-24 h-6 p-0 text-sm text-center rounded-full", {
-                          "bg-slate-300 text-slate-800": d.ccdrStatus === "not-started",
-                          "bg-yellow-200 text-yellow-900": d.ccdrStatus === "in-progress",
-                          "bg-green-200 text-green-800": d.ccdrStatus === "completed" || d.ccdrStatus === "accepted",
-                          "bg-red-200 text-red-900": d.ccdrStatus === "rejected",
-                        })
-                      }
-                    >
-                      {d.ccdrStatus}
-                    </button>
+                    <CCDRBtn
+                      status={d?.ccdrStatus?.status}
+                    />
                   </td>
                 </tr>
               ))

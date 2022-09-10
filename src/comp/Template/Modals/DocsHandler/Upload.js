@@ -6,6 +6,7 @@ import { documentUpload } from '../../../../action-reducers/dpr/dprAction';
 function Upload({ data, onUpload, closeModal }) {
   const [isLoading, setIsLoading] = useState(false)
   const [fileData, setFileData] = useState({})
+  const [remarks, setRemarks] = useState("")
   const [file, setFile] = useState("")
   const dispatch = useDispatch()
 
@@ -44,6 +45,7 @@ function Upload({ data, onUpload, closeModal }) {
     formData.append("dprNo", data.dprNo)
     formData.append("documentType", data.documentType)
     formData.append("dprId", data.dprId)
+    formData.append("remarks", remarks)
 
     dispatch(documentUpload(formData, onSuccess))
   }
@@ -65,7 +67,13 @@ function Upload({ data, onUpload, closeModal }) {
         }
       </div>
 
-      <textarea className='my-4' rows="2" placeholder='Remarks'></textarea>
+      <textarea
+        placeholder='Remarks'
+        className='my-4'
+        rows="2"
+        value={remarks}
+        onChange={e => setRemarks(e.target.value)}
+      ></textarea>
 
       <button
         className={`block w-40 py-1.5 mx-auto text-sm rounded-full text-white bg-[#6e5bc5] ${isLoading ? "disabled:opacity-80 disabled:cursor-default" : "hover:bg-[#4b3a92]"}`}

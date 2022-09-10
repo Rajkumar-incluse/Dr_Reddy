@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { format } from 'date-fns';
 
-function FinalStep({ type, role, details, userName, onChange, isFinished }) {
+function FinalStep({ type, role, details, dprInfo, userName, onChange, isFinished }) {
   const [status, setStatus] = useState(details.FinalSignIn.ApprovedBy.status || "")
 
   const supervisorStatus = details.FinalSignIn.ApprovedBy.status

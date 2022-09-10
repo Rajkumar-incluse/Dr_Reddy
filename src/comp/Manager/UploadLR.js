@@ -2,7 +2,7 @@ import { documentTypes } from "../../action-reducers/dpr/dprAction";
 import useDoc from '../../hooks/useDoc';
 
 import DocsHandler from "../Template/Modals/DocsHandler";
-import DocBtn from '../Template/DocBtn';
+import { DocBtn } from "../Template/Btns";
 import Loader from '../Common/Loader';
 
 function UploadLR() {
