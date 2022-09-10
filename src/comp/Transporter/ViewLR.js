@@ -25,7 +25,13 @@ function ViewLR() {
           <tbody>
             {
               data
-                .filter(d => d.documents.some(doc => doc.documentType === documentTypes.taxInvoice && doc.documentType === documentTypes.signedLrCopy))
+                .filter(d => d.documents.reduce((prev, current) => {
+                  let isPresent = [documentTypes.signedLrCopy, documentTypes.taxInvoice].includes(current.documentType)
+                  if (isPresent) {
+                    prev.push(current.documentType)
+                  }
+                  return prev
+                }, []).length === 2)
                 .map(d => (
                   <tr key={d.id} className='border-y'>
                     <td className="px-4 py-2">{d.dprNo}</td>

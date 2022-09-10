@@ -19,7 +19,6 @@ import Step8 from './Step8';
 
 function Passive({ isOpen, id, type, role, closeModal }) {
   const dprInfo = useSelector(({ dpr }) => dpr.list?.find(d => d.id === id) || {})
-  const userDetails = useSelector(({ login }) => login?.userDetails || {})
   const dispatch = useDispatch()
 
   const [isSubmiting, setIsSubmiting] = useState(false)
@@ -432,8 +431,6 @@ function Passive({ isOpen, id, type, role, closeModal }) {
                 dprInfo={dprInfo}
                 details={details}
                 onChange={onChange}
-                userName={`${userDetails?.firstName} ${userDetails?.lastName}`}
-                isFinished={isFinished}
               />
             }
 

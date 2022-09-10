@@ -25,7 +25,13 @@ function CFADoc() {
           <tbody>
             {
               data
-                .filter(d => d.documents.some(doc => doc.documentType === documentTypes.signedLrCopy && doc.documentType === documentTypes.signedSealCode))
+                .filter(d => d.documents.reduce((prev, current) => {
+                  let isPresent = [documentTypes.signedLrCopy, documentTypes.signedSealCode].includes(current.documentType)
+                  if (isPresent) {
+                    prev.push(current.documentType)
+                  }
+                  return prev
+                }, []).length === 2)
                 .map(d => (
                   <tr key={d.dprNo} className='border-y'>
                     <td className="px-4 py-2">{d.dprNo}</td>

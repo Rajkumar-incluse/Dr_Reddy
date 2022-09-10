@@ -15,7 +15,6 @@ import Step4 from './Step4';
 
 function Active({ isOpen, id, type, role, closeModal }) {
   const dprInfo = useSelector(({ dpr }) => dpr.list?.find(d => d.id === id) || {})
-  const userDetails = useSelector(({ login }) => login?.userDetails || {})
   const dispatch = useDispatch()
 
   const [isSubmiting, setIsSubmiting] = useState(false)
@@ -224,7 +223,6 @@ function Active({ isOpen, id, type, role, closeModal }) {
     }
   }
 
-  console.log(role, dprInfo?.ccdrStatus?.status)
   return (
     <Modal
       isOpen={isOpen}
@@ -280,8 +278,6 @@ function Active({ isOpen, id, type, role, closeModal }) {
                 dprInfo={dprInfo}
                 details={details}
                 onChange={onChange}
-                userName={`${userDetails?.firstName} ${userDetails?.lastName}`}
-                isFinished={isFinished}
               />
             }
 

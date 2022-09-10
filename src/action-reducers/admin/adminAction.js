@@ -41,3 +41,28 @@ export function getUsersList(onSuccess) {
     }
   }
 }
+
+export function getUserById(id, onSuccess) {
+  return async (dispatch, getStore) => {
+    try {
+      const users = getStore().admin
+
+      if (users.some(us => us._id === id)) {
+        onSuccess()
+      } else {
+        const payload = await sendApiReq({
+          url: endPoints.getUserList + "?id=" + id
+        })
+
+        dispatch({
+          type: adminConstants.ADD_USER,
+          payload: payload[0]
+        })
+
+        onSuccess()
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}

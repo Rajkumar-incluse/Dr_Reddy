@@ -1,10 +1,8 @@
-import cn from 'classnames';
-
 import { documentTypes } from "../../action-reducers/dpr/dprAction";
 import useDoc from '../../hooks/useDoc';
 
 import DocsHandler from "../Template/Modals/DocsHandler";
-import { DocBtn } from "../Template/Btns";
+import { DocBtn, DocStatusBtn } from "../Template/Btns";
 import Loader from '../Common/Loader';
 
 function UploadLR() {
@@ -26,35 +24,31 @@ function UploadLR() {
 
           <tbody>
             {
-              data.map(d => (
-                <tr key={d.id} className='border-y'>
-                  <td className="px-4 py-2">{d.dprNo}</td>
-                  <td className="px-4 py-2">
-                    <DocBtn
-                      documents={d.documents}
-                      docType={documentTypes.lrCopy}
-                      onClk={currentDoc => openModal({
-                        documentType: documentTypes.lrCopy,
-                        modalType: currentDoc.id ? "View" : "Upload",
-                        dprNo: d.dprNo,
-                        dprId: d.id,
-                        img: currentDoc.id ? currentDoc : ""
-                      })}
-                    />
-                  </td>
-                  <td className={
-                    cn("px-4 py-2", {
-                      "text-yellow-500": d.ccdrStatus === "Pending",
-                      "text-green-900": d.ccdrStatus === "Processing",
-                      "text-green-500": d.ccdrStatus === "Approved",
-                      "text-red-600": d.ccdrStatus === "Rejected",
-                    })
-                  }
-                  >
-                    {d.ccdrStatus}
-                  </td>
-                </tr>
-              ))
+              data
+                .map(d => (
+                  <tr key={d.id} className='border-y'>
+                    <td className="px-4 py-2">{d.dprNo}</td>
+                    <td className="px-4 py-2">
+                      <DocBtn
+                        documents={d.documents}
+                        docType={documentTypes.lrCopy}
+                        onClk={currentDoc => openModal({
+                          documentType: documentTypes.lrCopy,
+                          modalType: currentDoc.id ? "View" : "Upload",
+                          dprNo: d.dprNo,
+                          dprId: d.id,
+                          img: currentDoc.id ? currentDoc : ""
+                        })}
+                      />
+                    </td>
+                    <td className='px-2 py-1'>
+                      <DocStatusBtn
+                        documents={d.documents}
+                        docType={documentTypes.lrCopy}
+                      />
+                    </td>
+                  </tr>
+                ))
             }
           </tbody>
         </table>
