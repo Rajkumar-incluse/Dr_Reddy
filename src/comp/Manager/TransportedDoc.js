@@ -1,24 +1,56 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
-import { documentTypes } from "../../action-reducers/dpr/dprAction";
+import { documentTypes, updateDocStatus } from "../../action-reducers/dpr/dprAction";
+import filterCheck from "../../helper/filterCheck";
 import useDoc from '../../hooks/useDoc';
 
 import DocsHandler from "../Template/Modals/DocsHandler";
 import { DocBtn } from "../Template/Btns";
 import Loader from '../Common/Loader';
 
-function Select() {
-  const [selected, setSelected] = useState("")
+function Select({ documents = [], dprId }) {
+  const dispatch = useDispatch()
+
+  const [selected, setSelected] = useState(
+    documents.find(doc => doc.documentType === documentTypes.lrCopy)?.documentStatus?.status !== "in-progress"
+      ? documents.find(doc => doc.documentType === documentTypes.lrCopy)?.documentStatus?.status
+      : ""
+  )
+
+  const onChange = e => {
+    setSelected(e.target.value)
+    let data = [
+      {
+        dprId,
+        documentId: documents.find(doc => doc.documentType === documentTypes.lrCopy)?.id,
+        documentStatus: e.target.value,
+      },
+      {
+        dprId,
+        documentId: documents.find(doc => doc.documentType === documentTypes.sealCode)?.id,
+        documentStatus: e.target.value,
+      }
+    ]
+
+    dispatch(updateDocStatus(data))
+  }
+
+  if (selected) return (
+    <div className={`first-letter:uppercase ${selected === "approved" ? "text-green-600" : "text-red-600"}`}>
+      {selected}
+    </div>
+  )
 
   return (
     <select
       className="py-1"
       value={selected}
-      onChange={e => setSelected(e.target.value)}
+      onChange={onChange}
     >
       <option value="" disabled></option>
-      <option value="Approve">Approve</option>
-      <option value="Reject">Reject</option>
+      <option value="approved">Approve</option>
+      <option value="rejected">Reject</option>
     </select>
   )
 }
@@ -44,7 +76,7 @@ function TransportedDoc() {
           <tbody>
             {
               data
-                .filter(d => d.documents.some(doc => doc.documentType === documentTypes.lrCopy && doc.documentType === documentTypes.sealCode))
+                .filter(d => filterCheck(d.documents, [documentTypes.lrCopy, documentTypes.sealCode]))
                 .map(d => (
                   <tr key={d.id} className='border-y'>
                     <td className="px-4 py-2">{d.dprNo}</td>
@@ -73,7 +105,10 @@ function TransportedDoc() {
                       />
                     </td>
                     <td className="px-4 py-2">
-                      <Select />
+                      <Select
+                        documents={d.documents}
+                        dprId={d.id}
+                      />
                     </td>
                   </tr>
                 ))

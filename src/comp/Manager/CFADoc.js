@@ -1,4 +1,5 @@
 import { documentTypes } from "../../action-reducers/dpr/dprAction";
+import filterCheck from "../../helper/filterCheck";
 import useDoc from '../../hooks/useDoc';
 
 import DocsHandler from "../Template/Modals/DocsHandler";
@@ -25,13 +26,7 @@ function CFADoc() {
           <tbody>
             {
               data
-                .filter(d => d.documents.reduce((prev, current) => {
-                  let isPresent = [documentTypes.signedLrCopy, documentTypes.signedSealCode].includes(current.documentType)
-                  if (isPresent) {
-                    prev.push(current.documentType)
-                  }
-                  return prev
-                }, []).length === 2)
+                .filter(d => filterCheck(d.documents, [documentTypes.signedLrCopy, documentTypes.signedSealCode]))
                 .map(d => (
                   <tr key={d.dprNo} className='border-y'>
                     <td className="px-4 py-2">{d.dprNo}</td>
