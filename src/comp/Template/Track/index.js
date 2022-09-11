@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-// import { vehicleTracking } from '../../../action-reducers/dpr/dprAction';
+import { vehicleTracking } from '../../../action-reducers/dpr/dprAction';
 import useDprList from '../../../hooks/useDprList';
 
 import Loader from '../../Common/Loader';
 import CreateBtn from './CreateBtn';
 import TxtBlock from './TxtBlock';
-import GMap from './GMap';
+import Map from './Map';
+// import GMap from './GMap';
 
 function Track() {
   const { dprList, isLoading } = useDprList()
@@ -15,7 +16,7 @@ function Track() {
 
   const [selectedDprNo, setSelectedDprNo] = useState("")
   const [isFetching, setIsFetching] = useState(false)
-  const [data] = useState({
+  const [data, setData] = useState({
     currentLocation: '',
     mostTimeSpendLocation: '',
     tempAboveTimes: '',
@@ -26,6 +27,8 @@ function Track() {
     lowestTemp: '',
     currentOrigin: "",
     currentDestination: "",
+    lat: "",
+    long: "",
   })
 
   useEffect(() => {
@@ -36,15 +39,12 @@ function Track() {
 
   useEffect(() => {
     if (selectedDprNo) {
-      setIsFetching(true)
-      setTimeout(() => {
+      // setIsFetching(true)
+      const onSuccess = d => {
         setIsFetching(false)
-      }, 5000);
-      // const onSuccess= d => {
-      //   setIsFetching(false)
-      //   setData(d)
-      // }
-      // vehicleTracking(selectedDprNo, onSuccess)
+        setData(d)
+      }
+      vehicleTracking(selectedDprNo, onSuccess)
     }
   }, [selectedDprNo])
 
@@ -75,9 +75,25 @@ function Track() {
       {
         isFetching
           ? <Loader wrapperCls='h-full' />
-          : <>
+          :
+          selectedDprNo &&
+          <>
             <div className='scroll-y'>
-              <GMap />
+              {
+                data.lat && data.long &&
+                <Map
+                  lat={Number(data.lat)}
+                  lng={Number(data.long)}
+                />
+                // <GMap
+                //   lat={data.lat}
+                //   lng={data.long}
+                //   center={{
+                //     lat: Number(data.lat),
+                //     lng: Number(data.long),
+                //   }}
+                // />
+              }
             </div>
 
             <div className='grid grid-cols-3 gap-x-4 px-4 mb-2'>
@@ -126,7 +142,7 @@ function Track() {
 
                 <TxtBlock
                   title='Create message'
-                  val={<CreateBtn />}
+                  val={<CreateBtn dprNo={selectedDprNo} />}
                 />
               }
             </div>

@@ -279,14 +279,28 @@ export async function getAlerts(onSuccess = () => { }) {
   }
 }
 
+export async function getDashboardData(onSuccess = () => { }) {
+  try {
+    const res = await sendApiReq({
+      url: endPoints.getDashboardData
+    })
+
+    // console.log(res)
+    onSuccess(res)
+
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export async function vehicleTracking(dprNo, onSuccess = () => { }) {
   try {
     const res = await sendApiReq({
-      url: endPoints.vehicleTracking
+      url: endPoints.vehicleTracking + "?dprNo=" + dprNo
     })
 
-    console.log(res)
-    // onSuccess(payload)
+    // console.log(res)
+    onSuccess(res)
 
   } catch (error) {
     console.log(error)

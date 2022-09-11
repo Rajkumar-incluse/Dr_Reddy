@@ -1,67 +1,84 @@
-import { memo, useEffect, useState, useCallback } from 'react';
-import { GoogleMap, Marker, DirectionsRenderer, useJsApiLoader } from '@react-google-maps/api';
+import { memo, useState, useCallback } from 'react';
+import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
+// import { useEffect } from 'react';
 
 const containerStyle = {
   width: '100%',
   height: '100%'
 };
 
-const center = {
-  lat: 17.3850,
-  lng: 78.4867
-};
+// const center = {
+//   lat: 17.3850,
+//   lng: 78.4867
+// };
 
-function GMap() {
+const libraries = ["places"]
+
+function GMap({ lat = '', lng = '', center: center2 }) {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: "AIzaSyCZ4YsHJ-UaXOd2W95mXMNhrH2SJXNzUPU",
-    libraries: ["places"]
+    libraries
   })
 
   const [map, setMap] = useState(null)
-  const [direction, setDirection] = useState(null)
+  // const [center, setCenter] = useState({
+  //   lat: lat ? Number(lat) : 17.3850,
+  //   lng: lng ? Number(lng) : 78.4867,
+  // })
 
-  useEffect(() => {
-    async function getDirection() {
-      const directService = new window.google.maps.DirectionsService()
-      const result = await directService.route({
-        origin: 'hydrapad',
-        destination: 'delhi',
-        travelMode: window.google.maps.TravelMode.DRIVING
-      })
-      setDirection(result)
-    }
+  // useEffect(() => {
+  //   setCenter({
+  //     lat: lat ? Number(lat) : 17.3850,
+  //     lng: lng ? Number(lng) : 78.4867,
+  //   })
+  // }, [lat, lng])
 
-    if (map) {
-      getDirection()
-    }
-  }, [map])
+  // const [direction, setDirection] = useState(null)
+
+  // useEffect(() => {
+  //   async function getDirection() {
+  //     const directService = new window.google.maps.DirectionsService()
+  //     const result = await directService.route({
+  //       origin: origin || 'hydrapad',
+  //       destination: destination || 'delhi',
+  //       travelMode: window.google.maps.TravelMode.DRIVING
+  //     })
+  //     setDirection(result)
+  //   }
+
+  //   if (map) {
+  //     getDirection()
+  //   }
+  // }, [map, destination, origin])
 
   const onLoad = useCallback(function callback(map) {
-    const bounds = new window.google.maps.LatLngBounds(center)
+    const bounds = new window.google.maps.LatLngBounds(center2)
     map.fitBounds(bounds);
     setMap(map)
-  }, [])
+  }, [center2])
+
+  console.log(center2)
 
   const onUnmount = useCallback(function callback(map) {
     setMap(null)
   }, [])
 
-  if (!isLoaded) return <div>Loading...</div>
+  if (!isLoaded && !map) return <div>Loading...</div>
 
   return (
     <GoogleMap
       mapContainerStyle={containerStyle}
-      center={center}
-      zoom={10}
-      onLoad={onLoad}
       onUnmount={onUnmount}
+      onLoad={onLoad}
+      center={center2}
+      zoom={8}
     >
-      <Marker position={center} />
-      {
+      <Marker position={center2} />
+      {/* {
         direction &&
         <DirectionsRenderer directions={direction} />
-      }
+      } */}
     </GoogleMap>
   )
 }

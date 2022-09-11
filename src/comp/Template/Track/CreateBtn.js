@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { createMsg, getMsg } from '../../../action-reducers/dpr/dprAction';
 import Modal, { ModalHeader } from '../../UIComp/Modal';
 
-function CreateBtn() {
+function CreateBtn({ dprNo }) {
   const [isLoading, setIsLoading] = useState(false)
   const [open, setOpen] = useState(false)
   const [val, setVal] = useState('')
@@ -14,9 +14,14 @@ function CreateBtn() {
 
   const updateOpen = () => setOpen(p => !p)
 
+  const closeModal = () => {
+    setIsLoading(false)
+    setOpen(false)
+  }
+
   const onSubmit = () => {
     setIsLoading(true)
-    createMsg(val, updateOpen)
+    createMsg({ problem: val, dprNo }, closeModal)
   }
 
   return (
@@ -30,12 +35,12 @@ function CreateBtn() {
 
       <Modal
         isOpen={open}
-        closeModal={updateOpen}
+        closeModal={closeModal}
         contentCls="md:w-[450px]"
       >
         <ModalHeader
           title='Create message'
-          closeModal={updateOpen}
+          closeModal={closeModal}
         />
 
         <textarea

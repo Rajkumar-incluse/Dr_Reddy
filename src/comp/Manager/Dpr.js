@@ -146,7 +146,8 @@ function Dpr() {
                   </td>
                   <td className='px-2 py-1'>
                     <button
-                      className="w-16 h-6 p-0 text-sm text-center text-white bg-[#6e5bc5] hover:bg-[#8778c9] rounded-full"
+                      className="w-16 h-6 p-0 text-sm text-center text-white bg-[#6e5bc5] hover:bg-[#8778c9] rounded-full disabled:bg-[#8778c9]"
+                      disabled={d?.ccdrStatus?.status === "not-started"}
                       onClick={() => updateOpen(`${d.transportMode}CCDRList`, d.id, "View")}
                     >
                       View

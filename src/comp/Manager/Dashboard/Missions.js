@@ -3,8 +3,7 @@ import { useEffect, useState } from 'react';
 
 import { ReactComponent as Dot } from '../../../assets/svg/common/dot.svg';
 
-function Missions() {
-  const [isLoading, setIsLoading] = useState(true)
+function Missions({ isLoading, data }) {
   const [missions, setMissions] = useState([
     {
       key: "total",
@@ -29,20 +28,12 @@ function Missions() {
   ])
 
   useEffect(() => {
-    setTimeout(() => {
-      let missionSummary = {
-        total: '568',
-        ongoing: '77',
-        ended: '55',
-        iotDevices: '2',
-      }
-
+    if (data) {
       setMissions(prev => prev.map(pr => ({
         ...pr,
-        value: missionSummary[pr.key] || "2"
+        value: data[pr.key] ?? "2"
       })))
-      setIsLoading(false)
-    }, 6000)
+    }
 
     // const onSuccess= d => {
     //   setIsLoading(false)
@@ -52,7 +43,7 @@ function Missions() {
     //   })))
     // }
     // getMissions(onSuccess)
-  }, [])
+  }, [data])
 
 
   return (

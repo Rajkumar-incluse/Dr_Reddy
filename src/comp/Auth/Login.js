@@ -13,8 +13,8 @@ import logo from '../../assets/img/logo2.png';
 function Login() {
   const [isLoading, setIsLoading] = useState(false)
   const [details, setDetails] = useState({
-    email: 'rr1@gmail.com',
-    password: 'pwd_rr1'
+    email: 'aa1@gmail.com',
+    password: 'pwd_aa1'
   })
 
   const navigate = useNavigate()
