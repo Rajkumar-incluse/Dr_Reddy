@@ -1,9 +1,8 @@
-import { useEffect, useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import decideStartEndDates, { effectiveDateFormarter } from '../../helper/decideStartEndDates';
-import { getDprInfo } from '../../action-reducers/dpr/dprAction';
+import useDprList from '../../hooks/useDprList';
 
 import { ReactComponent as Arrow } from '../../assets/svg/arrows/down.svg';
 import PassiveCCDRList from '../Template/Modals/CCDRList/Passive';
@@ -15,19 +14,12 @@ import Loader from '../Common/Loader';
 import Status from './Modals/Status';
 
 function Dpr() {
-  const dprList = useSelector(({ dpr }) => dpr.list || [])
+  const { open, dprList, isLoading, updateOpen, closeModal } = useDprList()
   const [activeStatus, setActiveStatus] = useState('')
   const [activeMode, setActiveMode] = useState('')
   const [dateFilter, setDateFilter] = useState('')
-  const [isLoading, setIsLoading] = useState(true)
   const [dprFilter, setDprFilter] = useState('')
-  const [open, setOpen] = useState({ type: "", id: "", viewType: "" })
-  const dispatch = useDispatch()
   const navigate = useNavigate()
-
-  useEffect(() => {
-    dispatch(getDprInfo({}, () => setIsLoading(false)))
-  }, [dispatch])
 
   const data = useMemo(() => {
     let current = [...dprList]
@@ -63,8 +55,6 @@ function Dpr() {
     return current
   }, [dprList, dateFilter, dprFilter, activeStatus, activeMode])
 
-  const updateOpen = (type, id, viewType = '') => setOpen({ type, id, viewType })
-
   const updateDateFilter = () => {
     setDateFilter(p => {
       if (p === '') return 'asc'
@@ -80,8 +70,6 @@ function Dpr() {
       return ''
     })
   }
-
-  const closeModal = () => setOpen({ type: "", id: "", viewType: "" })
 
   if (isLoading) return <Loader wrapperCls='h-full' />
 

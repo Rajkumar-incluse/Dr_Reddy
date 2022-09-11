@@ -1,9 +1,7 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import decideStartEndDates, { effectiveDateFormarter } from '../../helper/decideStartEndDates';
-import { getDprInfo } from '../../action-reducers/dpr/dprAction';
+import useDprList from '../../hooks/useDprList';
 
 import PackingList from '../Template/Modals/PackingList';
 import { CCDRBtn } from '../Template/Btns';
@@ -19,19 +17,8 @@ function decideStatus(startDate, endDate) {
 }
 
 function Dpr() {
-  const dprList = useSelector(({ dpr }) => dpr.list || [])
-  const [isLoading, setIsLoading] = useState(true)
-  const [open, setOpen] = useState({ type: "", id: "", viewType: "" })
-  const dispatch = useDispatch()
+  const { open, dprList, isLoading, updateOpen, closeModal } = useDprList()
   const navigate = useNavigate()
-
-  useEffect(() => {
-    dispatch(getDprInfo({}, () => setIsLoading(false)))
-  }, [dispatch])
-
-  const updateOpen = (type, id, viewType = '') => setOpen({ type, id, viewType })
-
-  const closeModal = () => setOpen({ type: "", id: "", viewType: "" })
 
   if (isLoading) return <Loader wrapperCls='h-full' />
 

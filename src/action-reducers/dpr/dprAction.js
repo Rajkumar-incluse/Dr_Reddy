@@ -278,3 +278,47 @@ export async function getAlerts(onSuccess = () => { }) {
     console.log(error)
   }
 }
+
+export async function vehicleTracking(dprNo, onSuccess = () => { }) {
+  try {
+    const res = await sendApiReq({
+      url: endPoints.vehicleTracking
+    })
+
+    console.log(res)
+    // onSuccess(payload)
+
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function createMsg(data, onSuccess = () => { }) {
+  try {
+    const res = await sendApiReq({
+      method: 'post',
+      url: endPoints.createMsg,
+      data
+    })
+
+    console.log(res)
+    // onSuccess(payload)
+
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function getMsg(data, onSuccess = () => { }) {
+  try {
+    // const res = await sendApiReq({
+    //   url: endPoints.createMsg,
+    // })
+
+    // console.log(res)
+    // onSuccess(payload)
+
+  } catch (error) {
+    console.log(error)
+  }
+}

@@ -1,27 +1,14 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import decideStartEndDates, { effectiveDateFormarter } from '../../helper/decideStartEndDates';
-import { getDprInfo } from '../../action-reducers/dpr/dprAction';
+import useDprList from '../../hooks/useDprList';
 
 import PackingList from '../Template/Modals/PackingList';
 import Loader from '../Common/Loader';
 
 function Dpr() {
-  const dprList = useSelector(({ dpr }) => dpr.list || [])
-  const [isLoading, setIsLoading] = useState(true)
-  const [open, setOpen] = useState({ type: "", id: "", viewType: "" })
-  const dispatch = useDispatch()
+  const { open, dprList, isLoading, updateOpen, closeModal } = useDprList()
   const navigate = useNavigate()
-
-  useEffect(() => {
-    dispatch(getDprInfo({}, () => setIsLoading(false)))
-  }, [dispatch])
-
-  const updateOpen = (type, id, viewType = '') => setOpen({ type, id, viewType })
-
-  const closeModal = () => setOpen({ type: "", id: "", viewType: "" })
 
   if (isLoading) return <Loader wrapperCls='h-full' />
 
@@ -47,7 +34,7 @@ function Dpr() {
 
           <tbody>
             {
-              dprList.map((d, i) => (
+              dprList.map(d => (
                 <tr key={d.id} className='text-sm'>
                   <td className='pl-12 pr-2 py-1'>{d.dprNo}</td>
                   <td className='px-2 py-1'>{effectiveDateFormarter(d?.effectiveDate)}</td>

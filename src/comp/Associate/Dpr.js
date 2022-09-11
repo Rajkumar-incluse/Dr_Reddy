@@ -1,8 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
 import decideStartEndDates, { effectiveDateFormarter } from '../../helper/decideStartEndDates';
-import { getDprInfo } from '../../action-reducers/dpr/dprAction';
+import useDprList from '../../hooks/useDprList';
 
 import PassiveCCDRList from '../Template/Modals/CCDRList/Passive';
 import ActiveCCDRList from '../Template/Modals/CCDRList/Active';
@@ -11,18 +8,7 @@ import { CCDRBtn } from '../Template/Btns';
 import Loader from '../Common/Loader';
 
 function Dpr() {
-  const dprList = useSelector(({ dpr }) => dpr.list || [])
-  const [isLoading, setIsLoading] = useState(true)
-  const [open, setOpen] = useState({ type: "", id: "", viewType: "" })
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(getDprInfo({}, () => setIsLoading(false)))
-  }, [dispatch])
-
-  const updateOpen = (type, id, viewType = '') => setOpen({ type, id, viewType })
-
-  const closeModal = () => setOpen({ type: "", id: "", viewType: "" })
+  const { open, dprList, isLoading, updateOpen, closeModal } = useDprList()
 
   if (isLoading) return <Loader wrapperCls='h-full' />
 

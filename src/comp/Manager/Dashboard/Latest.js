@@ -145,7 +145,7 @@ function Latest({ category = '' }) {
               {
                 isLoading &&
                 [1, 2, 3, 4, 5, 6].map(d => (
-                  <tr>
+                  <tr key={d}>
                     <td><div className='h-4 my-3 mx-4 bg-slate-200 rounded animate-pulse'></div></td>
                     <td><div className='h-4 my-3 mx-4 bg-slate-200 rounded animate-pulse'></div></td>
                     <td><div className='h-4 my-3 mx-4 bg-slate-200 rounded animate-pulse'></div></td>

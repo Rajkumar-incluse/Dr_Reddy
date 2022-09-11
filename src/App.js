@@ -12,6 +12,7 @@ const Admin = lazy(() => import("./comp/Admin"))
 
 const TemplateSettings = lazy(() => import("./comp/Template/Settings"))
 const TemplateSupport = lazy(() => import("./comp/Template/Support"))
+const TemplateTrack = lazy(() => import("./comp/Template/Track"))
 
 const SuperviserDpr = lazy(() => import("./comp/Superviser/Dpr"))
 const Superviser = lazy(() => import("./comp/Superviser"))
@@ -23,19 +24,16 @@ const ManagerTransportedDoc = lazy(() => import("./comp/Manager/TransportedDoc")
 const ManagerDashboard = lazy(() => import("./comp/Manager/Dashboard"))
 const ManagerUploadLR = lazy(() => import("./comp/Manager/UploadLR"))
 const ManagerCFADoc = lazy(() => import("./comp/Manager/CFADoc"))
-const ManagerTrack = lazy(() => import("./comp/Manager/Track"))
 const ManagerDpr = lazy(() => import("./comp/Manager/Dpr"))
 const Manager = lazy(() => import("./comp/Manager"))
 
 const CFAUploadLR = lazy(() => import("./comp/CFA/UploadLR"))
 const CFAViewLR = lazy(() => import("./comp/CFA/ViewLR"))
-const CFATrack = lazy(() => import("./comp/CFA/Track"))
 const CFADpr = lazy(() => import("./comp/CFA/Dpr"))
 const CFA = lazy(() => import("./comp/CFA"))
 
 const TransporterUploadLR = lazy(() => import("./comp/Transporter/UploadLR"))
 const TransporterViewLR = lazy(() => import("./comp/Transporter/ViewLR"))
-const TransporterTrack = lazy(() => import("./comp/Transporter/Track"))
 const TransporterDpr = lazy(() => import("./comp/Transporter/Dpr"))
 const Transporter = lazy(() => import("./comp/Transporter"))
 
@@ -71,7 +69,7 @@ function App() {
 
         <Route path="manager" element={<Manager />}>
           <Route path='dpr' element={<ManagerDpr />} />
-          <Route path='track' element={<ManagerTrack />} />
+          <Route path='track' element={<TemplateTrack />} />
           <Route path='support' element={<TemplateSupport />} />
           <Route path='dashboard' element={<ManagerDashboard />} />
           <Route path='setting' element={<TemplateSettings />} />
@@ -82,7 +80,7 @@ function App() {
 
         <Route path="cfa" element={<CFA />} >
           <Route path='dpr' element={<CFADpr />} />
-          <Route path='track' element={<CFATrack />} />
+          <Route path='track' element={<TemplateTrack />} />
           <Route path='support' element={<TemplateSupport />} />
           <Route path='setting' element={<TemplateSettings />} />
           <Route path='upload' element={<CFAUploadLR />} />
@@ -91,7 +89,7 @@ function App() {
 
         <Route path="transporter" element={<Transporter />} >
           <Route path='dpr' element={<TransporterDpr />} />
-          <Route path='track' element={<TransporterTrack />} />
+          <Route path='track' element={<TemplateTrack />} />
           <Route path='support' element={<TemplateSupport />} />
           <Route path='setting' element={<TemplateSettings />} />
           <Route path='upload' element={<TransporterUploadLR />} />

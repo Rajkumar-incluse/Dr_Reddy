@@ -18,11 +18,15 @@ const endPoints = {
   documentUpload: '/document',
   getDoc: "/document",
   updateDocStatus: '/document/status',
+  vehicleTracking: "",
 
   // manager dashboard
   getMissions: "",
   getLoggers: "",
   getAlerts: "",
+
+  // transporter
+  createMsg: "",
 }
 
 export default endPoints
