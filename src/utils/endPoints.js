@@ -16,7 +16,8 @@ const endPoints = {
   getCCDRInfo: '/ccdr', // ?dprNo=&dprId=
   updateCCDRStatus: "/ccdr/status",
   documentUpload: '/document',
-  getDoc: "/document"
+  getDoc: "/document",
+  updateDocStatus: '/document/status',
 }
 
 export default endPoints

@@ -1,4 +1,5 @@
 import { documentTypes } from "../../action-reducers/dpr/dprAction";
+import filterCheck from "../../helper/filterCheck";
 import useDoc from '../../hooks/useDoc';
 
 import DocsHandler from "../Template/Modals/DocsHandler";
@@ -26,7 +27,7 @@ function ViewLR() {
           <tbody>
             {
               data
-                .filter(d => d.documents.some(doc => doc.documentType === documentTypes.lrCopy && doc.documentType === documentTypes.taxInvoice && doc.documentType === documentTypes.sealCode))
+                .filter(d => filterCheck(d.documents, [documentTypes.lrCopy, documentTypes.taxInvoice, documentTypes.sealCode]))
                 .map(d => (
                   <tr key={d.id} className='border-y'>
                     <td className="px-4 py-2">{d.dprNo}</td>

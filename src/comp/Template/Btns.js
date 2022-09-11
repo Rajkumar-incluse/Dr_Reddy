@@ -7,7 +7,7 @@ export function CCDRBtn({ status = '', onClick = () => { } }) {
         cn("w-24 h-6 p-0 text-sm text-center rounded-full", {
           "bg-slate-300 text-slate-800": status === "not-started",
           "bg-yellow-200 text-yellow-900": status === "in-progress",
-          "bg-green-200 text-green-800": status === "approved",
+          "bg-green-200 text-green-800": status === "approved" || status === "completed",
           "bg-red-200 text-red-900": status === "rejected",
         })
       }
@@ -46,7 +46,7 @@ export function DocStatusBtn({ documents = [], docType = '' }) {
         cn("w-24 h-6 p-0 text-sm text-center rounded-full", {
           "bg-slate-300 text-slate-800": isUploaded?.documentStatus?.status === "not-started" || !isUploaded?.documentStatus?.status,
           "bg-yellow-200 text-yellow-900": isUploaded?.documentStatus?.status === "in-progress",
-          "bg-green-200 text-green-800": isUploaded?.documentStatus?.status === "completed",
+          "bg-green-200 text-green-800": isUploaded?.documentStatus?.status === "approved",
           "bg-red-200 text-red-900": isUploaded?.documentStatus?.status === "rejected",
         })
       }

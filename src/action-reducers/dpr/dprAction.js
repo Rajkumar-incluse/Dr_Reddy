@@ -150,7 +150,7 @@ export function createCCDR(data, onSuccess) {
 export function updateCCDRStatus(data, onSuccess) {
   return async dispatch => {
     try {
-      const res = await sendApiReq({
+      await sendApiReq({
         method: 'put',
         url: endPoints.updateCCDRStatus,
         data
@@ -207,6 +207,29 @@ export function getDoc(onSuccess = () => { }) {
 
       // console.log(payload)
       onSuccess(payload)
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export function updateDocStatus(data) {
+  return async dispatch => {
+    try {
+      await sendApiReq({
+        method: 'put',
+        url: endPoints.updateDocStatus,
+        data: data[0]
+      })
+
+      await sendApiReq({
+        method: 'put',
+        url: endPoints.updateDocStatus,
+        data: data[1]
+      })
+
+      // console.log(res1, res2)
 
     } catch (error) {
       console.log(error)

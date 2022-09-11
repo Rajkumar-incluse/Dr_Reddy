@@ -1,5 +1,4 @@
-import { format } from 'date-fns';
-
+import { effectiveDateFormarter } from '../../helper/decideStartEndDates';
 import { documentTypes } from '../../action-reducers/dpr/dprAction';
 import useDoc from '../../hooks/useDoc';
 
@@ -34,7 +33,7 @@ function Dpr() {
               data.map(d => (
                 <tr key={d.id} className='text-sm'>
                   <td className='pl-12 pr-2 py-1'>{d.dprNo}</td>
-                  <td className='px-2 py-1'>{d?.effectiveDate && format(new Date(d?.effectiveDate), "dd-MM-yyyy hh:mm aa")}</td>
+                  <td className='px-2 py-1'>{effectiveDateFormarter(d?.effectiveDate)}</td>
                   <td className='px-2 py-1'>
                     <DocBtn
                       documents={d.documents}

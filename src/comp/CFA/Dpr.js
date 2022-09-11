@@ -9,6 +9,15 @@ import PackingList from '../Template/Modals/PackingList';
 import { CCDRBtn } from '../Template/Btns';
 import Loader from '../Common/Loader';
 
+function decideStatus(startDate, endDate) {
+  if (!startDate || !endDate) return ""
+
+  const start = new Date(startDate)
+  const end = new Date(endDate)
+  if (start.getTime() < end.getTime()) return "completed"
+  return "in-progress"
+}
+
 function Dpr() {
   const dprList = useSelector(({ dpr }) => dpr.list || [])
   const [isLoading, setIsLoading] = useState(true)
@@ -74,7 +83,7 @@ function Dpr() {
                   </td>
                   <td className='px-2 py-1'>
                     <CCDRBtn
-                      status={d?.ccdrStatus?.status}
+                      status={decideStatus(d?.startDate, d?.endDate)}
                     />
                   </td>
                 </tr>

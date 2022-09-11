@@ -1,4 +1,5 @@
 import { documentTypes } from "../../action-reducers/dpr/dprAction";
+import filterCheck from "../../helper/filterCheck";
 import useDoc from '../../hooks/useDoc';
 
 import DocsHandler from "../Template/Modals/DocsHandler";
@@ -24,39 +25,41 @@ function UploadLR() {
 
           <tbody>
             {
-              data.map(d => (
-                <tr key={d.id} className='border-y'>
-                  <td className="px-4 py-2">{d.dprNo}</td>
-                  <td className="px-4 py-2">
-                    <DocBtn
-                      documents={d.documents}
-                      docType={documentTypes.signedLrCopy}
-                      onClk={currentDoc => openModal({
-                        documentType: documentTypes.signedLrCopy,
-                        modalType: currentDoc.id ? "View" : "Upload",
-                        title: "Signed LR Copy",
-                        dprNo: d.dprNo,
-                        dprId: d.id,
-                        img: currentDoc.id ? currentDoc : ""
-                      })}
-                    />
-                  </td>
-                  <td className="px-4 py-2">
-                    <DocBtn
-                      documents={d.documents}
-                      docType={documentTypes.signedSealCode}
-                      onClk={currentDoc => openModal({
-                        documentType: documentTypes.signedSealCode,
-                        modalType: currentDoc.id ? "View" : "Upload",
-                        title: "Seal Code",
-                        dprNo: d.dprNo,
-                        dprId: d.id,
-                        img: currentDoc.id ? currentDoc : ""
-                      })}
-                    />
-                  </td>
-                </tr>
-              ))
+              data
+                .filter(d => filterCheck(d.documents, [documentTypes.lrCopy, documentTypes.taxInvoice, documentTypes.sealCode]))
+                .map(d => (
+                  <tr key={d.id} className='border-y'>
+                    <td className="px-4 py-2">{d.dprNo}</td>
+                    <td className="px-4 py-2">
+                      <DocBtn
+                        documents={d.documents}
+                        docType={documentTypes.signedLrCopy}
+                        onClk={currentDoc => openModal({
+                          documentType: documentTypes.signedLrCopy,
+                          modalType: currentDoc.id ? "View" : "Upload",
+                          title: "Signed LR Copy",
+                          dprNo: d.dprNo,
+                          dprId: d.id,
+                          img: currentDoc.id ? currentDoc : ""
+                        })}
+                      />
+                    </td>
+                    <td className="px-4 py-2">
+                      <DocBtn
+                        documents={d.documents}
+                        docType={documentTypes.signedSealCode}
+                        onClk={currentDoc => openModal({
+                          documentType: documentTypes.signedSealCode,
+                          modalType: currentDoc.id ? "View" : "Upload",
+                          title: "Seal Code",
+                          dprNo: d.dprNo,
+                          dprId: d.id,
+                          img: currentDoc.id ? currentDoc : ""
+                        })}
+                      />
+                    </td>
+                  </tr>
+                ))
             }
           </tbody>
         </table>
