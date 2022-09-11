@@ -8,7 +8,6 @@ import Loader from '../../Common/Loader';
 import CreateBtn from './CreateBtn';
 import TxtBlock from './TxtBlock';
 import Map from './Map';
-// import GMap from './GMap';
 
 function Track() {
   const { dprList, isLoading } = useDprList()
@@ -29,6 +28,7 @@ function Track() {
     currentDestination: "",
     lat: "",
     long: "",
+    isLoaded: false,
   })
 
   useEffect(() => {
@@ -40,9 +40,28 @@ function Track() {
   useEffect(() => {
     if (selectedDprNo) {
       setIsFetching(true)
+      setData({
+        currentLocation: '',
+        mostTimeSpendLocation: '',
+        tempAboveTimes: '',
+        tempBelowTimes: '',
+        lastTrackedTime: '',
+        lastTrackedTemp: '',
+        highestTemp: '',
+        lowestTemp: '',
+        currentOrigin: "",
+        currentDestination: "",
+        lat: "",
+        long: "",
+        isLoaded: false,
+      })
+
       const onSuccess = d => {
         setIsFetching(false)
-        setData(d)
+        setData({
+          ...d,
+          isLoaded: true
+        })
       }
       vehicleTracking(selectedDprNo, onSuccess)
     }
@@ -76,77 +95,69 @@ function Track() {
         isFetching
           ? <Loader wrapperCls='h-full' />
           :
-          selectedDprNo &&
-          <>
-            <div className='scroll-y'>
-              {
-                data.lat && data.long &&
+          (selectedDprNo && data.isLoaded) ?
+            <>
+              <div className='scroll-y'>
                 <Map
                   lat={Number(data.lat)}
                   lng={Number(data.long)}
                 />
-                // <GMap
-                //   lat={data.lat}
-                //   lng={data.long}
-                //   center={{
-                //     lat: Number(data.lat),
-                //     lng: Number(data.long),
-                //   }}
-                // />
-              }
-            </div>
+              </div>
 
-            <div className='grid grid-cols-3 gap-x-4 px-4 mb-2'>
-              <TxtBlock
-                title='Current Location'
-                val={data.currentLocation}
-              />
-
-              <TxtBlock
-                title='Most Time Spent Location'
-                val={data.mostTimeSpendLocation}
-              />
-
-              <TxtBlock
-                title={<>No. of times Tremperature went above 12&deg; C</>}
-                val={data.tempAboveTimes}
-              />
-
-              <TxtBlock
-                title='Last Tracked Time'
-                val={data.lastTrackedTime}
-              />
-
-              <TxtBlock
-                title='Highest Tremperature Recorded'
-                val={<>{data.highestTemp}&deg; C</>}
-              />
-
-              <TxtBlock
-                title={<>No. of times Tremperature went below 12&deg; C</>}
-                val={data.tempBelowTimes}
-              />
-
-              <TxtBlock
-                title='Last Tracked Tremperature'
-                val={<>{data.lastTrackedTemp}&deg; C</>}
-              />
-
-              <TxtBlock
-                title='Lowest Tremperature Recorded'
-                val={<>{data.lowestTemp}&deg; C</>}
-              />
-
-              {
-                pathname === "/transporter/track" &&
+              <div className='grid grid-cols-3 gap-x-4 px-4 mb-2'>
+                <TxtBlock
+                  title='Current Location'
+                  val={data.currentLocation}
+                />
 
                 <TxtBlock
-                  title='Create message'
-                  val={<CreateBtn dprNo={selectedDprNo} />}
+                  title='Most Time Spent Location'
+                  val={data.mostTimeSpendLocation}
                 />
-              }
+
+                <TxtBlock
+                  title={<>No. of times Tremperature went above 12&deg; C</>}
+                  val={data.tempAboveTimes}
+                />
+
+                <TxtBlock
+                  title='Last Tracked Time'
+                  val={data.lastTrackedTime}
+                />
+
+                <TxtBlock
+                  title='Highest Tremperature Recorded'
+                  val={<>{data.highestTemp}&deg; C</>}
+                />
+
+                <TxtBlock
+                  title={<>No. of times Tremperature went below 12&deg; C</>}
+                  val={data.tempBelowTimes}
+                />
+
+                <TxtBlock
+                  title='Last Tracked Tremperature'
+                  val={<>{data.lastTrackedTemp}&deg; C</>}
+                />
+
+                <TxtBlock
+                  title='Lowest Tremperature Recorded'
+                  val={<>{data.lowestTemp}&deg; C</>}
+                />
+
+                {
+                  pathname === "/transporter/track" &&
+
+                  <TxtBlock
+                    title='Create message'
+                    val={<CreateBtn dprNo={selectedDprNo} />}
+                  />
+                }
+              </div>
+            </>
+            : <div className='dc scroll-y'>
+              No data found
             </div>
-          </>
       }
     </section>
   )
