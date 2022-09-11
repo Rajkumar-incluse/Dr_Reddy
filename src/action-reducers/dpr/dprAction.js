@@ -236,3 +236,45 @@ export function updateDocStatus(data) {
     }
   }
 }
+
+export async function getMissions(onSuccess = () => { }) {
+  try {
+    const res = await sendApiReq({
+      url: endPoints.getMissions
+    })
+
+    console.log(res)
+    // onSuccess(payload)
+
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function getLoggers(onSuccess = () => { }) {
+  try {
+    const res = await sendApiReq({
+      url: endPoints.getLoggers
+    })
+
+    console.log(res)
+    // onSuccess(payload)
+
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function getAlerts(onSuccess = () => { }) {
+  try {
+    const res = await sendApiReq({
+      url: endPoints.getAlerts
+    })
+
+    console.log(res)
+    // onSuccess(payload)
+
+  } catch (error) {
+    console.log(error)
+  }
+}

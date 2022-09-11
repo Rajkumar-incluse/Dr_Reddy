@@ -18,6 +18,11 @@ const endPoints = {
   documentUpload: '/document',
   getDoc: "/document",
   updateDocStatus: '/document/status',
+
+  // manager dashboard
+  getMissions: "",
+  getLoggers: "",
+  getAlerts: "",
 }
 
 export default endPoints
