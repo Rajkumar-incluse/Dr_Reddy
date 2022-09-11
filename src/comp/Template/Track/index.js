@@ -39,7 +39,7 @@ function Track() {
 
   useEffect(() => {
     if (selectedDprNo) {
-      // setIsFetching(true)
+      setIsFetching(true)
       const onSuccess = d => {
         setIsFetching(false)
         setData(d)
