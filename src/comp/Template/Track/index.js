@@ -15,7 +15,7 @@ function Track() {
 
   const [selectedDprNo, setSelectedDprNo] = useState("")
   const [isFetching, setIsFetching] = useState(false)
-  const [data, setData] = useState({
+  const [data] = useState({
     currentLocation: '',
     mostTimeSpendLocation: '',
     tempAboveTimes: '',
