@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux';
 
 import { getDashboardData } from '../../../action-reducers/dpr/dprAction';
 
+import Missions from './Missions';
 import Latest from './Latest';
 import Help from './Help';
-import Missions from './Missions';
 
 function Dashboard() {
   const userDetails = useSelector(({ login }) => login.userDetails)

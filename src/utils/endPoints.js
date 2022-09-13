@@ -1,6 +1,7 @@
 export const root = {
-  baseUrl: 'http://13.127.0.50:8080/api/v1',
-  imgUrl: "http://13.127.0.50:8080"
+  baseUrl: 'http://13.232.221.107:8080/api/v1',
+  imgUrl: "http://13.232.221.107:8080",
+  api2: "http://13.232.221.107:5000"
 }
 
 const endPoints = {
@@ -28,6 +29,10 @@ const endPoints = {
 
   // transporter
   createMsg: "/alert",
+
+  // alert from kesavan
+  postAlert: '/alert_post',
+  getAlert: '/alert_get',
 }
 
 export default endPoints

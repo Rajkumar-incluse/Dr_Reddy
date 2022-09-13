@@ -1,5 +1,5 @@
 import sendApiReq from '../../utils/sendApiReq';
-import endPoints from '../../utils/endPoints';
+import endPoints, { root } from '../../utils/endPoints';
 import dprConstants from './dprConstants';
 
 export const documentTypes = {
@@ -285,8 +285,20 @@ export async function getDashboardData(onSuccess = () => { }) {
       url: endPoints.getDashboardData
     })
 
-    // console.log(res)
-    onSuccess(res)
+    const res2 = await sendApiReq({
+      url: endPoints.getAlert,
+      baseURL: root.api2
+    })
+
+    let payload = {
+      ...res,
+      recentAlert: [
+        ...res.recentAlert,
+        { ...res2 }
+      ]
+    }
+
+    onSuccess(payload)
 
   } catch (error) {
     console.log(error)
@@ -299,7 +311,20 @@ export async function vehicleTracking(dprNo, onSuccess = () => { }) {
       url: endPoints.vehicleTracking + "?dprNo=" + dprNo
     })
 
-    // console.log(res)
+    console.log(res)
+
+    if (Number(res.lastTrackedTemp) > 8) {
+      await sendApiReq({
+        method: 'post',
+        url: endPoints.postAlert,
+        baseURL: root.api2,
+        data: {
+          dpr_no: dprNo,
+          temp: res.lastTrackedTemp
+        }
+      })
+    }
+
     onSuccess(res)
 
   } catch (error) {

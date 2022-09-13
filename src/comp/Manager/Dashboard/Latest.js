@@ -74,8 +74,8 @@ function Latest({ category = '', isLoading, data }) {
               {
                 !isLoading && data
                   .filter((a, i) => showOnly5 ? i < 5 : true)
-                  .map(l => (
-                    <tr key={l.id || l.dprNo}>
+                  .map((l, i) => (
+                    <tr key={i}>
                       <td className='py-2 px-4 align-text-top'>{l.dprNo}</td>
                       <td className='py-2 px-4'>
                         {
