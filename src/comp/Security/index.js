@@ -10,14 +10,14 @@ const list = [
     to: '/security/dpr'
   },
   {
-    title: "Support",
-    icon: <Support />,
-    to: '/security/support'
-  },
-  {
     title: "Settings",
     icon: <Setting />,
     to: '/security/setting'
+  },
+  {
+    title: "Support",
+    icon: <Support />,
+    to: '/security/support'
   },
 ]
 

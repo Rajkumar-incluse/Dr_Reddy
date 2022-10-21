@@ -10,15 +10,15 @@ const list = [
     to: '/associate/dpr'
   },
   {
+    title: "Settings",
+    icon: <Setting />,
+    to: '/associate/setting'
+  },
+  {
     title: "Support",
     icon: <Support />,
     to: '/associate/support'
   },
-  {
-    title: "Settings",
-    icon: <Setting />,
-    to: '/associate/setting'
-  }
 ]
 
 function Associate() {

@@ -13,16 +13,6 @@ const list = [
     to: '/transporter/dpr'
   },
   {
-    title: "Support",
-    icon: <Support />,
-    to: '/transporter/support'
-  },
-  {
-    title: "Settings",
-    icon: <Setting />,
-    to: '/transporter/setting'
-  },
-  {
     title: "Track",
     icon: <Location />,
     to: '/transporter/track'
@@ -36,6 +26,16 @@ const list = [
     title: "View Document",
     icon: <Doc />,
     to: '/transporter/view'
+  },
+  {
+    title: "Settings",
+    icon: <Setting />,
+    to: '/transporter/setting'
+  },
+  {
+    title: "Support",
+    icon: <Support />,
+    to: '/transporter/support'
   },
 ]
 

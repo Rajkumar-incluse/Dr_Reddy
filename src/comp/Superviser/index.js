@@ -10,15 +10,15 @@ const list = [
     to: '/supervisor/dpr'
   },
   {
+    title: "Settings",
+    icon: <Setting />,
+    to: '/supervisor/setting'
+  },
+  {
     title: "Support",
     icon: <Support />,
     to: '/supervisor/support'
   },
-  {
-    title: "Settings",
-    icon: <Setting />,
-    to: '/supervisor/setting'
-  }
 ]
 
 function Superviser() {

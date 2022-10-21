@@ -10,14 +10,14 @@ const list = [
     to: '/admin/user'
   },
   {
-    title: "Support",
-    icon: <Support />,
-    to: '/admin/support'
-  },
-  {
     title: "Settings",
     icon: <Setting />,
     to: '/admin/setting'
+  },
+  {
+    title: "Support",
+    icon: <Support />,
+    to: '/admin/support'
   },
 ]
 

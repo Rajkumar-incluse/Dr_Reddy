@@ -19,16 +19,6 @@ const list = [
     to: '/manager/dpr'
   },
   {
-    title: "Support",
-    icon: <Support />,
-    to: '/manager/support'
-  },
-  {
-    title: "Settings",
-    icon: <Setting />,
-    to: '/manager/setting'
-  },
-  {
     title: "Track",
     icon: <Location />,
     to: '/manager/track'
@@ -47,6 +37,16 @@ const list = [
     title: "CFA Document",
     icon: <Doc />,
     to: '/manager/cfa-doc'
+  },
+  {
+    title: "Settings",
+    icon: <Setting />,
+    to: '/manager/setting'
+  },
+  {
+    title: "Support",
+    icon: <Support />,
+    to: '/manager/support'
   },
 ]
 

@@ -13,16 +13,6 @@ const list = [
     to: '/cfa/dpr'
   },
   {
-    title: "Support",
-    icon: <Support />,
-    to: '/cfa/support'
-  },
-  {
-    title: "Settings",
-    icon: <Setting />,
-    to: '/cfa/setting'
-  },
-  {
     title: "Track",
     icon: <Location />,
     to: '/cfa/track'
@@ -36,6 +26,16 @@ const list = [
     title: "View Document",
     icon: <Doc />,
     to: '/cfa/view'
+  },
+  {
+    title: "Settings",
+    icon: <Setting />,
+    to: '/cfa/setting'
+  },
+  {
+    title: "Support",
+    icon: <Support />,
+    to: '/cfa/support'
   },
 ]
 

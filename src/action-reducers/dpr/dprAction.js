@@ -308,7 +308,8 @@ export async function getDashboardData(onSuccess = () => { }) {
 export async function vehicleTracking(dprNo, onSuccess = () => { }) {
   try {
     const res = await sendApiReq({
-      url: endPoints.vehicleTracking + "?dprNo=" + dprNo
+      url: "http://13.232.221.107:5000/api/v1/dashboard/track"
+      // url: endPoints.vehicleTracking + "?dprNo=" + dprNo
     })
 
     console.log(res)
