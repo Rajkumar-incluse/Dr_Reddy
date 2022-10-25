@@ -29,11 +29,6 @@ const list = [
     to: '/manager/upload'
   },
   {
-    title: "Approve Document",
-    icon: <Doc />,
-    to: '/manager/transporter-doc'
-  },
-  {
     title: "CFA Document",
     icon: <Doc />,
     to: '/manager/cfa-doc'

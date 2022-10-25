@@ -14,13 +14,13 @@ const TemplateSettings = lazy(() => import("./comp/Template/Settings"))
 const TemplateSupport = lazy(() => import("./comp/Template/Support"))
 const TemplateTrack = lazy(() => import("./comp/Template/Track"))
 
+const SuperviserTransportedDoc = lazy(() => import("./comp/Superviser/TransportedDoc"))
 const SuperviserDpr = lazy(() => import("./comp/Superviser/Dpr"))
 const Superviser = lazy(() => import("./comp/Superviser"))
 
 const AssociateDpr = lazy(() => import("./comp/Associate/Dpr"))
 const Associate = lazy(() => import("./comp/Associate"))
 
-const ManagerTransportedDoc = lazy(() => import("./comp/Manager/TransportedDoc"))
 const ManagerDashboard = lazy(() => import("./comp/Manager/Dashboard"))
 const ManagerUploadLR = lazy(() => import("./comp/Manager/UploadLR"))
 const ManagerCFADoc = lazy(() => import("./comp/Manager/CFADoc"))
@@ -57,6 +57,8 @@ function App() {
 
         <Route path="supervisor" element={<Superviser />}>
           <Route path='dpr' element={<SuperviserDpr />} />
+          <Route path='track' element={<TemplateTrack />} />
+          <Route path='transporter-doc' element={<SuperviserTransportedDoc />} />
           <Route path='support' element={<TemplateSupport />} />
           <Route path='setting' element={<TemplateSettings />} />
         </Route>
@@ -74,7 +76,6 @@ function App() {
           <Route path='dashboard' element={<ManagerDashboard />} />
           <Route path='setting' element={<TemplateSettings />} />
           <Route path='upload' element={<ManagerUploadLR />} />
-          <Route path='transporter-doc' element={<ManagerTransportedDoc />} />
           <Route path='cfa-doc' element={<ManagerCFADoc />} />
         </Route>
 

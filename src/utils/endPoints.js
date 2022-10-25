@@ -1,7 +1,10 @@
+// const main = "http://13.232.221.107"
+const main = "http://52.66.119.232"
+
 export const root = {
-  baseUrl: 'http://13.232.221.107:8080/api/v1',
-  imgUrl: "http://13.232.221.107:8080",
-  api2: "http://13.232.221.107:5000"
+  baseUrl: `${main}:8080/api/v1`,
+  imgUrl: `${main}:8080`,
+  api2: `${main}:5000`
 }
 
 const endPoints = {
