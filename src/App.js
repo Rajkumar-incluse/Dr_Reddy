@@ -10,6 +10,7 @@ const AdminSubscription = lazy(() => import("./comp/Admin/Subscription"))
 const AdminUser = lazy(() => import("./comp/Admin/User"))
 const Admin = lazy(() => import("./comp/Admin"))
 
+const TemplateConsignmentStatus = lazy(() => import("./comp/Template/ConsignmentStatus"))
 const TemplateSettings = lazy(() => import("./comp/Template/Settings"))
 const TemplateSupport = lazy(() => import("./comp/Template/Support"))
 const TemplateTrack = lazy(() => import("./comp/Template/Track"))
@@ -61,6 +62,7 @@ function App() {
           <Route path='transporter-doc' element={<SuperviserTransportedDoc />} />
           <Route path='support' element={<TemplateSupport />} />
           <Route path='setting' element={<TemplateSettings />} />
+          <Route path='consignment-status' element={<TemplateConsignmentStatus />} />
         </Route>
 
         <Route path="associate" element={<Associate />} >
@@ -77,6 +79,7 @@ function App() {
           <Route path='setting' element={<TemplateSettings />} />
           <Route path='upload' element={<ManagerUploadLR />} />
           <Route path='cfa-doc' element={<ManagerCFADoc />} />
+          <Route path='consignment-status' element={<TemplateConsignmentStatus />} />
         </Route>
 
         <Route path="cfa" element={<CFA />} >
@@ -86,6 +89,7 @@ function App() {
           <Route path='setting' element={<TemplateSettings />} />
           <Route path='upload' element={<CFAUploadLR />} />
           <Route path='view' element={<CFAViewLR />} />
+          <Route path='consignment-status' element={<TemplateConsignmentStatus role='cfa' />} />
         </Route>
 
         <Route path="transporter" element={<Transporter />} >
@@ -95,6 +99,7 @@ function App() {
           <Route path='setting' element={<TemplateSettings />} />
           <Route path='upload' element={<TransporterUploadLR />} />
           <Route path='view' element={<TransporterViewLR />} />
+          <Route path='consignment-status' element={<TemplateConsignmentStatus />} />
         </Route>
 
         <Route path="security" element={<Security />}>
