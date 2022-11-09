@@ -2,7 +2,8 @@ import dprConstants from './dprConstants';
 
 const initialState = {
   list: [],
-  ccdrList: {}
+  ccdrList: {},
+  consignmentList: []
 }
 
 const adminReducer = (state = initialState, { type, payload }) => {
@@ -49,6 +50,12 @@ const adminReducer = (state = initialState, { type, payload }) => {
 
           return dpr
         }),
+      }
+
+    case dprConstants.GET_CONSIGNMENT:
+      return {
+        ...state,
+        consignmentList: [...payload]
       }
 
     default: return state

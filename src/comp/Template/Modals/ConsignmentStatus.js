@@ -1,4 +1,8 @@
+import { useEffect, useState } from 'react';
+import { getTemparatures } from "../../../action-reducers/dpr/dprAction";
+
 import Modal, { ModalHeader } from '../../UIComp/Modal';
+import Loader from '../../Common/Loader';
 
 const data = [
   {
@@ -59,24 +63,18 @@ const data = [
   },
 ]
 
-const dprInfo = {
-  No: "1234-g-765",
-  from: "Chennai, 600 000, Tamilnadu",
-  to: "Dr.Reddys Lab Ltd, C/o-Pharmacare Logistics Pvt Ltd, Bhiwandi, Thane, 421 302."
-}
+function ConsignmentStatus({ isOpen, id, closeModal }) {
+  const [isLoading, setIsLoading] = useState(true)
+  const [dprInfo, setData] = useState([])
 
-const tabList = [
-  {
-    product: "Cresp 40mcg PFs",
-    quantity: "13,400"
-  },
-  {
-    product: "Grastim 300mcg/ml Vial",
-    quantity: "14,000"
-  },
-]
+  useEffect(() => {
+    const update = (res) => {
+      setData(res)
+      setIsLoading(false)
+    }
+    getTemparatures({ id }, update)
+  }, [id])
 
-function ConsignmentStatus({ isOpen, closeModal }) {
   return (
     <Modal
       isOpen={isOpen}
@@ -88,73 +86,78 @@ function ConsignmentStatus({ isOpen, closeModal }) {
         closeModal={closeModal}
       />
 
-      <div className="grid grid-cols-2 gap-4 mb-4">
-        <div>
-          <h4 className="text-lg font-semibold">Dpr No: {dprInfo.No}</h4>
-          <div className="df">
-            <h5 className="text-lg font-medium">From : </h5>
-            <p>{dprInfo.from}</p>
-          </div>
+      {
+        isLoading ? <Loader wrapperCls='min-h-[450px]' />
+          : <>
+            <div className="grid grid-cols-2 gap-4 mb-4">
+              <div>
+                <h4 className="text-lg font-semibold">Dpr No: {dprInfo.dprNo}</h4>
+                <div className="df">
+                  <h5 className="text-lg font-medium">From : </h5>
+                  <p>{dprInfo.from}</p>
+                </div>
 
-          <div className="df items-start">
-            <h5 className="shrink-0 text-lg font-medium">To : </h5>
-            <p>{dprInfo.to}</p>
-          </div>
-        </div>
+                <div className="df items-start">
+                  <h5 className="shrink-0 text-lg font-medium">To : </h5>
+                  <p>{dprInfo.to}</p>
+                </div>
+              </div>
 
-        <div>
-          <h4 className="text-xl font-medium my-2">Tablets List</h4>
-          <div className="max-h-32 overflow-y-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="sticky top-0 bg-white">
-                  <td className="px-4 py-1 border">Product</td>
-                  <td className="px-4 py-1 border text-center">Total</td>
-                </tr>
-              </thead>
+              <div>
+                <h4 className="text-xl font-medium my-2">Tablets List</h4>
+                <div className="max-h-32 overflow-y-auto">
+                  <table className="w-full">
+                    <thead>
+                      <tr className="sticky top-0 bg-white">
+                        <td className="px-4 py-1 border">Product</td>
+                        <td className="px-4 py-1 border text-center">Total</td>
+                      </tr>
+                    </thead>
 
-              <tbody>
-                {
-                  tabList.map(t => (
-                    <tr key={t.product}>
-                      <td className="px-4 py-1 border"> {t.product} </td>
-                      <td className="px-4 py-1 border text-center"> {t.quantity} </td>
-                    </tr>
-                  ))
-                }
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+                    <tbody>
+                      {
+                        Object?.entries(dprInfo?.products[0])?.map(([key, value]) => (
+                          <tr key={key}>
+                            <td className="px-4 py-1 border"> {key} </td>
+                            <td className="px-4 py-1 border text-center"> {value} </td>
+                          </tr>
+                        ))
+                      }
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
 
-      <div className='max-h-80 overflow-y-auto'>
-        <table className='w-full'>
-          <thead>
-            <tr className="sticky top-0 bg-slate-200">
-              <td className="px-4 py-1">Count</td>
-              <td className="px-4 py-1">Date</td>
-              <td className="px-4 py-1">Time</td>
-              <td className="px-4 py-1">Temp</td>
-              <td className="px-4 py-1">Location</td>
-            </tr>
-          </thead>
+            <div className='max-h-80 overflow-y-auto'>
+              <table className='w-full'>
+                <thead>
+                  <tr className="sticky top-0 bg-slate-200">
+                    <td className="px-4 py-1">Count</td>
+                    <td className="px-4 py-1">Date</td>
+                    <td className="px-4 py-1">Time</td>
+                    <td className="px-4 py-1">Temp</td>
+                    <td className="px-4 py-1">Location</td>
+                  </tr>
+                </thead>
 
-          <tbody>
-            {
-              data.map(d => (
-                <tr key={d.key} className='even:bg-slate-200'>
-                  <td className="px-4 py-1">{d.key}</td>
-                  <td className="px-4 py-1">{d.date}</td>
-                  <td className="px-4 py-1">{d.time}</td>
-                  <td className="px-4 py-1">{d.temp} &deg; C</td>
-                  <tChennaid className="px-4 py-1">{d.loc}</tChennaid>
-                </tr>
-              ))
-            }
-          </tbody>
-        </table>
-      </div>
+                <tbody>
+                  {
+                    data.map(d => (
+                      <tr key={d.key} className='even:bg-slate-200'>
+                        <td className="px-4 py-1">{d.key}</td>
+                        <td className="px-4 py-1">{d.date}</td>
+                        <td className="px-4 py-1">{d.time}</td>
+                        <td className="px-4 py-1">{d.temp} &deg; C</td>
+                        <td className="px-4 py-1">{d.loc}</td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
+            </div>
+          </>
+      }
     </Modal>
   )
 }

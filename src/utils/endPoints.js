@@ -36,6 +36,9 @@ const endPoints = {
   // alert from kesavan
   postAlert: '/alert_post',
   getAlert: '/alert_get',
+
+  // consignment
+  updateConsignment: "/dpr/consignment-status",
 }
 
 export default endPoints

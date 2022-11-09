@@ -308,11 +308,9 @@ export async function getDashboardData(onSuccess = () => { }) {
 export async function vehicleTracking(dprNo, onSuccess = () => { }) {
   try {
     const res = await sendApiReq({
-      url: "http://13.232.221.107:5000/api/v1/dashboard/track"
+      url: "http://52.66.119.232:5000/api/v1/dashboard/track"
       // url: endPoints.vehicleTracking + "?dprNo=" + dprNo
     })
-
-    console.log(res)
 
     if (Number(res.lastTrackedTemp) > 8) {
       await sendApiReq({
@@ -357,6 +355,63 @@ export async function getMsg(data, onSuccess = () => { }) {
 
     // console.log(res)
     // onSuccess(payload)
+
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export function getConsignments(onSuccess) {
+  return async dispatch => {
+    try {
+      let url = `${endPoints.getDprInfo}?consignment_status=true`
+
+      const res = await sendApiReq({ url })
+
+      dispatch({
+        type: dprConstants.GET_CONSIGNMENT,
+        payload: res.map(d => ({
+          dprNo: d.dprNo,
+          id: d.id,
+          status: d.notes ? JSON.parse(d.notes)?.[0]?.status : ""
+        }))
+      })
+
+      onSuccess()
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export async function getTemparatures({ id }, onSuccess) {
+  try {
+    let url = `${endPoints.getDprInfo}?id=${id}`
+
+    const res = await sendApiReq({ url })
+
+    let data = {
+      ...res[0],
+      packingList: JSON.parse(res[0].packingList),
+      products: JSON.parse(res[0].products),
+      ccdrStatus: JSON.parse(res[0].ccdrStatus)
+    }
+
+    onSuccess(data)
+
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function updateConsignments(data) {
+  try {
+    await sendApiReq({
+      url: endPoints.updateConsignment,
+      method: "put",
+      data
+    })
 
   } catch (error) {
     console.log(error)

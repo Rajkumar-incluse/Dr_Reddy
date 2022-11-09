@@ -1,19 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { getConsignments, updateConsignments } from "../../action-reducers/dpr/dprAction";
+
 import ConsignmentStatusModal from './Modals/ConsignmentStatus';
+import Loader from '../Common/Loader';
 
-const data = [1, 2, 3, 4, 5, 6, 7, 8]
-
-function Select() {
+function Select({ onClk }) {
   const [selected, setSelected] = useState("")
 
-  if (selected === "approved") return <p className="text-green-900">Approved</p>
-  if (selected === "rejected") return <p className="text-red-700">Rejected</p>
+  const onChange = e => {
+    setSelected(e.target.value)
+    onClk(e.target.value)
+  }
+
+  if (selected === "approved") return <p className="text-green-600">Approved</p>
+  if (selected === "rejected") return <p className="text-red-500">Rejected</p>
 
   return (
     <select
       className="py-1"
       value={selected}
-      onChange={e => setSelected(e.target.value)}
+      onChange={onChange}
     >
       <option value="" disabled></option>
       <option value="approved">Approve</option>
@@ -23,9 +30,21 @@ function Select() {
 }
 
 function ConsignmentStatus({ role = "" }) {
-  const [open, setOpen] = useState(false)
+  const dprList = useSelector(({ dpr }) => dpr.consignmentList || [])
+  const [isLoading, setIsLoading] = useState(true)
+  const [open, setOpen] = useState("")
+  const dispatch = useDispatch()
 
-  const updateOpen = () => setOpen(p => !p)
+  useEffect(() => {
+    dispatch(getConsignments(() => setIsLoading(false)))
+  }, [dispatch])
+
+  const updateOpen = val => setOpen(val)
+  const closeModal = () => setOpen("")
+
+  const onClk = (dprId, status) => updateConsignments({ dprId, status })
+
+  if (isLoading) return <Loader wrapperCls='h-full' />
 
   return (
     <section className='dfc h-full overflow-y-hidden bg-[#f7f7f7]'>
@@ -41,36 +60,43 @@ function ConsignmentStatus({ role = "" }) {
 
           <tbody>
             {
-              data
-                .map(d => (
-                  <tr key={d} className='border-y'>
-                    <td className="px-4 py-2">45678-{d}-ABc</td>
-                    <td className="px-4 py-2">
-                      <button
-                        className="text-sm bg-[#6e5bc5] text-white hover:bg-[#3d3565]"
-                        onClick={updateOpen}
-                      >
-                        View
-                      </button>
-                    </td>
-                    <td className="px-4 py-2">
-                      {
-                        role === "cfa"
-                          ? <Select />
-                          : <p className="text-green-900">Approved</p>
-                      }
-                    </td>
-                  </tr>
-                ))
+              dprList.map(d => (
+                <tr key={d.id} className='border-y'>
+                  <td className="px-4 py-2">{d?.dprNo}</td>
+                  <td className="px-4 py-2">
+                    <button
+                      className="text-sm bg-[#6e5bc5] text-white hover:bg-[#3d3565]"
+                      onClick={() => updateOpen(d.id)}
+                    >
+                      View
+                    </button>
+                  </td>
+                  <td className="px-4 py-2">
+                    {
+                      d?.status
+                        ? <p className={`first-letter:uppercase ${d?.status === "approved" ? "text-green-600" : "text-red-500"}`}>
+                          {d.status}
+                        </p>
+                        : role === "cfa" ?
+                          <Select onClk={val => onClk(d.id, val)} />
+                          : <p className="text-gray-400">Pending</p>
+                    }
+                  </td>
+                </tr>
+              ))
             }
           </tbody>
         </table>
       </div>
 
-      <ConsignmentStatusModal
-        isOpen={open}
-        closeModal={updateOpen}
-      />
+      {
+        open &&
+        <ConsignmentStatusModal
+          isOpen
+          id={open}
+          closeModal={closeModal}
+        />
+      }
     </section>
   )
 }
