@@ -285,20 +285,7 @@ export async function getDashboardData(onSuccess = () => { }) {
       url: endPoints.getDashboardData
     })
 
-    const res2 = await sendApiReq({
-      url: endPoints.getAlert,
-      baseURL: root.api2
-    })
-
-    let payload = {
-      ...res,
-      recentAlert: [
-        ...res.recentAlert,
-        { ...res2 }
-      ]
-    }
-
-    onSuccess(payload)
+    onSuccess(res)
 
   } catch (error) {
     console.log(error)
@@ -385,17 +372,20 @@ export function getConsignments(onSuccess) {
   }
 }
 
-export async function getTemparatures({ id }, onSuccess) {
+export async function getTemparatures({ id, dprNo }, onSuccess) {
   try {
     let url = `${endPoints.getDprInfo}?id=${id}`
+    let url2 = `${endPoints.getTemparature}${dprNo}`
 
     const res = await sendApiReq({ url })
+    const res2 = await sendApiReq({ url: url2 })
 
     let data = {
       ...res[0],
       packingList: JSON.parse(res[0].packingList),
       products: JSON.parse(res[0].products),
-      ccdrStatus: JSON.parse(res[0].ccdrStatus)
+      ccdrStatus: JSON.parse(res[0].ccdrStatus),
+      temp: res2
     }
 
     onSuccess(data)

@@ -1,69 +1,12 @@
 import { useEffect, useState } from 'react';
+import { format } from 'date-fns';
+
 import { getTemparatures } from "../../../action-reducers/dpr/dprAction";
 
 import Modal, { ModalHeader } from '../../UIComp/Modal';
 import Loader from '../../Common/Loader';
 
-const data = [
-  {
-    key: "1",
-    date: "12.11.2022",
-    time: "11:30 am",
-    temp: "12",
-    loc: "Chennai",
-  },
-  {
-    key: "2",
-    date: "13.11.2022",
-    time: "11:00 pm",
-    temp: "33",
-    loc: "Hydrapad",
-  },
-  {
-    key: "3",
-    date: "14.11.2022",
-    time: "10:30 am",
-    temp: "12",
-    loc: "Nakpur",
-  },
-  {
-    key: "4",
-    date: "15.11.2022",
-    time: "01:30 pm",
-    temp: "-8",
-    loc: "Kolkata",
-  },
-  {
-    key: "5",
-    date: "16.11.2022",
-    time: "12:00 am",
-    temp: "15",
-    loc: "Agra",
-  },
-  {
-    key: "6",
-    date: "17.11.2022",
-    time: "05:30 pm",
-    temp: "11",
-    loc: "Kashmir",
-  },
-  {
-    key: "7",
-    date: "18.11.2022",
-    time: "08:30 pm",
-    temp: "-2",
-    loc: "Delhi",
-  },
-  {
-    key: "8",
-    date: "19.11.2022",
-    time: "09:30 am",
-    temp: "18",
-    loc: "Chennai",
-  },
-]
-
-function ConsignmentStatus({ isOpen, id, closeModal }) {
+function ConsignmentStatus({ isOpen, id, dprNo, closeModal }) {
   const [isLoading, setIsLoading] = useState(true)
   const [dprInfo, setData] = useState([])
 
@@ -72,8 +15,8 @@ function ConsignmentStatus({ isOpen, id, closeModal }) {
       setData(res)
       setIsLoading(false)
     }
-    getTemparatures({ id }, update)
-  }, [id])
+    getTemparatures({ id, dprNo }, update)
+  }, [id, dprNo])
 
   return (
     <Modal
@@ -143,13 +86,13 @@ function ConsignmentStatus({ isOpen, id, closeModal }) {
 
                 <tbody>
                   {
-                    data.map(d => (
-                      <tr key={d.key} className='even:bg-slate-200'>
-                        <td className="px-4 py-1">{d.key}</td>
-                        <td className="px-4 py-1">{d.date}</td>
-                        <td className="px-4 py-1">{d.time}</td>
-                        <td className="px-4 py-1">{d.temp} &deg; C</td>
-                        <td className="px-4 py-1">{d.loc}</td>
+                    dprInfo?.temp?.map((d, i) => (
+                      <tr key={d.id} className='even:bg-slate-200'>
+                        <td className="px-4 py-1">{i + 1}</td>
+                        <td className="px-4 py-1">{format(new Date(d?.timestamp), "dd.MM.yyyy")}</td>
+                        <td className="px-4 py-1">{format(new Date(d?.timestamp), "hh:mm aa")}</td>
+                        <td className="px-4 py-1">{d.temperature} &deg; C</td>
+                        <td className="px-4 py-1">{d.city}</td>
                       </tr>
                     ))
                   }

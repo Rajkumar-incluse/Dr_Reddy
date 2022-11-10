@@ -32,15 +32,15 @@ function Select({ onClk }) {
 function ConsignmentStatus({ role = "" }) {
   const dprList = useSelector(({ dpr }) => dpr.consignmentList || [])
   const [isLoading, setIsLoading] = useState(true)
-  const [open, setOpen] = useState("")
+  const [open, setOpen] = useState({ state: false, id: "", dprNo: "" })
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(getConsignments(() => setIsLoading(false)))
   }, [dispatch])
 
-  const updateOpen = val => setOpen(val)
-  const closeModal = () => setOpen("")
+  const updateOpen = (id, dprNo) => setOpen({ state: true, id, dprNo })
+  const closeModal = () => setOpen({ state: false, id: "", dprNo: "" })
 
   const onClk = (dprId, status) => updateConsignments({ dprId, status })
 
@@ -66,7 +66,7 @@ function ConsignmentStatus({ role = "" }) {
                   <td className="px-4 py-2">
                     <button
                       className="text-sm bg-[#6e5bc5] text-white hover:bg-[#3d3565]"
-                      onClick={() => updateOpen(d.id)}
+                      onClick={() => updateOpen(d.id, d.dprNo)}
                     >
                       View
                     </button>
@@ -90,10 +90,11 @@ function ConsignmentStatus({ role = "" }) {
       </div>
 
       {
-        open &&
+        open.state &&
         <ConsignmentStatusModal
           isOpen
-          id={open}
+          id={open.id}
+          dprNo={open.dprNo}
           closeModal={closeModal}
         />
       }

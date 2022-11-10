@@ -39,6 +39,7 @@ const endPoints = {
 
   // consignment
   updateConsignment: "/dpr/consignment-status",
+  getTemparature: "/iot?dprNo="
 }
 
 export default endPoints
