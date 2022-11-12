@@ -14,24 +14,24 @@ const list = [
     to: '/cfa/dpr'
   },
   {
-    title: "Track",
-    icon: <Location />,
-    to: '/cfa/track'
-  },
-  {
-    title: "Upload Document",
-    icon: <Upload />,
-    to: '/cfa/upload'
-  },
-  {
     title: "View Document",
     icon: <Doc />,
     to: '/cfa/view'
   },
   {
+    title: "Track",
+    icon: <Location />,
+    to: '/cfa/track'
+  },
+  {
     title: "Consignment Status",
     icon: <Temp />,
     to: '/cfa/consignment-status'
+  },
+  {
+    title: "Upload Document",
+    icon: <Upload />,
+    to: '/cfa/upload'
   },
   {
     title: "Settings",

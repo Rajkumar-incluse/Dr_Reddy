@@ -379,13 +379,14 @@ export async function getTemparatures({ id, dprNo }, onSuccess) {
 
     const res = await sendApiReq({ url })
     const res2 = await sendApiReq({ url: url2 })
+    const temp = [...res2].sort((a, b) => new Date(a.timestamp).getTime() < new Date(b.timestamp).getTime() ? 1 : -1)
 
     let data = {
       ...res[0],
       packingList: JSON.parse(res[0].packingList),
       products: JSON.parse(res[0].products),
       ccdrStatus: JSON.parse(res[0].ccdrStatus),
-      temp: res2
+      temp
     }
 
     onSuccess(data)
